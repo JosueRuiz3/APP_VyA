@@ -121,6 +121,7 @@ public class AddFragment extends Fragment {
             public void onSuccess(Void unused) {
                 Toast.makeText(getContext(), "Creado exitosamente", Toast.LENGTH_SHORT).show();
                 limpiarCampos();
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
