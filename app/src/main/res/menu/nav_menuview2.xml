@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/customer"
+        android:title="Customer"
+        android:icon="@drawable/customer"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/addClient"
+        android:title="Add"
+        android:icon="@drawable/ic_baseline_library_add_24"
+        android:iconTint="@color/black"/>
+    <item
+        android:id="@+id/details"
+        android:title="Details"
+        android:icon="@drawable/detalle"
+        android:iconTint="@color/black"/>
+    <item
+        android:id="@+id/edit"
+        android:title="Edit"
+        android:icon="@drawable/editar"
+        android:iconTint="@color/black"/>
+</menu>

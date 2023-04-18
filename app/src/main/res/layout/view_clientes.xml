@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="170dp"
+    android:layout_height="160dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft="17dp"
+    app:cardCornerRadius="5dp"
+    app:cardBackgroundColor="#E3D1D5"
+    android:elevation="5dp"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackgroundBorderless">
+
+    <RelativeLayout
+        android:id="@+id/btn_editar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/nombre_cliente"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal|top"
+            android:text="Nombre del cliente"
+            android:textAppearance="@style/campos_de_texto"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/cantidad"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="65dp"
+            android:gravity="center_horizontal|top"
+            android:text="Cantidad"
+            android:textAppearance="@style/campos_de_texto"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="110dp"
+            android:gravity="center_horizontal|top"
+            android:text="Total"
+            android:textAppearance="@style/campos_de_texto"
+            android:textSize="18dp"/>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

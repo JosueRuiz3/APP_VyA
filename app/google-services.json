@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "908754012187",
+    "firebase_url": "https://app-vya-default-rtdb.firebaseio.com",
+    "project_id": "app-vya",
+    "storage_bucket": "app-vya.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:908754012187:android:f371ad738b7840904d10be",
+        "android_client_info": {
+          "package_name": "com.josue.app_vya"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "908754012187-ojbssjqcuk90gmkmli8p4meu3aob5fca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwb3yHccrGNA0QIO7sI3hcTm6P9l8Rgs8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "908754012187-ojbssjqcuk90gmkmli8p4meu3aob5fca.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CustomerFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="27dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal|top"
+        android:text="Customer"
+        android:textAppearance="@style/Tittles" />
+
+    <!--- Campo de texto buscar cliente  -->
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="70dp">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="#705C61"
+            app:hintTextColor="#E6000000">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/buscar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Buscar..."
+                android:textAppearance="@style/campos_de_texto"
+                android:textColorHint="#65000000"
+                tools:ignore="TouchTargetSizeCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </RelativeLayout>
+
+    <!--- recycle view, donde se carga la vista y muestra todas las ventas  -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="140dp">
+    </androidx.recyclerview.widget.RecyclerView>
+</FrameLayout>

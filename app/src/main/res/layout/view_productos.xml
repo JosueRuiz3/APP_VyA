@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="170dp"
+    android:layout_height="160dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft="17dp"
+    app:cardCornerRadius="5dp"
+    app:cardBackgroundColor="#E3D1D5"
+    android:elevation="5dp"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackgroundBorderless">
+
+    <RelativeLayout
+        android:id="@+id/btn_editar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/nombre_producto"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal|top"
+            android:text="Nombre del producto"
+            android:textAppearance="@style/campos_de_texto"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/talla"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="75dp"
+            android:gravity="center_horizontal|top"
+            android:text="Talla(s)"
+            android:textAppearance="@style/campos_de_texto"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/precio_venta"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="110dp"
+            android:gravity="center_horizontal|top"
+            android:text="Precio venta"
+            android:textAppearance="@style/campos_de_texto"
+            android:textSize="18dp"/>
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>
