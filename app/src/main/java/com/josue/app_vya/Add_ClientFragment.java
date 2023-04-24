@@ -121,20 +121,24 @@ public class Add_ClientFragment extends Fragment {
 
     private void postClientes(String nombre_clienteA, String cantidadA, String tallaA, String totalA, String precio_unitarioA){
 
-        CollectionReference id = mFirestore.collection("ventas");
-        id.whereArrayContains("cliente", "producto");
+        // Obtener una referencia al documento de la colección principal que contiene la subcolección
+        DocumentReference ventaRef = mFirestore.collection("ventas").document("z2hMNPieEScK31TYMyvR");
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("id", id.getId());
-        map.put("nombre_cliente",nombre_clienteA);
-        map.put("talla",tallaA);
-        map.put("cantidad",cantidadA);
-        map.put("total",totalA);
-        map.put("precio_unitario",precio_unitarioA);
+        // Obtener una referencia a la subcolección del documento principal
+        CollectionReference clientesRef = ventaRef.collection("clientes");
 
-        id.document().set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+        // Crear un nuevo mapa con los datos que deseas agregar a la subcolección
+        Map<String, Object> clienteData = new HashMap<>();
+        clienteData.put("nombre_cliente",nombre_clienteA);
+        clienteData.put("talla",tallaA);
+        clienteData.put("cantidad",cantidadA);
+        clienteData.put("total",totalA);
+        clienteData.put("precio_unitario",precio_unitarioA);
+
+        // Agregar el mapa como un nuevo documento a la subcolección
+        clientesRef.add(clienteData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
-            public void onSuccess(Void unused) {
+            public void onSuccess(DocumentReference documentReference) {
                 Toast.makeText(getContext(), "Creado exitosamente", Toast.LENGTH_SHORT).show();
                 limpiarCampos();
             }
@@ -146,6 +150,7 @@ public class Add_ClientFragment extends Fragment {
         });
 
     }
+
 
     private void limpiarCampos(){
         nombre_cliente.setText("");

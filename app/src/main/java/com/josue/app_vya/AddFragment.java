@@ -106,31 +106,54 @@ public class AddFragment extends Fragment {
 
     private void postVentas(String productoA, String stockA, String tallaA, String precio_compraA, String precio_ventaA){
 
-        DocumentReference id = mFirestore.collection("ventas").document();
+        // Creamos una referencia al documento de la colección "ventas" con un ID único generado automáticamente por Firestore
+        DocumentReference ventaRef = mFirestore.collection("ventas").document();
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("id", id.getId());
-        map.put("nombre_producto",productoA);
-        map.put("talla",tallaA);
-        map.put("stock",stockA);
-        map.put("precio_compra",precio_compraA);
-        map.put("precio_venta",precio_ventaA);
+        // Creamos un mapa con los datos que queremos agregar al documento de la colección "ventas"
+        Map<String, Object> ventaData = new HashMap<>();
+        ventaData.put("id", ventaRef.getId());
+        ventaData.put("nombre_producto", productoA);
+        ventaData.put("talla", tallaA);
+        ventaData.put("stock", stockA);
+        ventaData.put("precio_compra", precio_compraA);
+        ventaData.put("precio_venta", precio_ventaA);
 
-        mFirestore.collection("ventas").document(id.getId()).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+        // Agregamos el mapa como un documento a la colección "ventas" con el ID generado automáticamente
+        ventaRef.set(ventaData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Toast.makeText(getContext(), "Creado exitosamente", Toast.LENGTH_SHORT).show();
-                limpiarCampos();
+                // Si se agrega el documento correctamente, creamos una referencia a la subcolección "productos" del documento de la venta
+                DocumentReference productoRef = ventaRef.collection("clientes").document();
 
+                // Creamos un mapa con los datos del producto que queremos agregar a la subcolección
+                Map<String, Object> productoData = new HashMap<>();
+
+                // Agregamos el mapa como un documento a la subcolección "productos" con un ID único generado automáticamente
+                productoRef.set(productoData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        // Si se agrega el documento correctamente, mostramos un mensaje de éxito y limpiamos los campos
+                        Toast.makeText(getContext(), "Creado exitosamente", Toast.LENGTH_SHORT).show();
+                        limpiarCampos();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Si ocurre un error al agregar el documento a la subcolección, mostramos un mensaje de error
+                        Toast.makeText(getContext(), "Error al ingresar", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                // Si ocurre un error al agregar el documento a la colección, mostramos un mensaje de error
                 Toast.makeText(getContext(), "Error al ingresar", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
+
+
 
     private void limpiarCampos(){
         nombre_producto.setText("");
