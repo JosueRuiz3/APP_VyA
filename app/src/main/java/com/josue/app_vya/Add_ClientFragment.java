@@ -31,18 +31,21 @@ import java.util.Map;
 public class Add_ClientFragment extends Fragment {
 
     TextInputEditText nombre_cliente, cantidad, precio_unitario, talla, total;
+    TextInputEditText nombre_producto, tallap, precio_compra, precio_venta, stock, invertido, ganancia;
     CardView btnagregar;
     String id_cliente;
     private FirebaseFirestore mFirestore;
     private ProgressBar progressBar;
     boolean valid = true;
     private ProgressDialog progressDialog;
+    String idd;
+    FirebaseFirestore mfirestore;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            id_cliente = getArguments().getString("id_cliente");
+            id_cliente = getArguments().getString("id_ventas");
         }
     }
 
@@ -60,7 +63,12 @@ public class Add_ClientFragment extends Fragment {
         mFirestore = FirebaseFirestore.getInstance();
         btnagregar = v.findViewById(R.id.btnagregar);
 
+        mfirestore = FirebaseFirestore.getInstance();
+        Bundle args = getActivity().getIntent().getExtras();
+        String id = args.getString("id_ventas");
 
+        idd = id;
+        get(id);
 
         cantidad.addTextChangedListener(new TextWatcher() {
             @Override
@@ -89,12 +97,26 @@ public class Add_ClientFragment extends Fragment {
 
         btnagregar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 guardar();
             }
         });
 
         return v;
+    }
+
+    private void get(String id) {
+        mfirestore.collection("ventas").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "Error al obtener los datos!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void guardar(){
@@ -121,21 +143,27 @@ public class Add_ClientFragment extends Fragment {
 
     private void postClientes(String nombre_clienteA, String cantidadA, String tallaA, String totalA, String precio_unitarioA){
 
+        Bundle args = getActivity().getIntent().getExtras();
+        String id = args.getString("id_ventas");
+
+        idd = id;
+
         // Obtener una referencia al documento de la colección principal que contiene la subcolección
-        DocumentReference ventaRef = mFirestore.collection("ventas").document("z2hMNPieEScK31TYMyvR");
+        DocumentReference ventaRef = mFirestore.collection("ventas").document(id);
 
         // Obtener una referencia a la subcolección del documento principal
         CollectionReference clientesRef = ventaRef.collection("clientes");
 
         // Crear un nuevo mapa con los datos que deseas agregar a la subcolección
         Map<String, Object> clienteData = new HashMap<>();
-        clienteData.put("nombre_cliente",nombre_clienteA);
-        clienteData.put("talla",tallaA);
-        clienteData.put("cantidad",cantidadA);
-        clienteData.put("total",totalA);
-        clienteData.put("precio_unitario",precio_unitarioA);
+        clienteData.put("nombre_cliente", nombre_clienteA);
+        clienteData.put("talla", tallaA);
+        clienteData.put("cantidad", cantidadA);
+        clienteData.put("total", totalA);
+        clienteData.put("precio_unitario", precio_unitarioA);
+        clienteData.put("activo", true);
 
-        // Agregar el mapa como un nuevo documento a la subcolección
+        // Agregar el mapa como un nuevo documento a la subcolección con el ID del documento principal
         clientesRef.add(clienteData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
@@ -150,7 +178,6 @@ public class Add_ClientFragment extends Fragment {
         });
 
     }
-
 
     private void limpiarCampos(){
         nombre_cliente.setText("");

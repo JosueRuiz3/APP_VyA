@@ -37,7 +37,6 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference ventasRef = db.collection("ventas");
     private RecyclerView recyclerView;
     private venta_adapter adapter;
     private List<Datastore> activity;
@@ -56,16 +55,9 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
-
         recyclerView =  v.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         db = FirebaseFirestore.getInstance();
-
-
-        Query query = db.collection("ventas")
-                .orderBy("nombre_producto", Query.Direction.ASCENDING);
-        FirestoreRecyclerOptions<venta> options = new FirestoreRecyclerOptions.Builder<venta>()
-                .setQuery(query, venta.class).build();
 
         activity = new ArrayList<>();
 
@@ -74,20 +66,14 @@ public class HomeFragment extends Fragment {
         return v;
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private void setUpRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
-        Query query = db.collection("ventas");
+        Query query = db.collection("ventas").orderBy("nombre_producto", Query.Direction.ASCENDING);
+        FirestoreRecyclerOptions<venta> options = new FirestoreRecyclerOptions.Builder<venta>()
+                .setQuery(query, venta.class).build();
 
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
-        recyclerView.setLayoutManager(mLayoutManager);
-
-        FirestoreRecyclerOptions<venta> firestoreRecyclerOptions =
-                new FirestoreRecyclerOptions.Builder<venta>().setQuery(query, venta.class).build();
-
-        adapter= new venta_adapter(firestoreRecyclerOptions, getActivity());
-        adapter.notifyDataSetChanged();
+        adapter = new venta_adapter(options, getActivity());
         recyclerView.setAdapter(adapter);
     }
 
@@ -97,8 +83,6 @@ public class HomeFragment extends Fragment {
         adapter.startListening();
         recyclerView.getRecycledViewPool().clear();
         adapter.notifyDataSetChanged();
-        adapter.startListening();
-        adapter.startListening();
     }
 
     @Override
