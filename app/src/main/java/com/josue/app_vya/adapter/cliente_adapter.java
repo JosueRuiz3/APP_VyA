@@ -10,6 +10,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.josue.app_vya.DetailsActivity;
 import com.josue.app_vya.R;
 import com.josue.app_vya.model.cliente;
+import com.josue.app_vya.model.venta;
 
 public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_adapter.ViewHolder> {
     private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
@@ -35,10 +38,10 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
      * FirestoreRecyclerOptions} for configuration options.
-     *  @param options
-     *
+     * @param options
+     * @param context
      */
-    public cliente_adapter(@NonNull FirestoreRecyclerOptions<cliente> options) {
+    public cliente_adapter(@NonNull FirestoreRecyclerOptions<cliente> options, FragmentActivity context) {
         super(options);
         this.context = context;
         this.fm = fm;
@@ -68,8 +71,8 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
     @NonNull
     @Override
     public cliente_adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_productos, parent, false);
-        return new cliente_adapter.ViewHolder(v);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_clientes, parent, false);
+        return new ViewHolder(v);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

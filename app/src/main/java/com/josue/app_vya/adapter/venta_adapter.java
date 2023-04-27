@@ -37,7 +37,6 @@ public class venta_adapter extends FirestoreRecyclerAdapter<venta, venta_adapter
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
      * FirestoreRecyclerOptions} for configuration options.
-     *
      * @param options
      * @param context
      */

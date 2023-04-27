@@ -37,9 +37,7 @@ public class CustomerFragment extends Fragment {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView recyclerView;
-    private venta_adapter adapter;
-    private List<Datastore> activity;
-
+    private cliente_adapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,14 +62,27 @@ public class CustomerFragment extends Fragment {
     }
 
     private void setUpRecyclerView() {
+        // Obtener la referencia a la subcolección "clientes" dentro del documento actual
+        CollectionReference clientesRef = db.collection("ventas").document().collection("clientes");
 
+        // Crear una nueva consulta para la subcolección "clientes"
+        Query query = clientesRef.orderBy("nombre_cliente", Query.Direction.ASCENDING);
+
+     // Crear opciones para el adaptador
+        FirestoreRecyclerOptions<cliente> options = new FirestoreRecyclerOptions.Builder<cliente>()
+                .setQuery(query, cliente.class)
+                .build();
+
+        // Configurar el adaptador en el RecyclerView
+        adapter = new cliente_adapter(options, getActivity());
+        recyclerView.setAdapter(adapter);
     }
-
-
 
     @Override
     public void onStart() {
         super.onStart();
+        recyclerView.getRecycledViewPool().clear();
+        adapter.notifyDataSetChanged();
         adapter.startListening(); // comenzamos a escuchar cambios en el adapter
     }
 

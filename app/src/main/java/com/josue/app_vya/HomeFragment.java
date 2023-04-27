@@ -39,7 +39,6 @@ public class HomeFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView recyclerView;
     private venta_adapter adapter;
-    private List<Datastore> activity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,8 +57,6 @@ public class HomeFragment extends Fragment {
         recyclerView =  v.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         db = FirebaseFirestore.getInstance();
-
-        activity = new ArrayList<>();
 
         setUpRecyclerView();
 
