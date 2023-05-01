@@ -34,12 +34,11 @@ public class Add_ClientFragment extends Fragment {
     TextInputEditText nombre_producto, tallap, precio_compra, precio_venta, stock, invertido, ganancia;
     CardView btnagregar;
     String id_cliente;
-    private FirebaseFirestore mFirestore;
+    private FirebaseFirestore mfirestore;
     private ProgressBar progressBar;
     boolean valid = true;
     private ProgressDialog progressDialog;
     String idd;
-    FirebaseFirestore mfirestore;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,7 +59,6 @@ public class Add_ClientFragment extends Fragment {
         total = v.findViewById(R.id.total);
         nombre_cliente = v.findViewById(R.id.nombre_cliente);
         talla = v.findViewById(R.id.talla);
-        mFirestore = FirebaseFirestore.getInstance();
         btnagregar = v.findViewById(R.id.btnagregar);
 
         mfirestore = FirebaseFirestore.getInstance();
@@ -149,7 +147,7 @@ public class Add_ClientFragment extends Fragment {
         idd = id;
 
         // Obtener una referencia al documento de la colección principal que contiene la subcolección
-        DocumentReference ventaRef = mFirestore.collection("ventas").document(id);
+        DocumentReference ventaRef = mfirestore.collection("ventas").document(id);
 
         // Obtener una referencia a la subcolección del documento principal
         CollectionReference clientesRef = ventaRef.collection("clientes");

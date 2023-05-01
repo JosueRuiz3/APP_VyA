@@ -109,9 +109,12 @@ public class AddFragment extends Fragment {
         // Creamos una referencia al documento de la colección "ventas" con un ID único generado automáticamente por Firestore
         DocumentReference ventaRef = mFirestore.collection("ventas").document();
 
+        String estadoA = "Activo";
+
         // Creamos un mapa con los datos que queremos agregar al documento de la colección "ventas"
         Map<String, Object> ventaData = new HashMap<>();
         ventaData.put("id", ventaRef.getId());
+        ventaData.put("estado", estadoA);
         ventaData.put("nombre_producto", productoA);
         ventaData.put("talla", tallaA);
         ventaData.put("stock", stockA);

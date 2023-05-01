@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -35,14 +37,22 @@ import java.util.List;
 
 public class CustomerFragment extends Fragment {
 
+
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView recyclerView;
     private cliente_adapter adapter;
+    String id_ventas;
+    CollectionReference mainCollectionRef = db.collection("ventas");
+    DocumentReference documentRef = mainCollectionRef.document();
+    CollectionReference subCollectionRef = documentRef.collection("clientes");
+    FirebaseFirestore mfirestore;
+    String idd;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            id_ventas = getArguments().getString("id_ventas");
         }
     }
 
@@ -56,19 +66,48 @@ public class CustomerFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
 
 
+        mfirestore = FirebaseFirestore.getInstance();
+        Bundle args = getActivity().getIntent().getExtras();
+        String id = args.getString("id_ventas");
+
+        idd = id;
+        get(id);
+
         setUpRecyclerView(); // configuramos el RecyclerView
 
         return v;
     }
 
+    private void get(String id) {
+        mfirestore.collection("ventas").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "Error al obtener los datos!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void setUpRecyclerView() {
-        // Obtener la referencia a la subcolección "clientes" dentro del documento actual
-        CollectionReference clientesRef = db.collection("ventas").document().collection("clientes");
+        Bundle args = getActivity().getIntent().getExtras();
+        String id = args.getString("id_ventas");
+
+        idd = id;
+
+        // Obtener una referencia al documento de la colección principal que contiene la subcolección
+        DocumentReference ventaRef = mfirestore.collection("ventas").document(id);
+
+        // Obtener una referencia a la subcolección del documento principal
+        CollectionReference clientesRef = ventaRef.collection("clientes");
 
         // Crear una nueva consulta para la subcolección "clientes"
         Query query = clientesRef.orderBy("nombre_cliente", Query.Direction.ASCENDING);
 
-     // Crear opciones para el adaptador
+        // Crear opciones para el adaptador
         FirestoreRecyclerOptions<cliente> options = new FirestoreRecyclerOptions.Builder<cliente>()
                 .setQuery(query, cliente.class)
                 .build();
@@ -76,19 +115,19 @@ public class CustomerFragment extends Fragment {
         // Configurar el adaptador en el RecyclerView
         adapter = new cliente_adapter(options, getActivity());
         recyclerView.setAdapter(adapter);
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        recyclerView.getRecycledViewPool().clear();
-        adapter.notifyDataSetChanged();
-        adapter.startListening(); // comenzamos a escuchar cambios en el adapter
+        adapter.startListening(); // comenzamos a ver cambios en el adapter
+
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        adapter.stopListening(); // dejamos de escuchar cambios en el adapter
+        adapter.stopListening(); // dejamos de ver cambios en el adapter
     }
 }

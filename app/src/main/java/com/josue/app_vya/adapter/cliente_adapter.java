@@ -30,6 +30,7 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
     Context context;
 
     FragmentManager fm;
+
     public Context getContext() {
         return context;
     }
