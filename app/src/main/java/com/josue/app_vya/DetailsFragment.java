@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.StorageReference;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 
@@ -32,11 +33,9 @@ public class DetailsFragment extends Fragment {
 
     String id_ventas;
     boolean valid = true;
-    CardView btneditar, btneliminar;
     TextInputEditText nombre_producto, talla, precio_compra, precio_venta, stock, invertido, ganancia;
     FirebaseFirestore mfirestore;
     String idd;
-    StorageReference storageReference;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,31 +76,59 @@ public class DetailsFragment extends Fragment {
         invertido.addTextChangedListener(new MoneyTextWatcher(invertido));
         invertido.setText("0");
 
-        stock.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        ganancia.addTextChangedListener(new MoneyTextWatcher(ganancia));
+        ganancia.setText("0");
 
-            }
+        // Agregar el TextWatcher al EditText stock
+        stock.addTextChangedListener(textWatcher);
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+        // Agregar el TextWatcher al EditText precio_compra
+        precio_compra.addTextChangedListener(textWatcher);
 
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                Double c = Double.parseDouble(!stock.getText().toString().isEmpty() ?
-                        stock.getText().toString() : "0");
-
-                //Double p = Double.parseDouble(!precio_compra.getText().toString().isEmpty() ?
-                  //      precio_compra.getText().toString() : "0");
-
-            }
-        });
+        // Agregar el TextWatcher al EditText precio_compra
+        precio_venta.addTextChangedListener(textWatcher);
 
         return v;
     }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            try {
+                Double c = Double.parseDouble(!stock.getText().toString().isEmpty() ?
+                        stock.getText().toString() : "0");
+
+                String precioString = precio_compra.getText().toString().replaceAll("[^\\d.,]+", "").replace(',', '.');
+                Double p = Double.parseDouble(!precioString.isEmpty() ? precioString : "0");
+
+                String preciog = precio_venta.getText().toString().replaceAll("[^\\d.,]+", "").replace(',', '.');
+                Double g = Double.parseDouble(!preciog.isEmpty() ? preciog : "0");
+
+                Double i = c * p;
+                Double a = c * g;
+
+                DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                String iFormatted = decimalFormat.format(i);
+                String aFormatted = decimalFormat.format(a);
+
+                invertido.setText(iFormatted);
+                ganancia.setText(aFormatted);
+
+
+            } catch (NumberFormatException e) {
+                // Manejar la excepción en caso de que la conversión falle
+                Log.e("Error", "No se pudo convertir el valor a Double", e);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+    };
 
     public void doGetValue(View v) {
         BigDecimal value = MoneyTextWatcher.parseCurrencyValue(precio_venta.getText().toString());
@@ -110,8 +137,6 @@ public class DetailsFragment extends Fragment {
         BigDecimal value2 = MoneyTextWatcher.parseCurrencyValue(precio_compra.getText().toString());
         precio_compra.setText(String.valueOf(value2));
 
-        BigDecimal value3 = MoneyTextWatcher.parseCurrencyValue(invertido.getText().toString());
-        invertido.setText(String.valueOf(value2));
     }
 
     private void get(String id){

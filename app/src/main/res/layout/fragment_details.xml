@@ -7,20 +7,20 @@
     tools:context=".DetailsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="27dp"
-        android:layout_marginTop="15dp"
-        android:gravity="center_horizontal|top"
-        android:text="Customer details"
-        android:textAppearance="@style/Tittles" />
-
     <!-- bgventa -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
         app:cardBackgroundColor="#FFFFFF">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="27dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal|top"
+            android:text="Details"
+            android:textAppearance="@style/Tittles" />
 
         <!-- Producto Campos de texto-->
         <RelativeLayout
@@ -127,7 +127,7 @@
         <RelativeLayout
             android:layout_width="175dp"
             android:layout_height="55dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="400dp">
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -197,23 +197,6 @@
                     android:textAppearance="@style/campos_de_texto"
                     android:focusable="false"/>
             </com.google.android.material.textfield.TextInputLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="170dp"
-            android:layout_marginTop="380dp">
-
-            <!-- muestra la opcion de cargando-->
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:visibility="gone"
-                tools:ignore="MissingConstraints" />
         </RelativeLayout>
     </RelativeLayout>
 </FrameLayout>
