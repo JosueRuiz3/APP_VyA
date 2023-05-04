@@ -24,11 +24,10 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Add_ClientFragment extends Fragment {
+public class AddCustomerFragment extends Fragment {
 
     TextInputEditText nombre_cliente, cantidad, precio_unitario, talla, total;
     TextInputEditText nombre_producto, tallap, precio_compra, precio_venta, stock, invertido, ganancia;
@@ -52,7 +51,7 @@ public class Add_ClientFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_add__client, container, false);
+        View v = inflater.inflate(R.layout.fragment_add_customer, container, false);
 
         cantidad = v.findViewById(R.id.cantidad);
         precio_unitario = v.findViewById(R.id.precio_unitario);

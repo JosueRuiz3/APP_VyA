@@ -19,6 +19,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.josue.app_vya.CustomerDetailsActivity;
 import com.josue.app_vya.DetailsActivity;
 import com.josue.app_vya.R;
 import com.josue.app_vya.model.cliente;
@@ -61,7 +62,7 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
         holder.editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getContext(), DetailsActivity.class);
+                Intent i = new Intent(getContext(), CustomerDetailsActivity.class);
                 i.putExtra("id_cliente", id);
                 context.startActivity(i);
             }

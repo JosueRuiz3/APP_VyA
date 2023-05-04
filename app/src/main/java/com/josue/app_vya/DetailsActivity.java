@@ -12,7 +12,7 @@ public class DetailsActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
     DetailsFragment detailsFragment = new DetailsFragment();
-    Add_ClientFragment add_clientFragment = new Add_ClientFragment();
+    AddCustomerFragment add_customerFragment = new AddCustomerFragment();
     EditFragment editFragment = new EditFragment();
     CustomerFragment customerFragment = new CustomerFragment();
 
@@ -36,7 +36,7 @@ public class DetailsActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, detailsFragment).commit();
                         return true;
                     case R.id.addClient:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, add_clientFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, add_customerFragment).commit();
                         return true;
                     case R.id.edit:
                         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, editFragment).commit();
