@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddCustomerFragment">
+    tools:context=".CustomerDetailsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
@@ -19,7 +19,7 @@
             android:layout_height="27dp"
             android:layout_marginTop="15dp"
             android:gravity="center_horizontal|top"
-            android:text="Añadir nuevo cliente"
+            android:text="Detalle del cliente"
             android:textAppearance="@style/Tittles"/>
 
         <!-- Cliente Campos de texto-->
@@ -143,29 +143,6 @@
                     android:focusable="false"/>
             </com.google.android.material.textfield.TextInputLayout>
         </RelativeLayout>
-
-        <!-- Boton agregar cliente-->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/btnagregar"
-            android:layout_width="370dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="450dp"
-            android:clickable="true"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="5dp"
-            app:cardBackgroundColor="#CECDCD"
-            tools:ignore="TouchTargetSizeCheck">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginTop="6dp"
-                android:gravity="center_horizontal|top"
-                android:text="Agregar cliente"
-                android:textAppearance="@style/Tittles" />
-        </androidx.cardview.widget.CardView>
 
         <RelativeLayout
             android:layout_width="70dp"

@@ -33,7 +33,6 @@ import java.util.Map;
 public class AddCustomerFragment extends Fragment {
 
     TextInputEditText nombre_cliente, cantidad, precio_unitario, talla, total;
-    TextInputEditText nombre_producto, tallap, precio_compra, precio_venta, stock, invertido, ganancia;
     CardView btnagregar;
     String id_cliente;
     private FirebaseFirestore mfirestore;
