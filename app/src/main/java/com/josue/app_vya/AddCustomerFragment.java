@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,30 +70,17 @@ public class AddCustomerFragment extends Fragment {
         idd = id;
         get(id);
 
-        cantidad.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        precio_unitario.addTextChangedListener(new MoneyTextWatcher(precio_unitario));
+        precio_unitario.setText("0");
 
-            }
+        total.addTextChangedListener(new MoneyTextWatcher(total));
+        total.setText("0");
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+        // Agregar el TextWatcher al EditText stock
+        cantidad.addTextChangedListener(textWatcher);
 
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                Double c = Double.parseDouble(!cantidad.getText().toString().isEmpty() ?
-                        cantidad.getText().toString() : "0");
-
-                Double p = Double.parseDouble(!precio_unitario.getText().toString().isEmpty() ?
-                        precio_unitario.getText().toString() : "0");
-
-                Double t = c * p;
-
-                total.setText(t.toString());
-            }
-        });
+        // Agregar el TextWatcher al EditText precio_compra
+        precio_unitario.addTextChangedListener(textWatcher);
 
         btnagregar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +90,47 @@ public class AddCustomerFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            try {
+                Double c = Double.parseDouble(!cantidad.getText().toString().isEmpty() ?
+                        cantidad.getText().toString() : "0");
+
+                String precioString = precio_unitario.getText().toString().replaceAll("[^\\d.,]+", "").replace(',', '.');
+                Double p = Double.parseDouble(!precioString.isEmpty() ? precioString : "0");
+
+                Double i = c * p;
+
+                DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                String iFormatted = decimalFormat.format(i);
+
+                total.setText(iFormatted);
+
+
+            } catch (NumberFormatException e) {
+                // Manejar la excepción en caso de que la conversión falle
+                Log.e("Error", "No se pudo convertir el valor a Double", e);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+    };
+
+    public void doGetValue(View v) {
+        BigDecimal value = MoneyTextWatcher.parseCurrencyValue(precio_unitario.getText().toString());
+        precio_unitario.setText(String.valueOf(value));
+
+        BigDecimal value2 = MoneyTextWatcher.parseCurrencyValue(total.getText().toString());
+        total.setText(String.valueOf(value2));
     }
 
     private void get(String id) {

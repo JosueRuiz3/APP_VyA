@@ -136,7 +136,6 @@ public class DetailsFragment extends Fragment {
 
         BigDecimal value2 = MoneyTextWatcher.parseCurrencyValue(precio_compra.getText().toString());
         precio_compra.setText(String.valueOf(value2));
-
     }
 
     private void get(String id){

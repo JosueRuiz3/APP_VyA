@@ -10,12 +10,6 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class CustomerDetailsActivity extends AppCompatActivity {
 
-    CustomerDetailsFragment customerDetailsFragment = new CustomerDetailsFragment();
-    BottomNavigationView bottomNavigationView;
-    DetailsFragment detailsFragment = new DetailsFragment();
-    AddCustomerFragment add_customerFragment = new AddCustomerFragment();
-    EditFragment editFragment = new EditFragment();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

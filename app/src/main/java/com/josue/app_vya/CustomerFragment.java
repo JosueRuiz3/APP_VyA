@@ -122,7 +122,8 @@ public class CustomerFragment extends Fragment {
     public void onStart() {
         super.onStart();
         adapter.startListening(); // comenzamos a ver cambios en el adapter
-
+        recyclerView.getRecycledViewPool().clear();
+        adapter.notifyDataSetChanged();
     }
 
     @Override
