@@ -12,7 +12,6 @@ public class CustomerDetailsActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
-    CustomerDetailsFragment customerDetailsFragment = new CustomerDetailsFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +20,6 @@ public class CustomerDetailsActivity extends AppCompatActivity {
 
         bottomNavigationView  = findViewById(R.id.bottomNavigationView);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, customerDetailsFragment).commit();
+
     }
 }

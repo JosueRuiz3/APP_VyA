@@ -7,7 +7,6 @@
     tools:context=".AddFragment"
     android:background="@color/white">
 
-    <!-- TODO: Update blank fragment layout -->
     <!-- bgventa -->
     <RelativeLayout
         android:layout_width="match_parent"
@@ -148,13 +147,25 @@
 
         </RelativeLayout>
 
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="370dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="500dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp"
+            app:cardBackgroundColor="#CECDCD"
+            tools:ignore="TouchTargetSizeCheck">
+        </androidx.cardview.widget.CardView>
+
         <!-- Boton agregar producto-->
         <androidx.cardview.widget.CardView
             android:id="@+id/btnagregar"
             android:layout_width="370dp"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="550dp"
+            android:layout_marginTop="500dp"
             android:clickable="true"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             app:cardCornerRadius="5dp"

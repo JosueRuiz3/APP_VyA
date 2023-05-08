@@ -32,7 +32,7 @@ import java.util.Map;
 
 public class AddCustomerFragment extends Fragment {
 
-    TextInputEditText nombre_cliente, cantidad, precio_unitario, talla, total;
+    TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
     CardView btnagregar;
     String id_cliente;
     private FirebaseFirestore mfirestore;
@@ -59,6 +59,7 @@ public class AddCustomerFragment extends Fragment {
         precio_unitario = v.findViewById(R.id.precio_unitario);
         total = v.findViewById(R.id.total);
         nombre_cliente = v.findViewById(R.id.nombre_cliente);
+        nombre_producto = v.findViewById(R.id.nombre_producto);
         talla = v.findViewById(R.id.talla);
         btnagregar = v.findViewById(R.id.btnagregar);
 
@@ -149,26 +150,28 @@ public class AddCustomerFragment extends Fragment {
     private void guardar(){
 
         checkField(nombre_cliente);
+        checkField(nombre_producto);
         checkField(talla);
         checkField(cantidad);
         checkField(total);
         checkField(precio_unitario);
 
         String nombre_clienteA = nombre_cliente.getText().toString().trim();
+        String nombre_productoA = nombre_producto.getText().toString().trim();
         String tallaA = talla.getText().toString().trim();
         String cantidadA = talla.getText().toString().trim();
         String totalA = total.getText().toString().trim();
         String precio_unitarioA = precio_unitario.getText().toString().trim();
 
-        if(!nombre_clienteA.isEmpty() && !cantidadA.isEmpty() && !tallaA.isEmpty() && !totalA.isEmpty() && !precio_unitarioA.isEmpty()){
-            postClientes(nombre_clienteA, cantidadA, tallaA, totalA, precio_unitarioA);
+        if(!nombre_clienteA.isEmpty() && !nombre_productoA.isEmpty() && !cantidadA.isEmpty() && !tallaA.isEmpty() && !totalA.isEmpty() && !precio_unitarioA.isEmpty()){
+            postClientes(nombre_clienteA, nombre_productoA, cantidadA, tallaA, totalA, precio_unitarioA);
         }else{
             Toast.makeText(getContext(), "Ingresar los datos", Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    private void postClientes(String nombre_clienteA, String cantidadA, String tallaA, String totalA, String precio_unitarioA){
+    private void postClientes(String nombre_clienteA, String nombre_productoA, String cantidadA, String tallaA, String totalA, String precio_unitarioA){
 
         Bundle args = getActivity().getIntent().getExtras();
         String id = args.getString("id_ventas");
@@ -184,6 +187,7 @@ public class AddCustomerFragment extends Fragment {
         // Crear un nuevo mapa con los datos que deseas agregar a la subcolección
         Map<String, Object> clienteData = new HashMap<>();
         clienteData.put("nombre_cliente", nombre_clienteA);
+        clienteData.put("nombre_producto", nombre_productoA);
         clienteData.put("talla", tallaA);
         clienteData.put("cantidad", cantidadA);
         clienteData.put("total", totalA);
@@ -203,11 +207,11 @@ public class AddCustomerFragment extends Fragment {
                 Toast.makeText(getContext(), "Error al ingresar", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     private void limpiarCampos(){
         nombre_cliente.setText("");
+        nombre_producto.setText("");
         talla.setText("");
         cantidad.setText("");
         total.setText("");

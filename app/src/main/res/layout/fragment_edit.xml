@@ -6,7 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".EditFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="370dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center_horizontal|top"
+        app:cardBackgroundColor="#CECDCD"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck">
+    </androidx.cardview.widget.CardView>
+
     <!-- Boton eliminar producto-->
     <androidx.cardview.widget.CardView
         android:id="@+id/btneliminar"
@@ -168,6 +179,18 @@
 
 
         </RelativeLayout>
+
+        <androidx.cardview.widget.CardView
+
+            android:layout_width="370dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="450dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp"
+            app:cardBackgroundColor="#CECDCD"
+            tools:ignore="TouchTargetSizeCheck">
+        </androidx.cardview.widget.CardView>
 
         <!-- Boton agregar producto-->
         <androidx.cardview.widget.CardView
