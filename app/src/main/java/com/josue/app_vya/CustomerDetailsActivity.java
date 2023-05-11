@@ -11,7 +11,8 @@ import com.google.android.material.navigation.NavigationBarView;
 public class CustomerDetailsActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
-
+    CustomerDetailsFragment customerDetailsFragment = new CustomerDetailsFragment();
+    EditCustomerFragment editCustomerFragment = new EditCustomerFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,24 @@ public class CustomerDetailsActivity extends AppCompatActivity {
 
         bottomNavigationView  = findViewById(R.id.bottomNavigationView);
 
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, customerDetailsFragment).commit();
+
+
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.detailsCustomer:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, customerDetailsFragment).commit();
+                        return true;
+                    case R.id.editCustomer:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, editCustomerFragment).commit();
+                        return true;
+                }
+
+                return false;
+            }
+        });
 
     }
 }
