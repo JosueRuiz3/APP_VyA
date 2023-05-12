@@ -41,12 +41,12 @@ public class CustomerFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView recyclerView;
     private cliente_adapter adapter;
-    String id_ventas;
-    CollectionReference mainCollectionRef = db.collection("ventas");
-    DocumentReference documentRef = mainCollectionRef.document();
-    CollectionReference subCollectionRef = documentRef.collection("clientes");
-    FirebaseFirestore mfirestore;
-    String idd;
+    private String id_ventas;
+    private CollectionReference mainCollectionRef = db.collection("ventas");
+    private DocumentReference documentRef = mainCollectionRef.document();
+    private CollectionReference subCollectionRef = documentRef.collection("clientes");
+    private FirebaseFirestore mfirestore;
+    private String idd;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,6 @@ public class CustomerFragment extends Fragment {
         recyclerView = v.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         db = FirebaseFirestore.getInstance();
-
 
         mfirestore = FirebaseFirestore.getInstance();
         Bundle args = getActivity().getIntent().getExtras();

@@ -31,11 +31,11 @@ import java.util.Objects;
 
 public class DetailsFragment extends Fragment {
 
-    String id_ventas;
-    boolean valid = true;
-    TextInputEditText nombre_producto, talla, precio_compra, precio_venta, stock, invertido, ganancia;
-    FirebaseFirestore mfirestore;
-    String idd;
+    private String id_ventas;
+    private boolean valid = true;
+    private TextInputEditText nombre_producto, talla, precio_compra, precio_venta, stock, invertido, ganancia;
+    private FirebaseFirestore mfirestore;
+    private String idd;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -30,13 +30,13 @@ import java.util.Map;
 
 public class EditFragment extends Fragment {
 
-    boolean valid = true;
-    CardView btneditar, btneliminar;
-    String id_ventas;
-    TextInputEditText nombre_producto, talla, precio_compra, precio_venta, stock;
-    FirebaseFirestore mfirestore;
-    String idd;
-    StorageReference storageReference;
+    private boolean valid = true;
+    private CardView btneditar, btneliminar;
+    private String id_ventas;
+    private TextInputEditText nombre_producto, talla, precio_compra, precio_venta, stock;
+    private FirebaseFirestore mfirestore;
+    private String idd;
+    private StorageReference storageReference;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

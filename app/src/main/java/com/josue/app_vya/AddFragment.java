@@ -27,9 +27,9 @@ import java.util.Map;
 
 public class AddFragment extends Fragment {
 
-    CardView btnagregar;
-    String id_ventas;
-    TextInputEditText nombre_producto, talla, precio_compra, precio_venta, stock;
+    private CardView btnagregar;
+    private String id_ventas;
+    private TextInputEditText nombre_producto, talla, precio_compra, precio_venta, stock;
     private FirebaseFirestore mFirestore;
     private ProgressBar progressBar;
     boolean valid = true;

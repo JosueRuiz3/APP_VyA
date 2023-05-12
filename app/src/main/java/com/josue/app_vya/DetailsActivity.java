@@ -9,12 +9,12 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
 
-    DetailsFragment detailsFragment = new DetailsFragment();
-    AddCustomerFragment add_customerFragment = new AddCustomerFragment();
-    EditFragment editFragment = new EditFragment();
-    CustomerFragment customerFragment = new CustomerFragment();
+    private DetailsFragment detailsFragment = new DetailsFragment();
+    private AddCustomerFragment add_customerFragment = new AddCustomerFragment();
+    private EditFragment editFragment = new EditFragment();
+    private CustomerFragment customerFragment = new CustomerFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

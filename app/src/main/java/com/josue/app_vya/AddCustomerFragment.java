@@ -32,14 +32,14 @@ import java.util.Map;
 
 public class AddCustomerFragment extends Fragment {
 
-    TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
-    CardView btnagregar;
-    String id_cliente;
+    private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
+    private CardView btnagregar;
+    private String id_cliente;
     private FirebaseFirestore mfirestore;
     private ProgressBar progressBar;
     boolean valid = true;
     private ProgressDialog progressDialog;
-    String idd;
+    private String idd;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
