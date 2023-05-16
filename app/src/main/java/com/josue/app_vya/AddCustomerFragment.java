@@ -171,8 +171,7 @@ public class AddCustomerFragment extends Fragment {
 
     }
 
-    private void postClientes(String nombre_clienteA, String nombre_productoA, String cantidadA, String tallaA, String totalA, String precio_unitarioA){
-
+    private void postClientes(String nombre_clienteA, String nombre_productoA, String cantidadA, String tallaA, String totalA, String precio_unitarioA) {
         Bundle args = getActivity().getIntent().getExtras();
         String id = args.getString("id_ventas");
 
@@ -184,8 +183,12 @@ public class AddCustomerFragment extends Fragment {
         // Obtener una referencia a la subcolección del documento principal
         CollectionReference clientesRef = ventaRef.collection("clientes");
 
+        // Generar un ID único para el documento de la subcolección
+        String clienteId = clientesRef.document().getId();
+
         // Crear un nuevo mapa con los datos que deseas agregar a la subcolección
         Map<String, Object> clienteData = new HashMap<>();
+        clienteData.put("id", clienteId); // Utilizar el ID de la subcolección
         clienteData.put("nombre_cliente", nombre_clienteA);
         clienteData.put("nombre_producto", nombre_productoA);
         clienteData.put("talla", tallaA);
@@ -195,9 +198,9 @@ public class AddCustomerFragment extends Fragment {
         clienteData.put("activo", true);
 
         // Agregar el mapa como un nuevo documento a la subcolección con el ID del documento principal
-        clientesRef.add(clienteData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        clientesRef.document(clienteId).set(clienteData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onSuccess(DocumentReference documentReference) {
+            public void onSuccess(Void aVoid) {
                 Toast.makeText(getContext(), "Creado exitosamente", Toast.LENGTH_SHORT).show();
                 limpiarCampos();
             }
@@ -208,6 +211,8 @@ public class AddCustomerFragment extends Fragment {
             }
         });
     }
+
+
 
     private void limpiarCampos(){
         nombre_cliente.setText("");

@@ -45,7 +45,6 @@ public class CustomerFragment extends Fragment {
     private CollectionReference mainCollectionRef = db.collection("ventas");
     private DocumentReference documentRef = mainCollectionRef.document();
     private CollectionReference subCollectionRef = documentRef.collection("clientes");
-    private FirebaseFirestore mfirestore;
     private String idd;
 
     @Override
@@ -65,7 +64,6 @@ public class CustomerFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         db = FirebaseFirestore.getInstance();
 
-        mfirestore = FirebaseFirestore.getInstance();
         Bundle args = getActivity().getIntent().getExtras();
         String id = args.getString("id_ventas");
 
@@ -78,7 +76,7 @@ public class CustomerFragment extends Fragment {
     }
 
     private void get(String id) {
-        mfirestore.collection("ventas").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection("ventas").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
 
@@ -98,7 +96,7 @@ public class CustomerFragment extends Fragment {
         idd = id;
 
         // Obtener una referencia al documento de la colección principal que contiene la subcolección
-        DocumentReference ventaRef = mfirestore.collection("ventas").document(id);
+        DocumentReference ventaRef = db.collection("ventas").document(id);
 
         // Obtener una referencia a la subcolección del documento principal
         CollectionReference clientesRef = ventaRef.collection("clientes");

@@ -78,7 +78,7 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView nombre_cliente, cantidad, precio_unitario, talla, total;
+        TextView nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
         RelativeLayout editar;
 
         public ViewHolder(@NonNull View itemView) {
