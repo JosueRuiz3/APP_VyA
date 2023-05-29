@@ -1,2 +1,2 @@
 # APP_VyA
-Sales magnament aplication
+Magnament sales application
