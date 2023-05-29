@@ -3,6 +3,7 @@ package com.josue.app_vya.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.josue.app_vya.CustomerDetailsActivity;
+import com.josue.app_vya.CustomerDetailsFragment;
 import com.josue.app_vya.DetailsActivity;
 import com.josue.app_vya.R;
 import com.josue.app_vya.model.cliente;
@@ -53,7 +55,7 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
     protected void onBindViewHolder(@NonNull cliente_adapter.ViewHolder holder, int position, @NonNull cliente Cliente) {
 
         DocumentSnapshot documentSnapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
-        final String id = documentSnapshot.getId();
+        final String id_cliente = documentSnapshot.getId();
 
         holder.nombre_cliente.setText(Cliente.getNombre_cliente());
         holder.cantidad.setText(Cliente.getCantidad());
@@ -62,9 +64,24 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
         holder.editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getContext(), CustomerDetailsActivity.class);
-                i.putExtra("id_cliente", id);
-                context.startActivity(i);
+                DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
+                String id = snapshot.getId();
+                cliente clickedCliente = snapshot.toObject(cliente.class);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("id", id);
+                bundle.putString("nombre_cliente", clickedCliente.getNombre_cliente());
+                bundle.putString("nombre_producto", clickedCliente.getNombre_producto());
+                bundle.putString("cantidad", clickedCliente.getCantidad());
+                bundle.putString("precio_unitario", clickedCliente.getPrecio_unitario());
+                bundle.putString("talla", clickedCliente.getTalla());
+                bundle.putString("total", clickedCliente.getTotal());
+
+                CustomerDetailsFragment fragment = new CustomerDetailsFragment();
+                fragment.setArguments(bundle);
+
+                FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.frameLayout, fragment).addToBackStack(null).commit();
             }
         });
 

@@ -28,7 +28,7 @@ import com.josue.app_vya.model.cliente;
 public class CustomerDetailsFragment extends Fragment {
 
     private boolean valid = true;
-    private TextView nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
+    private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
     private String idd, iddventas;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference mainCollectionRef = db.collection("ventas");
@@ -46,7 +46,7 @@ public class CustomerDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_customer_details, container, false);
+        View v = inflater.inflate(R.layout.fragment_details_customer, container, false);
 
         cantidad = v.findViewById(R.id.cantidad);
         precio_unitario = v.findViewById(R.id.precio_unitario);
@@ -54,45 +54,59 @@ public class CustomerDetailsFragment extends Fragment {
         nombre_cliente = v.findViewById(R.id.nombre_cliente);
         nombre_producto = v.findViewById(R.id.nombre_producto);
         talla = v.findViewById(R.id.talla);
+
         db = FirebaseFirestore.getInstance();
+        Bundle args = getArguments();
+        if (args != null) {
+            String id = args.getString("id");
+            String nombreCliente = args.getString("nombre_cliente");
+            String nombreProducto = args.getString("nombre_producto");
+            String cantidadCliente = args.getString("cantidad");
+            String precioUnitario = args.getString("precio_unitario");
+            String tallaCliente = args.getString("talla");
+            String totalCliente = args.getString("total");
 
+            cantidad.setText(cantidadCliente);
+            precio_unitario.setText(precioUnitario);
+            total.setText(totalCliente);
+            nombre_cliente.setText(nombreCliente);
+            nombre_producto.setText(nombreProducto);
+            talla.setText(tallaCliente);
 
-
-        Bundle args = getActivity().getIntent().getExtras();
-        String id = args.getString("id_cliente");
-        String idVentas = args.getString("id_ventas");
-
-        idd = id;
-        iddventas = idVentas;
-        getCLient(id);
+            getClient(id);
+        }
 
         return v;
     }
+    private void getClient(String id) {
+        // Obtener la referencia al documento del cliente en la subcolección
+        DocumentReference clienteRef = mainCollectionRef.document(id);
 
-
-    private void getCLient(String id){
-        db.collection("clientes").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        // Obtener los datos del cliente desde Firestore
+        clienteRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                String qty = documentSnapshot.getString("cantidad");
-                String c_name = documentSnapshot.getString("nombre_cliente");
-                String p_name = documentSnapshot.getString("nombre_producto");
-                String u_price = documentSnapshot.getString("precio_unitario");
-                String size = documentSnapshot.getString("talla");
-                String to = documentSnapshot.getString("total");
+                if (documentSnapshot.exists()) {
+                    String nombreCliente = documentSnapshot.getString("nombre_cliente");
+                    String nombreProducto = documentSnapshot.getString("nombre_producto");
+                    String cantidadCliente = documentSnapshot.getString("cantidad");
+                    String precioUnitario = documentSnapshot.getString("precio_unitario");
+                    String tallaCliente = documentSnapshot.getString("talla");
+                    String totalCliente = documentSnapshot.getString("total");
 
-                cantidad.setText(qty);
-                precio_unitario.setText(u_price);
-                total.setText(to);
-                nombre_cliente.setText(c_name);
-                nombre_producto.setText(p_name);
-                talla.setText(size);
-
+                    // Actualizar los TextInputEditText con los valores recuperados
+                    cantidad.setText(cantidadCliente);
+                    nombre_producto.setText(nombreProducto);
+                    precio_unitario.setText(precioUnitario);
+                    total.setText(totalCliente);
+                    nombre_cliente.setText(nombreCliente);
+                    talla.setText(tallaCliente);
+                }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(),"Error al obtener los datos!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Error al obtener los datos del cliente", Toast.LENGTH_SHORT).show();
             }
         });
     }
