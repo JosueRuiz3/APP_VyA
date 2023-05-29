@@ -21,7 +21,35 @@ public class CustomerDetailsActivity extends AppCompatActivity {
 
         bottomNavigationView  = findViewById(R.id.bottomNavigationView);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, customerDetailsFragment).commit();
+        // Obtener los datos enviados desde el intent
+        Bundle extras = getIntent().getExtras();
+
+        String id = extras.getString("id");
+        String nombreCliente = extras.getString("nombre_cliente");
+        String nombreProducto = extras.getString("nombre_producto");
+        String cantidad = extras.getString("cantidad");
+        String precioUnitario = extras.getString("precio_unitario");
+        String talla = extras.getString("talla");
+        String total = extras.getString("total");
+
+        // Crear un Bundle para enviar los datos al fragmento
+        Bundle bundle = new Bundle();
+        bundle.putString("id", id);
+        bundle.putString("nombre_cliente", nombreCliente);
+        bundle.putString("nombre_producto", nombreProducto);
+        bundle.putString("cantidad", cantidad);
+        bundle.putString("precio_unitario", precioUnitario);
+        bundle.putString("talla", talla);
+        bundle.putString("total", total);
+
+        // Crear una instancia del fragmento y establecer los argumentos
+        CustomerDetailsFragment customerDetailsFragment = new CustomerDetailsFragment();
+        customerDetailsFragment.setArguments(bundle);
+
+        // Cargar el fragmento en el contenedor
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frameLayout, customerDetailsFragment)
+                .commit();
 
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {

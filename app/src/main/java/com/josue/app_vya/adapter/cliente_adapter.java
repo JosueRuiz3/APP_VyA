@@ -68,22 +68,19 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
                 String id = snapshot.getId();
                 cliente clickedCliente = snapshot.toObject(cliente.class);
 
-                Bundle bundle = new Bundle();
-                bundle.putString("id", id);
-                bundle.putString("nombre_cliente", clickedCliente.getNombre_cliente());
-                bundle.putString("nombre_producto", clickedCliente.getNombre_producto());
-                bundle.putString("cantidad", clickedCliente.getCantidad());
-                bundle.putString("precio_unitario", clickedCliente.getPrecio_unitario());
-                bundle.putString("talla", clickedCliente.getTalla());
-                bundle.putString("total", clickedCliente.getTotal());
+                Intent intent = new Intent(context, CustomerDetailsActivity.class);
+                intent.putExtra("id", id);
+                intent.putExtra("nombre_cliente", clickedCliente.getNombre_cliente());
+                intent.putExtra("nombre_producto", clickedCliente.getNombre_producto());
+                intent.putExtra("cantidad", clickedCliente.getCantidad());
+                intent.putExtra("precio_unitario", clickedCliente.getPrecio_unitario());
+                intent.putExtra("talla", clickedCliente.getTalla());
+                intent.putExtra("total", clickedCliente.getTotal());
 
-                CustomerDetailsFragment fragment = new CustomerDetailsFragment();
-                fragment.setArguments(bundle);
-
-                FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.frameLayout, fragment).addToBackStack(null).commit();
+                context.startActivity(intent);
             }
         });
+
 
     }
 
