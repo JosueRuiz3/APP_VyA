@@ -65,10 +65,10 @@ public class AddCustomerFragment extends Fragment {
 
         mfirestore = FirebaseFirestore.getInstance();
         Bundle args = getActivity().getIntent().getExtras();
-        String id = args.getString("id_ventas");
+        String idVentas = args.getString("id_ventas");
 
-        idd = id;
-        get(id);
+        idd = idVentas;
+        get(idVentas);
 
         precio_unitario.addTextChangedListener(new MoneyTextWatcher(precio_unitario));
         precio_unitario.setText("0");
@@ -133,8 +133,8 @@ public class AddCustomerFragment extends Fragment {
         total.setText(String.valueOf(value2));
     }
 
-    private void get(String id) {
-        mfirestore.collection("ventas").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    private void get(String idVentas) {
+        mfirestore.collection("ventas").document(idVentas).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
 
@@ -173,12 +173,12 @@ public class AddCustomerFragment extends Fragment {
 
     private void postClientes(String nombre_clienteA, String nombre_productoA, String cantidadA, String tallaA, String totalA, String precio_unitarioA) {
         Bundle args = getActivity().getIntent().getExtras();
-        String id = args.getString("id_ventas");
+        String idVentas = args.getString("id_ventas");
 
-        idd = id;
+        idd = idVentas;
 
         // Obtener una referencia al documento de la colección principal que contiene la subcolección
-        DocumentReference ventaRef = mfirestore.collection("ventas").document(id);
+        DocumentReference ventaRef = mfirestore.collection("ventas").document(idVentas);
 
         // Obtener una referencia a la subcolección del documento principal
         CollectionReference clientesRef = ventaRef.collection("clientes");

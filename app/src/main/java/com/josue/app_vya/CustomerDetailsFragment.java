@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -27,19 +28,17 @@ import com.josue.app_vya.model.cliente;
 public class CustomerDetailsFragment extends Fragment {
 
     private boolean valid = true;
-    private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
-    private FirebaseFirestore mfirestore;
-    private cliente_adapter adapter;
-    private String id_cliente, id_ventas;
-    private String idd;
+    private TextView nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
+    private String idd, iddventas;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference mainCollectionRef = db.collection("ventas");
+    private DocumentReference documentRef = mainCollectionRef.document();
+    private CollectionReference subCollectionRef = documentRef.collection("clientes");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle args = getArguments();
         if (getArguments() != null) {
-            id_cliente = args.getString("id_cliente");
-            id_ventas = getArguments().getString("id_ventas");
         }
     }
 
@@ -55,20 +54,24 @@ public class CustomerDetailsFragment extends Fragment {
         nombre_cliente = v.findViewById(R.id.nombre_cliente);
         nombre_producto = v.findViewById(R.id.nombre_producto);
         talla = v.findViewById(R.id.talla);
-        mfirestore = FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance();
+
+
 
         Bundle args = getActivity().getIntent().getExtras();
         String id = args.getString("id_cliente");
-
+        String idVentas = args.getString("id_ventas");
 
         idd = id;
+        iddventas = idVentas;
         getCLient(id);
 
         return v;
     }
 
+
     private void getCLient(String id){
-        mfirestore.collection("clientes").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection("clientes").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 String qty = documentSnapshot.getString("cantidad");

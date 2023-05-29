@@ -113,7 +113,7 @@ public class AddFragment extends Fragment {
 
         // Creamos un mapa con los datos que queremos agregar al documento de la colección "ventas"
         Map<String, Object> ventaData = new HashMap<>();
-        ventaData.put("id", ventaRef.getId());
+        ventaData.put("idVentas", ventaRef.getId());
         ventaData.put("estado", estadoA);
         ventaData.put("nombre_producto", productoA);
         ventaData.put("talla", tallaA);

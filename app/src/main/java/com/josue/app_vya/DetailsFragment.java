@@ -62,10 +62,10 @@ public class DetailsFragment extends Fragment {
         mfirestore = FirebaseFirestore.getInstance();
 
         Bundle args = getActivity().getIntent().getExtras();
-        String id = args.getString("id_ventas");
+        String idVentas = args.getString("id_ventas");
 
-        idd = id;
-        get(id);
+        idd = idVentas;
+        get(idVentas);
 
         precio_venta.addTextChangedListener(new MoneyTextWatcher(precio_venta));
         precio_venta.setText("0");
@@ -138,8 +138,8 @@ public class DetailsFragment extends Fragment {
         precio_compra.setText(String.valueOf(value2));
     }
 
-    private void get(String id){
-        mfirestore.collection("ventas").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    private void get(String idVentas){
+        mfirestore.collection("ventas").document(idVentas).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 String name = documentSnapshot.getString("nombre_producto");
