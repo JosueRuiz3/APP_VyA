@@ -80,8 +80,6 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
                 context.startActivity(intent);
             }
         });
-
-
     }
 
     @NonNull

@@ -42,11 +42,14 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         bundle.putString("talla", talla);
         bundle.putString("total", total);
 
-        // Crear una instancia del fragmento y establecer los argumentos
-        CustomerDetailsFragment customerDetailsFragment = new CustomerDetailsFragment();
+        // Crear instancias de los fragmentos y establecer los argumentos
+        customerDetailsFragment = new CustomerDetailsFragment();
         customerDetailsFragment.setArguments(bundle);
 
-        // Cargar el fragmento en el contenedor
+        editCustomerFragment = new EditCustomerFragment();
+        editCustomerFragment.setArguments(bundle);
+
+        // Cargar el fragmento de detalles del cliente por defecto
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frameLayout, customerDetailsFragment)
                 .commit();
@@ -63,7 +66,6 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, editCustomerFragment).commit();
                         return true;
                 }
-
                 return false;
             }
         });
