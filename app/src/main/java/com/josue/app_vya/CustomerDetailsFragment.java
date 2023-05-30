@@ -56,29 +56,29 @@ public class CustomerDetailsFragment extends Fragment {
         talla = v.findViewById(R.id.talla);
 
         db = FirebaseFirestore.getInstance();
-        Bundle args = getArguments();
-        if (args != null) {
-            String id = args.getString("id");
-            String nombreCliente = args.getString("nombre_cliente");
-            String nombreProducto = args.getString("nombre_producto");
-            String cantidadCliente = args.getString("cantidad");
-            String precioUnitario = args.getString("precio_unitario");
-            String tallaCliente = args.getString("talla");
-            String totalCliente = args.getString("total");
 
-            cantidad.setText(cantidadCliente);
-            precio_unitario.setText(precioUnitario);
-            total.setText(totalCliente);
-            nombre_cliente.setText(nombreCliente);
-            nombre_producto.setText(nombreProducto);
-            talla.setText(tallaCliente);
-
-            getClient(id);
-        }
+        getClient();
 
         return v;
     }
-    private void getClient(String id) {
+
+    private void getClient() {
+        Bundle args = getArguments();
+        String id = args.getString("id");
+        String nombreCliente = args.getString("nombre_cliente");
+        String nombreProducto = args.getString("nombre_producto");
+        String cantidadCliente = args.getString("cantidad");
+        String precioUnitario = args.getString("precio_unitario");
+        String tallaCliente = args.getString("talla");
+        String totalCliente = args.getString("total");
+
+        cantidad.setText(cantidadCliente);
+        precio_unitario.setText(precioUnitario);
+        total.setText(totalCliente);
+        nombre_cliente.setText(nombreCliente);
+        nombre_producto.setText(nombreProducto);
+        talla.setText(tallaCliente);
+
         // Obtener la referencia al documento del cliente en la subcolección
         DocumentReference clienteRef = mainCollectionRef.document(id);
 

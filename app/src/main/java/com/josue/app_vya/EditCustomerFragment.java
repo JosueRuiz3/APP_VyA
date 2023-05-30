@@ -1,13 +1,17 @@
 package com.josue.app_vya;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -18,9 +22,13 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class EditCustomerFragment extends Fragment {
 
     private boolean valid = true;
+    private CardView btneditar, btnelimimar;
     private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
     private String idd, iddventas;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -33,7 +41,6 @@ public class EditCustomerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
         }
     }
 
@@ -48,31 +55,35 @@ public class EditCustomerFragment extends Fragment {
         nombre_cliente = v.findViewById(R.id.nombre_cliente);
         nombre_producto = v.findViewById(R.id.nombre_producto);
         talla = v.findViewById(R.id.talla);
+        btneditar = v.findViewById(R.id.btneditar);
+        btnelimimar = v.findViewById(R.id.btneliminar);
+
 
         db = FirebaseFirestore.getInstance();
-        Bundle args = getArguments();
-        if (args != null) {
-            String id = args.getString("id");
-            String nombreCliente = args.getString("nombre_cliente");
-            String nombreProducto = args.getString("nombre_producto");
-            String cantidadCliente = args.getString("cantidad");
-            String precioUnitario = args.getString("precio_unitario");
-            String tallaCliente = args.getString("talla");
-            String totalCliente = args.getString("total");
 
-            cantidad.setText(cantidadCliente);
-            precio_unitario.setText(precioUnitario);
-            total.setText(totalCliente);
-            nombre_cliente.setText(nombreCliente);
-            nombre_producto.setText(nombreProducto);
-            talla.setText(tallaCliente);
 
-            getClient(id);
-        }
+        getClient();
 
         return v;
     }
-    private void getClient(String id) {
+
+    private void getClient() {
+        Bundle args = getArguments();
+        String id = args.getString("id");
+        String nombreCliente = args.getString("nombre_cliente");
+        String nombreProducto = args.getString("nombre_producto");
+        String cantidadCliente = args.getString("cantidad");
+        String precioUnitario = args.getString("precio_unitario");
+        String tallaCliente = args.getString("talla");
+        String totalCliente = args.getString("total");
+
+        cantidad.setText(cantidadCliente);
+        precio_unitario.setText(precioUnitario);
+        total.setText(totalCliente);
+        nombre_cliente.setText(nombreCliente);
+        nombre_producto.setText(nombreProducto);
+        talla.setText(tallaCliente);
+
         // Obtener la referencia al documento del cliente en la subcolección
         DocumentReference clienteRef = mainCollectionRef.document(id);
 
@@ -103,5 +114,16 @@ public class EditCustomerFragment extends Fragment {
                 Toast.makeText(getContext(), "Error al obtener los datos del cliente", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public boolean checkField(EditText textField){
+        if (textField.getText().toString().isEmpty()){
+            textField.setError("Debes llenar los campos");
+            valid = false;
+        }
+        else {
+            valid = true;
+        }
+        return valid;
     }
 }

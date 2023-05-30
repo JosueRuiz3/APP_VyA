@@ -21,6 +21,25 @@ public class CustomerDetailsActivity extends AppCompatActivity {
 
         bottomNavigationView  = findViewById(R.id.bottomNavigationView);
 
+        obtenerdDatos();
+
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.detailsCustomer:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, customerDetailsFragment).commit();
+                        return true;
+                    case R.id.editCustomer:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, editCustomerFragment).commit();
+                        return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    private void obtenerdDatos(){
         // Obtener los datos enviados desde el intent
         Bundle extras = getIntent().getExtras();
 
@@ -53,22 +72,5 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frameLayout, customerDetailsFragment)
                 .commit();
-
-
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.detailsCustomer:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, customerDetailsFragment).commit();
-                        return true;
-                    case R.id.editCustomer:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, editCustomerFragment).commit();
-                        return true;
-                }
-                return false;
-            }
-        });
-
     }
 }

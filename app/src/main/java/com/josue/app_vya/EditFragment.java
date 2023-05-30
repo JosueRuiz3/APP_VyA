@@ -109,7 +109,6 @@ public class EditFragment extends Fragment {
 
                             }
                         }).show();
-
             }
         });
 
