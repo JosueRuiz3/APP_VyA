@@ -159,12 +159,12 @@ public class AddCustomerFragment extends Fragment {
         String nombre_clienteA = nombre_cliente.getText().toString().trim();
         String nombre_productoA = nombre_producto.getText().toString().trim();
         String tallaA = talla.getText().toString().trim();
-        String cantidadA = talla.getText().toString().trim();
+        String cantidadA = cantidad.getText().toString().trim();
         String totalA = total.getText().toString().trim();
         String precio_unitarioA = precio_unitario.getText().toString().trim();
 
         if(!nombre_clienteA.isEmpty() && !nombre_productoA.isEmpty() && !cantidadA.isEmpty() && !tallaA.isEmpty() && !totalA.isEmpty() && !precio_unitarioA.isEmpty()){
-            postClientes(nombre_clienteA, nombre_productoA, cantidadA, tallaA, totalA, precio_unitarioA);
+            postClientes(nombre_clienteA, nombre_productoA, cantidadA, tallaA, precio_unitarioA, totalA);
         }else{
             Toast.makeText(getContext(), "Ingresar los datos", Toast.LENGTH_SHORT).show();
         }
@@ -184,21 +184,20 @@ public class AddCustomerFragment extends Fragment {
         CollectionReference clientesRef = ventaRef.collection("clientes");
 
         // Generar un ID único para el documento de la subcolección
-        String clienteId = clientesRef.document().getId();
+        String id = clientesRef.document().getId();
 
         // Crear un nuevo mapa con los datos que deseas agregar a la subcolección
         Map<String, Object> clienteData = new HashMap<>();
-        clienteData.put("id", clienteId); // Utilizar el ID de la subcolección
+        clienteData.put("id", id); // Utilizar el ID de la subcolección
         clienteData.put("nombre_cliente", nombre_clienteA);
         clienteData.put("nombre_producto", nombre_productoA);
-        clienteData.put("talla", tallaA);
         clienteData.put("cantidad", cantidadA);
-        clienteData.put("total", totalA);
+        clienteData.put("talla", tallaA);
         clienteData.put("precio_unitario", precio_unitarioA);
-        clienteData.put("activo", true);
+        clienteData.put("total", totalA);
 
         // Agregar el mapa como un nuevo documento a la subcolección con el ID del documento principal
-        clientesRef.document(clienteId).set(clienteData).addOnSuccessListener(new OnSuccessListener<Void>() {
+        clientesRef.document(id).set(clienteData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(getContext(), "Creado exitosamente", Toast.LENGTH_SHORT).show();
@@ -211,8 +210,6 @@ public class AddCustomerFragment extends Fragment {
             }
         });
     }
-
-
 
     private void limpiarCampos(){
         nombre_cliente.setText("");

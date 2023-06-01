@@ -1,10 +1,10 @@
 package com.josue.app_vya;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
@@ -60,9 +60,10 @@ public class EditCustomerFragment extends Fragment {
 
 
         db = FirebaseFirestore.getInstance();
-
-
         getClient();
+
+
+
 
         return v;
     }
@@ -73,16 +74,16 @@ public class EditCustomerFragment extends Fragment {
         String nombreCliente = args.getString("nombre_cliente");
         String nombreProducto = args.getString("nombre_producto");
         String cantidadCliente = args.getString("cantidad");
-        String precioUnitario = args.getString("precio_unitario");
         String tallaCliente = args.getString("talla");
+        String precioUnitario = args.getString("precio_unitario");
         String totalCliente = args.getString("total");
 
-        cantidad.setText(cantidadCliente);
-        precio_unitario.setText(precioUnitario);
-        total.setText(totalCliente);
         nombre_cliente.setText(nombreCliente);
         nombre_producto.setText(nombreProducto);
+        cantidad.setText(cantidadCliente);
         talla.setText(tallaCliente);
+        precio_unitario.setText(precioUnitario);
+        total.setText(totalCliente);
 
         // Obtener la referencia al documento del cliente en la subcolección
         DocumentReference clienteRef = mainCollectionRef.document(id);
@@ -115,6 +116,8 @@ public class EditCustomerFragment extends Fragment {
             }
         });
     }
+
+
 
     public boolean checkField(EditText textField){
         if (textField.getText().toString().isEmpty()){

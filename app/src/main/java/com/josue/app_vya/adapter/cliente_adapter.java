@@ -73,8 +73,8 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
                 intent.putExtra("nombre_cliente", clickedCliente.getNombre_cliente());
                 intent.putExtra("nombre_producto", clickedCliente.getNombre_producto());
                 intent.putExtra("cantidad", clickedCliente.getCantidad());
-                intent.putExtra("precio_unitario", clickedCliente.getPrecio_unitario());
                 intent.putExtra("talla", clickedCliente.getTalla());
+                intent.putExtra("precio_unitario", clickedCliente.getPrecio_unitario());
                 intent.putExtra("total", clickedCliente.getTotal());
 
                 context.startActivity(intent);
