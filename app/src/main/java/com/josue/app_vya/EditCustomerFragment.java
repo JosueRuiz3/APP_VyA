@@ -35,6 +35,7 @@ public class EditCustomerFragment extends Fragment {
     private CollectionReference mainCollectionRef = db.collection("ventas");
     private DocumentReference documentRef = mainCollectionRef.document();
     private CollectionReference subCollectionRef = documentRef.collection("clientes");
+    private FirebaseFirestore mfirestore;
 
 
     @Override
@@ -57,13 +58,54 @@ public class EditCustomerFragment extends Fragment {
         talla = v.findViewById(R.id.talla);
         btneditar = v.findViewById(R.id.btneditar);
         btnelimimar = v.findViewById(R.id.btneliminar);
+        mfirestore = FirebaseFirestore.getInstance();
 
 
         db = FirebaseFirestore.getInstance();
         getClient();
 
+        Bundle args = getArguments();
+        String id = args.getString("id");
 
+        btneditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage("¿Desea editar este producto?")
+                        .setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                idd = id;
+                                checkField(nombre_producto);
+                                checkField(nombre_cliente);
+                                checkField(cantidad);
+                                checkField(precio_unitario);
+                                checkField(talla);
+                                checkField(total);
 
+                                String clienteA = nombre_cliente.getText().toString().trim();
+                                String productoA = nombre_producto.getText().toString().trim();
+                                String stockA = cantidad.getText().toString().trim();
+                                String tallaA = talla.getText().toString().trim();
+                                String precio_unitarioA = precio_unitario.getText().toString().trim();
+                                String totalA = total.getText().toString().trim();
+
+                                if (!clienteA.isEmpty() && !productoA.isEmpty() && !stockA.isEmpty() && !tallaA.isEmpty() && !precio_unitarioA.isEmpty() && !totalA.isEmpty()) {
+                                    update(clienteA, productoA, stockA, tallaA, precio_unitarioA, totalA, id);
+
+                                } else {
+                                    Toast.makeText(getContext(), "Ingrese los datos", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        })
+                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        }).show();
+            }
+        });
 
         return v;
     }
@@ -117,7 +159,48 @@ public class EditCustomerFragment extends Fragment {
         });
     }
 
+    private void update(String nombreClienteA,String nombreProductoA, String cantidadA,String precioUnitarioA, String tallaA, String totalA, String idCliente) {
+        Bundle args = getArguments();
+        String id = args.getString("id");
+        String nombreCliente = args.getString("nombre_cliente");
+        String nombreProducto = args.getString("nombre_producto");
+        String cantidadCliente = args.getString("cantidad");
+        String tallaCliente = args.getString("talla");
+        String precioUnitario = args.getString("precio_unitario");
+        String totalCliente = args.getString("total");
 
+        nombre_cliente.setText(nombreCliente);
+        nombre_producto.setText(nombreProducto);
+        cantidad.setText(cantidadCliente);
+        talla.setText(tallaCliente);
+        precio_unitario.setText(precioUnitario);
+        total.setText(totalCliente);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("nombre_cliente", nombreClienteA);
+        map.put("nombre_producto", nombreProductoA);
+        map.put("cantidad", cantidadA);
+        map.put("precio_unitario", precioUnitarioA);
+        map.put("talla", tallaA);
+        map.put("total", totalA);
+
+        // Obtener la referencia al documento del cliente en la subcolección
+        DocumentReference clienteRef = mainCollectionRef.document(id);
+
+        // Obtener los datos del cliente desde Firestore
+        clienteRef.update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(getContext(), "Actualizado exitosamente", Toast.LENGTH_SHORT).show();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "Error al actualizar", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     public boolean checkField(EditText textField){
         if (textField.getText().toString().isEmpty()){

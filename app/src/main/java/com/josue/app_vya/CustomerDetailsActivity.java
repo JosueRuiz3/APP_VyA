@@ -1,15 +1,24 @@
 package com.josue.app_vya;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CustomerDetailsActivity extends AppCompatActivity {
 
+    private FirebaseFirestore mfirestore;
     private BottomNavigationView bottomNavigationView;
     private CustomerDetailsFragment customerDetailsFragment = new CustomerDetailsFragment();
     private EditCustomerFragment editCustomerFragment = new EditCustomerFragment();
@@ -20,9 +29,9 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_customer_details);
 
         bottomNavigationView  = findViewById(R.id.bottomNavigationView);
+        mfirestore = FirebaseFirestore.getInstance();
 
         obtenerdDatos();
-
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
@@ -73,4 +82,6 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                 .replace(R.id.frameLayout, customerDetailsFragment)
                 .commit();
     }
+
+
 }

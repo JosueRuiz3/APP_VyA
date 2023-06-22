@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.josue.app_vya.CustomerDetailsActivity;
@@ -29,16 +30,13 @@ import com.josue.app_vya.model.venta;
 
 public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_adapter.ViewHolder> {
     private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
-    Activity activity;
     Context context;
-
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     FragmentManager fm;
 
     public Context getContext() {
         return context;
     }
-
-
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
      * FirestoreRecyclerOptions} for configuration options.
@@ -77,9 +75,14 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
                 intent.putExtra("precio_unitario", clickedCliente.getPrecio_unitario());
                 intent.putExtra("total", clickedCliente.getTotal());
 
+                // Obtener una referencia al documento del cliente en la subcolección
+                DocumentReference clienteRef = db.collection("ventas").document(id).collection("clientes").document(clickedCliente.getId());
+                intent.putExtra("clienteRef", clienteRef.getPath());
+
                 context.startActivity(intent);
             }
         });
+
     }
 
     @NonNull

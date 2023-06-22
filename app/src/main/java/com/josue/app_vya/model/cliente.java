@@ -1,18 +1,27 @@
 package com.josue.app_vya.model;
 
 public class cliente {
-    String nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
+    String Id, nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
 
     public cliente() {
     }
 
-    public cliente(String nombre_cliente, String nombre_producto, String cantidad, String precio_unitario, String talla, String total) {
+    public cliente(String id, String nombre_cliente, String nombre_producto, String cantidad, String precio_unitario, String talla, String total) {
+        Id = id;
         this.nombre_cliente = nombre_cliente;
         this.nombre_producto = nombre_producto;
         this.cantidad = cantidad;
         this.precio_unitario = precio_unitario;
         this.talla = talla;
         this.total = total;
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
     }
 
     public String getNombre_cliente() {

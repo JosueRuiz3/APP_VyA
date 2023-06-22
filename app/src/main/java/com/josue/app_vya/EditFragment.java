@@ -73,7 +73,6 @@ public class EditFragment extends Fragment {
         precio_compra.addTextChangedListener(new MoneyTextWatcher(precio_compra));
         precio_compra.setText("0");
 
-
         btneditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
