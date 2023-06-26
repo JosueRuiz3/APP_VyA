@@ -82,6 +82,4 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                 .replace(R.id.frameLayout, customerDetailsFragment)
                 .commit();
     }
-
-
 }

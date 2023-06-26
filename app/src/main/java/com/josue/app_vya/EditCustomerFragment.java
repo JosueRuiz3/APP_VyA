@@ -34,7 +34,7 @@ public class EditCustomerFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference mainCollectionRef = db.collection("ventas");
     private DocumentReference documentRef = mainCollectionRef.document();
-    private CollectionReference subCollectionRef = documentRef.collection("clientes");
+    private CollectionReference subCollectionRef = db.collection("clientes");
     private FirebaseFirestore mfirestore;
 
 
@@ -128,7 +128,7 @@ public class EditCustomerFragment extends Fragment {
         total.setText(totalCliente);
 
         // Obtener la referencia al documento del cliente en la subcolección
-        DocumentReference clienteRef = mainCollectionRef.document(id);
+        DocumentReference clienteRef = subCollectionRef.document(id);
 
         // Obtener los datos del cliente desde Firestore
         clienteRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -169,7 +169,7 @@ public class EditCustomerFragment extends Fragment {
         map.put("total", totalA);
 
         // Obtener la referencia al documento del cliente en la subcolección
-        DocumentReference clienteRef = mainCollectionRef.document(id);
+        DocumentReference clienteRef = subCollectionRef.document(id);
 
         // Obtener los datos del cliente desde Firestore
         clienteRef.update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
