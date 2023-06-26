@@ -159,23 +159,7 @@ public class EditCustomerFragment extends Fragment {
         });
     }
 
-    private void update(String nombreClienteA,String nombreProductoA, String cantidadA,String precioUnitarioA, String tallaA, String totalA, String idCliente) {
-        Bundle args = getArguments();
-        String id = args.getString("id");
-        String nombreCliente = args.getString("nombre_cliente");
-        String nombreProducto = args.getString("nombre_producto");
-        String cantidadCliente = args.getString("cantidad");
-        String tallaCliente = args.getString("talla");
-        String precioUnitario = args.getString("precio_unitario");
-        String totalCliente = args.getString("total");
-
-        nombre_cliente.setText(nombreCliente);
-        nombre_producto.setText(nombreProducto);
-        cantidad.setText(cantidadCliente);
-        talla.setText(tallaCliente);
-        precio_unitario.setText(precioUnitario);
-        total.setText(totalCliente);
-
+    private void update(String nombreClienteA,String nombreProductoA, String cantidadA,String precioUnitarioA, String tallaA, String totalA, String id) {
         Map<String, Object> map = new HashMap<>();
         map.put("nombre_cliente", nombreClienteA);
         map.put("nombre_producto", nombreProductoA);
