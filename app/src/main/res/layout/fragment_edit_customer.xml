@@ -146,8 +146,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Talla(s)"
+                    android:textAppearance="@style/campos_de_texto"
                     android:textColorHint="#65000000"
-                    android:textAppearance="@style/campos_de_texto"/>
+                    tools:ignore="TouchTargetSizeCheck" />
             </com.google.android.material.textfield.TextInputLayout>
         </RelativeLayout>
 
