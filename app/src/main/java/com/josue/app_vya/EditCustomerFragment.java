@@ -28,13 +28,10 @@ import java.util.Map;
 public class EditCustomerFragment extends Fragment {
 
     private boolean valid = true;
+    private String id;
     private CardView btneditar, btnelimimar;
     private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
-    private String idd, iddventas;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference mainCollectionRef = db.collection("ventas");
-    private DocumentReference documentRef = mainCollectionRef.document();
-    private CollectionReference subCollectionRef = db.collection("clientes");
+    private String idd;
     private FirebaseFirestore mfirestore;
 
 
@@ -42,6 +39,7 @@ public class EditCustomerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            id = getArguments().getString("id");
         }
     }
 
@@ -60,12 +58,11 @@ public class EditCustomerFragment extends Fragment {
         btnelimimar = v.findViewById(R.id.btneliminar);
         mfirestore = FirebaseFirestore.getInstance();
 
-
-        db = FirebaseFirestore.getInstance();
-        getClient();
-
-        Bundle args = getArguments();
+        Bundle args = getActivity().getIntent().getExtras();
         String id = args.getString("id");
+
+        idd = id;
+        getClient(id);
 
         btneditar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,9 +107,8 @@ public class EditCustomerFragment extends Fragment {
         return v;
     }
 
-    private void getClient() {
+    private void getClient(String id) {
         Bundle args = getArguments();
-        String id = args.getString("id");
         String nombreCliente = args.getString("nombre_cliente");
         String nombreProducto = args.getString("nombre_producto");
         String cantidadCliente = args.getString("cantidad");
@@ -127,11 +123,8 @@ public class EditCustomerFragment extends Fragment {
         precio_unitario.setText(precioUnitario);
         total.setText(totalCliente);
 
-        // Obtener la referencia al documento del cliente en la subcolección
-        DocumentReference clienteRef = subCollectionRef.document(id);
-
         // Obtener los datos del cliente desde Firestore
-        clienteRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        mfirestore.collection("clientes").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
@@ -168,15 +161,11 @@ public class EditCustomerFragment extends Fragment {
         map.put("talla", tallaA);
         map.put("total", totalA);
 
-        // Obtener la referencia al documento del cliente en la subcolección
-        DocumentReference clienteRef = subCollectionRef.document(id);
-
         // Obtener los datos del cliente desde Firestore
-        clienteRef.update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+        mfirestore.collection("clientes").document(id).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(getContext(), "Actualizado exitosamente", Toast.LENGTH_SHORT).show();
-
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
