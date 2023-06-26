@@ -111,7 +111,6 @@ public class EditFragment extends Fragment {
             }
         });
 
-
         btneliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
