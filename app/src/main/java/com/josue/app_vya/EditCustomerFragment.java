@@ -204,18 +204,23 @@ public class EditCustomerFragment extends Fragment {
         });
     }
 
-    private void delete(String id){
-        mfirestore.collection("clientes").document(id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Toast.makeText(getContext(),"Eliminado correctamente!",Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(),"Error al borrar los datos!",Toast.LENGTH_SHORT).show();
-            }
-        });
+    private void delete(String id) {
+        mfirestore.collection("clientes").document(id).delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // La eliminación fue exitosa
+                        Toast.makeText(getContext(), "Datos eliminados correctamente", Toast.LENGTH_SHORT).show();
+                        // Realiza cualquier otra acción necesaria después de la eliminación
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Ocurrió un error al eliminar los datos
+                        Toast.makeText(getContext(), "Error al eliminar los datos", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     public boolean checkField(EditText textField){

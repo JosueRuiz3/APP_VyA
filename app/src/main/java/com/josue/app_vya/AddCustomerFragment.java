@@ -153,17 +153,17 @@ public class AddCustomerFragment extends Fragment {
         checkField(nombre_producto);
         checkField(talla);
         checkField(cantidad);
-        checkField(total);
         checkField(precio_unitario);
+        checkField(total);
 
         String nombre_clienteA = nombre_cliente.getText().toString().trim();
         String nombre_productoA = nombre_producto.getText().toString().trim();
         String tallaA = talla.getText().toString().trim();
         String cantidadA = cantidad.getText().toString().trim();
-        String totalA = total.getText().toString().trim();
         String precio_unitarioA = precio_unitario.getText().toString().trim();
+        String totalA = total.getText().toString().trim();
 
-        if(!nombre_clienteA.isEmpty() && !nombre_productoA.isEmpty() && !cantidadA.isEmpty() && !tallaA.isEmpty() && !totalA.isEmpty() && !precio_unitarioA.isEmpty()){
+        if(!nombre_clienteA.isEmpty() && !nombre_productoA.isEmpty() && !cantidadA.isEmpty() && !tallaA.isEmpty() && !precio_unitarioA.isEmpty()&& !totalA.isEmpty() ){
             postClientes(nombre_clienteA, nombre_productoA, cantidadA, tallaA, precio_unitarioA, totalA);
         }else{
             Toast.makeText(getContext(), "Ingresar los datos", Toast.LENGTH_SHORT).show();
@@ -171,7 +171,7 @@ public class AddCustomerFragment extends Fragment {
 
     }
 
-    private void postClientes(String nombre_clienteA, String nombre_productoA, String cantidadA, String tallaA, String totalA, String precio_unitarioA) {
+    private void postClientes(String nombre_clienteA, String nombre_productoA, String cantidadA, String tallaA, String precio_unitarioA, String totalA) {
         Bundle args = getActivity().getIntent().getExtras();
         String idVentas = args.getString("id_ventas");
 
@@ -216,8 +216,8 @@ public class AddCustomerFragment extends Fragment {
         nombre_producto.setText("");
         talla.setText("");
         cantidad.setText("");
-        total.setText("");
         precio_unitario.setText("");
+        total.setText("");
     }
 
     public boolean checkField(EditText textField){

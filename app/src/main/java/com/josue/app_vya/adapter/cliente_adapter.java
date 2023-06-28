@@ -53,7 +53,7 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
     protected void onBindViewHolder(@NonNull cliente_adapter.ViewHolder holder, int position, @NonNull cliente Cliente) {
 
         DocumentSnapshot documentSnapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
-        final String id_cliente = documentSnapshot.getId();
+        final String id = documentSnapshot.getId();
 
         holder.nombre_cliente.setText(Cliente.getNombre_cliente());
         holder.cantidad.setText(Cliente.getCantidad());
@@ -62,11 +62,9 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
         holder.editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
-                String id = snapshot.getId();
-                cliente clickedCliente = snapshot.toObject(cliente.class);
+                cliente clickedCliente = documentSnapshot.toObject(cliente.class);
 
-                Intent intent = new Intent(context, CustomerDetailsActivity.class);
+                Intent intent = new Intent(getContext(), CustomerDetailsActivity.class);
                 intent.putExtra("id", id);
                 intent.putExtra("nombre_cliente", clickedCliente.getNombre_cliente());
                 intent.putExtra("nombre_producto", clickedCliente.getNombre_producto());

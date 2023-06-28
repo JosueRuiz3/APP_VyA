@@ -42,9 +42,6 @@ public class CustomerFragment extends Fragment {
     private RecyclerView recyclerView;
     private cliente_adapter adapter;
     private String id_ventas;
-    private CollectionReference mainCollectionRef = db.collection("ventas");
-    private DocumentReference documentRef = mainCollectionRef.document();
-    private CollectionReference subCollectionRef = documentRef.collection("clientes");
     private String idd;
 
     @Override
