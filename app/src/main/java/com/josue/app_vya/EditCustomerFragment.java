@@ -34,7 +34,10 @@ public class EditCustomerFragment extends Fragment {
     private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
     private String idd;
     private FirebaseFirestore mfirestore;
-
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference mainCollectionRef = db.collection("ventas");
+    private DocumentReference documentRef = mainCollectionRef.document();
+    private CollectionReference subCollectionRef = documentRef.collection("clientes");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,7 +66,7 @@ public class EditCustomerFragment extends Fragment {
         String idC = args.getString("id");
 
         idd = idC;
-        getClient(idC);
+        getClient();
 
         btneditar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,24 +155,28 @@ public class EditCustomerFragment extends Fragment {
         });
     }
 
-    private void getClient(String idC) {
+    private void getClient() {
         Bundle args = getArguments();
+        String id = args.getString("id");
         String nombreCliente = args.getString("nombre_cliente");
         String nombreProducto = args.getString("nombre_producto");
         String cantidadCliente = args.getString("cantidad");
-        String tallaCliente = args.getString("talla");
         String precioUnitario = args.getString("precio_unitario");
+        String tallaCliente = args.getString("talla");
         String totalCliente = args.getString("total");
 
-        nombre_cliente.setText(nombreCliente);
-        nombre_producto.setText(nombreProducto);
         cantidad.setText(cantidadCliente);
-        talla.setText(tallaCliente);
         precio_unitario.setText(precioUnitario);
         total.setText(totalCliente);
+        nombre_cliente.setText(nombreCliente);
+        nombre_producto.setText(nombreProducto);
+        talla.setText(tallaCliente);
+
+        // Obtener la referencia al documento del cliente en la subcolección
+        DocumentReference clienteRef = subCollectionRef.document(id);
 
         // Obtener los datos del cliente desde Firestore
-        mfirestore.collection("clientes").document(idC).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        clienteRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {

@@ -75,14 +75,9 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
                 intent.putExtra("precio_unitario", clickedCliente.getPrecio_unitario());
                 intent.putExtra("total", clickedCliente.getTotal());
 
-                // Obtener una referencia al documento del cliente en la subcolección
-                DocumentReference clienteRef = db.collection("ventas").document(id).collection("clientes").document(clickedCliente.getId());
-                intent.putExtra("clienteRef", clienteRef.getPath());
-
                 context.startActivity(intent);
             }
         });
-
     }
 
     @NonNull
