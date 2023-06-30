@@ -148,7 +148,6 @@ public class AddCustomerFragment extends Fragment {
     }
 
     private void guardar(){
-
         checkField(nombre_cliente);
         checkField(nombre_producto);
         checkField(talla);
@@ -184,11 +183,11 @@ public class AddCustomerFragment extends Fragment {
         CollectionReference clientesRef = ventaRef.collection("clientes");
 
         // Generar un ID único para el documento de la subcolección
-        String id = clientesRef.document().getId();
+        String idCliente = clientesRef.document().getId();
 
         // Crear un nuevo mapa con los datos que deseas agregar a la subcolección
         Map<String, Object> clienteData = new HashMap<>();
-        clienteData.put("id", id); // Utilizar el ID de la subcolección
+        clienteData.put("idCliente", idCliente); // Utilizar el ID de la subcolección
         clienteData.put("nombre_cliente", nombre_clienteA);
         clienteData.put("nombre_producto", nombre_productoA);
         clienteData.put("cantidad", cantidadA);
@@ -197,7 +196,7 @@ public class AddCustomerFragment extends Fragment {
         clienteData.put("total", totalA);
 
         // Agregar el mapa como un nuevo documento a la subcolección con el ID del documento principal
-        clientesRef.document(id).set(clienteData).addOnSuccessListener(new OnSuccessListener<Void>() {
+        clientesRef.document(idCliente).set(clienteData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(getContext(), "Creado exitosamente", Toast.LENGTH_SHORT).show();
