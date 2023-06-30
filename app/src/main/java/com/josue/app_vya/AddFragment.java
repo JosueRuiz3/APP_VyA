@@ -83,7 +83,6 @@ public class AddFragment extends Fragment {
     }
 
     private void guardar(){
-
         checkField(nombre_producto);
         checkField(talla);
         checkField(stock);
@@ -98,7 +97,8 @@ public class AddFragment extends Fragment {
 
         if(!productoA.isEmpty() && !stockA.isEmpty() && !tallaA.isEmpty() && !precio_compraA.isEmpty() && !precio_ventaA.isEmpty()){
             postVentas(productoA, stockA, tallaA, precio_compraA, precio_ventaA);
-        }else{
+        }
+        else{
             Toast.makeText(getContext(), "Ingresar los datos", Toast.LENGTH_SHORT).show();
         }
 
@@ -109,12 +109,9 @@ public class AddFragment extends Fragment {
         // Creamos una referencia al documento de la colección "ventas" con un ID único generado automáticamente por Firestore
         DocumentReference ventaRef = mFirestore.collection("ventas").document();
 
-        String estadoA = "Activo";
-
         // Creamos un mapa con los datos que queremos agregar al documento de la colección "ventas"
         Map<String, Object> ventaData = new HashMap<>();
         ventaData.put("idVentas", ventaRef.getId());
-        ventaData.put("estado", estadoA);
         ventaData.put("nombre_producto", productoA);
         ventaData.put("talla", tallaA);
         ventaData.put("stock", stockA);
@@ -127,25 +124,8 @@ public class AddFragment extends Fragment {
             public void onSuccess(Void unused) {
                 // Si se agrega el documento correctamente, creamos una referencia a la subcolección "productos" del documento de la venta
                 DocumentReference productoRef = ventaRef.collection("clientes").document();
-
-                // Creamos un mapa con los datos del producto que queremos agregar a la subcolección
-                Map<String, Object> productoData = new HashMap<>();
-
-                // Agregamos el mapa como un documento a la subcolección "productos" con un ID único generado automáticamente
-                productoRef.set(productoData).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        // Si se agrega el documento correctamente, mostramos un mensaje de éxito y limpiamos los campos
-                        Toast.makeText(getContext(), "Creado exitosamente", Toast.LENGTH_SHORT).show();
-                        limpiarCampos();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Si ocurre un error al agregar el documento a la subcolección, mostramos un mensaje de error
-                        Toast.makeText(getContext(), "Error al ingresar", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                Toast.makeText(getContext(), "Creado Correctamente", Toast.LENGTH_SHORT).show();
+                limpiarCampos();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -155,7 +135,6 @@ public class AddFragment extends Fragment {
             }
         });
     }
-
 
 
     private void limpiarCampos(){
