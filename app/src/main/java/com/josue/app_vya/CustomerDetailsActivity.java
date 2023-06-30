@@ -54,23 +54,8 @@ public class CustomerDetailsActivity extends AppCompatActivity {
 
     }
 
-    private void get(String idVentas) {
-        mfirestore.collection("ventas").document(idVentas).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(CustomerDetailsActivity.this, "Error al obtener los datos!", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
     private void obtenerDatosCliente(String id) {
         idd = id;
-
         Bundle args = getIntent().getExtras();
         id = args.getString("clienteId");
         String nombre_clienteA = args.getString("nombre_cliente");
