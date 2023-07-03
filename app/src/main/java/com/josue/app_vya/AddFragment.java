@@ -105,7 +105,6 @@ public class AddFragment extends Fragment {
     }
 
     private void postVentas(String productoA, String stockA, String tallaA, String precio_compraA, String precio_ventaA){
-
         // Creamos una referencia al documento de la colección "ventas" con un ID único generado automáticamente por Firestore
         DocumentReference ventaRef = mFirestore.collection("ventas").document();
 
@@ -125,7 +124,6 @@ public class AddFragment extends Fragment {
                 // Si se agrega el documento correctamente, creamos una referencia a la subcolección "productos" del documento de la venta
                 DocumentReference productoRef = ventaRef.collection("clientes").document();
                 Toast.makeText(getContext(), "Creado Correctamente", Toast.LENGTH_SHORT).show();
-                limpiarCampos();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -134,6 +132,7 @@ public class AddFragment extends Fragment {
                 Toast.makeText(getContext(), "Error al ingresar", Toast.LENGTH_SHORT).show();
             }
         });
+        limpiarCampos();
     }
 
 
