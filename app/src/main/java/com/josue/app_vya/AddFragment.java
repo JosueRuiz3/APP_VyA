@@ -39,7 +39,6 @@ public class AddFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            id_ventas = getArguments().getString("id_ventas");
         }
     }
 
@@ -106,23 +105,23 @@ public class AddFragment extends Fragment {
 
     private void postVentas(String productoA, String stockA, String tallaA, String precio_compraA, String precio_ventaA){
         // Creamos una referencia al documento de la colección "ventas" con un ID único generado automáticamente por Firestore
-        DocumentReference ventaRef = mFirestore.collection("ventas").document();
+        DocumentReference ventaRef = mFirestore.collection("Ventas").document();
 
         // Creamos un mapa con los datos que queremos agregar al documento de la colección "ventas"
-        Map<String, Object> ventaData = new HashMap<>();
-        ventaData.put("idVentas", ventaRef.getId());
-        ventaData.put("nombre_producto", productoA);
-        ventaData.put("talla", tallaA);
-        ventaData.put("stock", stockA);
-        ventaData.put("precio_compra", precio_compraA);
-        ventaData.put("precio_venta", precio_ventaA);
+        Map<String, Object> map = new HashMap<>();
+        map.put("idVenta", ventaRef.getId());
+        map.put("nombre_producto", productoA);
+        map.put("talla", tallaA);
+        map.put("stock", stockA);
+        map.put("precio_compra", precio_compraA);
+        map.put("precio_venta", precio_ventaA);
 
         // Agregamos el mapa como un documento a la colección "ventas" con el ID generado automáticamente
-        ventaRef.set(ventaData).addOnSuccessListener(new OnSuccessListener<Void>() {
+        ventaRef.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 // Si se agrega el documento correctamente, creamos una referencia a la subcolección "productos" del documento de la venta
-                DocumentReference productoRef = ventaRef.collection("clientes").document();
+                //DocumentReference productoRef = ventaRef.collection("clientes").document();
                 Toast.makeText(getContext(), "Creado Correctamente", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {

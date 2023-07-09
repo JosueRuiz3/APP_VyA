@@ -24,8 +24,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
 
    private CardView btneditar, btnelimimar;
     private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
-    private String idd, clienteId;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private String idd;
     private FirebaseFirestore mfirestore;
 
     @Override
@@ -42,9 +41,9 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         btnelimimar = findViewById(R.id.btneliminar);
         mfirestore = FirebaseFirestore.getInstance();
 
-        String idVentas = getIntent().getStringExtra("id_ventas");
+        Bundle args = getIntent().getExtras();
+        String idCliente = args.getString("clienteId");
 
-        String idCliente = getIntent().getStringExtra("clienteId");
         idd = idCliente;
         obtenerDatosCliente(idCliente);
 
@@ -75,7 +74,6 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                         .setNegativeButton("NO", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-
                             }
                         }).show();
             }
@@ -97,7 +95,6 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         });
     }
 
-
     private void obtenerDatosCliente(String idCliente) {
         idd = idCliente;
         Bundle args = getIntent().getExtras();
@@ -116,14 +113,10 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         precio_unitario.setText(precio_unitarioA);
         total.setText(totalA);
 
-        // Obtener una referencia al documento de la colección principal que contiene la subcolección
-        DocumentReference clienteRef = db.collection("ventas").document().collection("clientes").document(idd);;
-
-       clienteRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+       mfirestore.collection("ventas").document().collection("clientes").document(idd).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
            @Override
            public void onSuccess(DocumentSnapshot documentSnapshot) {
-               if (documentSnapshot.exists()) {
-               }
+
            }
        }).addOnFailureListener(new OnFailureListener() {
            @Override
@@ -133,7 +126,8 @@ public class CustomerDetailsActivity extends AppCompatActivity {
        });
     }
 
-    private void update(String nombre_clienteA, String nombre_productoA, String cantidadA, String tallaA, String precio_unitarioA, String totalA, String id){
+    private void update(String nombre_clienteA, String nombre_productoA, String cantidadA, String tallaA, String precio_unitarioA, String totalA, String idCliente){
+
         // Crear un nuevo mapa con los datos que deseas agregar a la subcolección
         Map<String, Object> map = new HashMap<>();
         map.put("nombre_cliente", nombre_clienteA);
@@ -143,12 +137,11 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         map.put("precio_unitario", precio_unitarioA);
         map.put("total", totalA);
 
-        // Agregar el mapa como un nuevo documento a la subcolección con el ID del documento principal
-        mfirestore.collection("clientes").document(id).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+        mfirestore.collection("ventas").document().collection("clientes").document().update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(CustomerDetailsActivity.this, "Actualizado exitosamente", Toast.LENGTH_SHORT).show();
-            }
+           }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {

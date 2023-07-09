@@ -62,18 +62,15 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
         holder.editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cliente clickedCliente = documentSnapshot.toObject(cliente.class);
-                final String clienteId = documentSnapshot.getId();
-
-                Intent intent = new Intent(getContext(), CustomerDetailsActivity.class);
-                intent.putExtra("clienteId", clienteId);
-                intent.putExtra("nombre_cliente", clickedCliente.getNombre_cliente());
-                intent.putExtra("nombre_producto", clickedCliente.getNombre_producto());
-                intent.putExtra("cantidad", clickedCliente.getCantidad());
-                intent.putExtra("talla", clickedCliente.getTalla());
-                intent.putExtra("precio_unitario", clickedCliente.getPrecio_unitario());
-                intent.putExtra("total", clickedCliente.getTotal());
-                context.startActivity(intent);
+                Intent i = new Intent(getContext(), CustomerDetailsActivity.class);
+                i.putExtra("clienteId", id);
+                i.putExtra("nombre_cliente", Cliente.getNombre_cliente());
+                i.putExtra("nombre_producto", Cliente.getNombre_producto());
+                i.putExtra("cantidad", Cliente.getCantidad());
+                i.putExtra("talla", Cliente.getTalla());
+                i.putExtra("precio_unitario", Cliente.getPrecio_unitario());
+                i.putExtra("total", Cliente.getTotal());
+                context.startActivity(i);
             }
         });
     }

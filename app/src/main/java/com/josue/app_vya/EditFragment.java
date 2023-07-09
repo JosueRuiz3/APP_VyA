@@ -62,10 +62,10 @@ public class EditFragment extends Fragment {
         mfirestore = FirebaseFirestore.getInstance();
 
         Bundle args = getActivity().getIntent().getExtras();
-        String idVentas = args.getString("id_ventas");
+        String idVenta = args.getString("idVenta");
 
-        idd = idVentas;
-        get(idVentas);
+        idd = idVenta;
+        get(idVenta);
 
         precio_venta.addTextChangedListener(new MoneyTextWatcher(precio_venta));
         precio_venta.setText("0");
@@ -81,7 +81,7 @@ public class EditFragment extends Fragment {
                         .setPositiveButton("SI", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                idd = idVentas;
+                                idd = idVenta;
                                 checkField(nombre_producto);
                                 checkField(talla);
                                 checkField(stock);
@@ -95,7 +95,7 @@ public class EditFragment extends Fragment {
                                 String precio_ventaA = precio_venta.getText().toString().trim();
 
                                 if (!productoA.isEmpty() && !stockA.isEmpty() && !tallaA.isEmpty() && !precio_compraA.isEmpty() && !precio_ventaA.isEmpty()) {
-                                    update(productoA, stockA, tallaA, precio_compraA, precio_ventaA, idVentas);
+                                    update(productoA, stockA, tallaA, precio_compraA, precio_ventaA, idVenta);
 
                                 } else {
                                     Toast.makeText(getContext(), "Ingrese los datos", Toast.LENGTH_SHORT).show();
@@ -119,8 +119,8 @@ public class EditFragment extends Fragment {
                         .setPositiveButton("SI", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                idd = idVentas;
-                                delete(idVentas);
+                                idd = idVenta;
+                                delete(idVenta);
                                 Intent intent = new Intent(getContext(), MainActivity.class);
                                 startActivity(intent);
                             }
@@ -142,7 +142,7 @@ public class EditFragment extends Fragment {
         precio_compra.setText(String.valueOf(value2));
     }
 
-    private void update(String productoA,String stockA, String tallaA,String precio_compraA, String precio_ventaA, String id) {
+    private void update(String productoA,String stockA, String tallaA,String precio_compraA, String precio_ventaA, String idVenta) {
         Map<String, Object> map = new HashMap<>();
         map.put("nombre_producto",productoA);
         map.put("talla",tallaA);
@@ -150,7 +150,7 @@ public class EditFragment extends Fragment {
         map.put("precio_compra",precio_compraA);
         map.put("precio_venta",precio_ventaA);
 
-        mfirestore.collection("ventas").document(id).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+        mfirestore.collection("Ventas").document(idVenta).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(getContext(), "Actualizado exitosamente", Toast.LENGTH_SHORT).show();
@@ -163,8 +163,8 @@ public class EditFragment extends Fragment {
         });
     }
 
-    private void get(String idVentas){
-        mfirestore.collection("ventas").document(idVentas).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    private void get(String idVenta){
+        mfirestore.collection("Ventas").document(idVenta).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 String name = documentSnapshot.getString("nombre_producto");
@@ -188,8 +188,8 @@ public class EditFragment extends Fragment {
         });
     }
 
-    private void delete(String id) {
-        mfirestore.collection("ventas").document(id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+    private void delete(String idVenta) {
+        mfirestore.collection("Ventas").document(idVenta).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(getContext(),"Eliminado correctamente!",Toast.LENGTH_SHORT).show();

@@ -41,14 +41,14 @@ public class CustomerFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView recyclerView;
     private cliente_adapter adapter;
-    private String id_ventas;
+    private String idVenta;
     private String idd;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            id_ventas = getArguments().getString("id_ventas");
+            idVenta = getArguments().getString("idVenta");
         }
     }
 
@@ -62,18 +62,18 @@ public class CustomerFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
 
         Bundle args = getActivity().getIntent().getExtras();
-        String id = args.getString("id_ventas");
+        String idVenta = args.getString("idVenta");
 
-        idd = id;
-        get(id);
+        idd = idVenta;
+        get(idVenta);
 
         setUpRecyclerView(); // configuramos el RecyclerView
 
         return v;
     }
 
-    private void get(String id) {
-        db.collection("ventas").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    private void get(String idVenta) {
+        db.collection("Ventas").document(idVenta).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
 
@@ -88,12 +88,12 @@ public class CustomerFragment extends Fragment {
 
     private void setUpRecyclerView() {
         Bundle args = getActivity().getIntent().getExtras();
-        String id = args.getString("id_ventas");
+        String idVenta = args.getString("idVenta");
 
-        idd = id;
+        idd = idVenta;
 
         // Obtener una referencia al documento de la colección principal que contiene la subcolección
-        DocumentReference ventaRef = db.collection("ventas").document(id);
+        DocumentReference ventaRef = db.collection("Ventas").document(idVenta);
 
         // Obtener una referencia a la subcolección del documento principal
         CollectionReference clientesRef = ventaRef.collection("clientes");

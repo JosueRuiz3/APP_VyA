@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
     private void setUpRecyclerView() {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
-        Query query = db.collection("ventas").orderBy("nombre_producto", Query.Direction.ASCENDING);
+        Query query = db.collection("Ventas").orderBy("nombre_producto", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<venta> options = new FirestoreRecyclerOptions.Builder<venta>()
                 .setQuery(query, venta.class).build();
 

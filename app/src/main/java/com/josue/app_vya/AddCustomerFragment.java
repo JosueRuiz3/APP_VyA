@@ -34,7 +34,7 @@ public class AddCustomerFragment extends Fragment {
 
     private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
     private CardView btnagregar;
-    private String id_cliente;
+    private String idVenta;
     private FirebaseFirestore mfirestore;
     private ProgressBar progressBar;
     boolean valid = true;
@@ -45,7 +45,7 @@ public class AddCustomerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            id_cliente = getArguments().getString("id_ventas");
+            idVenta = getArguments().getString("idVenta");
         }
     }
 
@@ -62,13 +62,13 @@ public class AddCustomerFragment extends Fragment {
         nombre_producto = v.findViewById(R.id.nombre_producto);
         talla = v.findViewById(R.id.talla);
         btnagregar = v.findViewById(R.id.btnagregar);
-
         mfirestore = FirebaseFirestore.getInstance();
-        Bundle args = getActivity().getIntent().getExtras();
-        String idVentas = args.getString("id_ventas");
 
-        idd = idVentas;
-        get(idVentas);
+        Bundle args = getActivity().getIntent().getExtras();
+        String idVenta = args.getString("idVenta");
+
+        idd = idVenta;
+        get(idVenta);
 
         precio_unitario.addTextChangedListener(new MoneyTextWatcher(precio_unitario));
         precio_unitario.setText("0");
@@ -133,8 +133,8 @@ public class AddCustomerFragment extends Fragment {
         total.setText(String.valueOf(value2));
     }
 
-    private void get(String idVentas) {
-        mfirestore.collection("ventas").document(idVentas).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    private void get(String idVenta) {
+        mfirestore.collection("Ventas").document(idVenta).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
 
@@ -171,12 +171,12 @@ public class AddCustomerFragment extends Fragment {
 
     private void postClientes(String nombre_clienteA, String nombre_productoA, String cantidadA, String tallaA, String precio_unitarioA, String totalA) {
         Bundle args = getActivity().getIntent().getExtras();
-        String idVentas = args.getString("id_ventas");
+        String idVenta = args.getString("idVenta");
 
-        idd = idVentas;
+        idd = idVenta;
 
         // Obtener una referencia al documento de la colección principal que contiene la subcolección
-        DocumentReference ventaRef = mfirestore.collection("ventas").document(idVentas);
+        DocumentReference ventaRef = mfirestore.collection("Ventas").document(idVenta);
 
         // Obtener una referencia a la subcolección del documento principal
         DocumentReference clientesRef = ventaRef.collection("clientes").document();

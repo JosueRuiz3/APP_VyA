@@ -60,7 +60,7 @@ public class venta_adapter extends FirestoreRecyclerAdapter<venta, venta_adapter
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getContext(), DetailsActivity.class);
-                i.putExtra("id_ventas", id);
+                i.putExtra("idVenta", id);
                 context.startActivity(i);
             }
         });

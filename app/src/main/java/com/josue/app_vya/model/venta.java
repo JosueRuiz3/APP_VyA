@@ -4,7 +4,6 @@ public class venta {
 
     String nombre_producto, stock, talla, precio_compra, precio_venta;
 
-
     public venta() {
     }
 
