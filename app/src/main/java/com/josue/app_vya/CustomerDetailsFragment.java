@@ -29,11 +29,10 @@ public class CustomerDetailsFragment extends Fragment {
 
     private boolean valid = true;
     private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
-    private String idd, iddventas;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference mainCollectionRef = db.collection("ventas");
+    private CollectionReference mainCollectionRef = db.collection("Ventas");
     private DocumentReference documentRef = mainCollectionRef.document();
-    private CollectionReference subCollectionRef = documentRef.collection("clientes");
+    private CollectionReference subCollectionRef = documentRef.collection("Clientes");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

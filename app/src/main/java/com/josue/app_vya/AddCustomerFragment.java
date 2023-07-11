@@ -179,23 +179,23 @@ public class AddCustomerFragment extends Fragment {
         DocumentReference ventaRef = mfirestore.collection("Ventas").document(idVenta);
 
         // Obtener una referencia a la subcolección del documento principal
-        DocumentReference clientesRef = ventaRef.collection("clientes").document();
+        DocumentReference clientesRef = ventaRef.collection("Clientes").document();
 
         // Generar un ID único para el documento de la subcolección
         //String idCliente = clientesRef.getId();
 
         // Crear un nuevo mapa con los datos que deseas agregar a la subcolección
-        Map<String, Object> clienteData = new HashMap<>();
-        clienteData.put("idCliente", clientesRef.getId()); // Utilizar el ID de la subcolección
-        clienteData.put("nombre_cliente", nombre_clienteA);
-        clienteData.put("nombre_producto", nombre_productoA);
-        clienteData.put("cantidad", cantidadA);
-        clienteData.put("talla", tallaA);
-        clienteData.put("precio_unitario", precio_unitarioA);
-        clienteData.put("total", totalA);
+        Map<String, Object> map = new HashMap<>();
+        map.put("idCliente", clientesRef.getId()); // Utilizar el ID de la subcolección
+        map.put("nombre_cliente", nombre_clienteA);
+        map.put("nombre_producto", nombre_productoA);
+        map.put("cantidad", cantidadA);
+        map.put("talla", tallaA);
+        map.put("precio_unitario", precio_unitarioA);
+        map.put("total", totalA);
 
         // Agregar el mapa como un nuevo documento a la subcolección con el ID del documento principal
-        clientesRef.set(clienteData).addOnSuccessListener(new OnSuccessListener<Void>() {
+        clientesRef.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(getContext(), "Creado exitosamente", Toast.LENGTH_SHORT).show();

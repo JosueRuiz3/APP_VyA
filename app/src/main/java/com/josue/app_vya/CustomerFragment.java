@@ -32,6 +32,8 @@ import com.josue.app_vya.adapter.venta_adapter;
 import com.josue.app_vya.model.cliente;
 import com.josue.app_vya.model.venta;
 
+import org.checkerframework.checker.units.qual.C;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,14 +43,12 @@ public class CustomerFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView recyclerView;
     private cliente_adapter adapter;
-    private String idVenta;
     private String idd;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            idVenta = getArguments().getString("idVenta");
         }
     }
 
@@ -61,29 +61,9 @@ public class CustomerFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         db = FirebaseFirestore.getInstance();
 
-        Bundle args = getActivity().getIntent().getExtras();
-        String idVenta = args.getString("idVenta");
-
-        idd = idVenta;
-        get(idVenta);
-
         setUpRecyclerView(); // configuramos el RecyclerView
 
         return v;
-    }
-
-    private void get(String idVenta) {
-        db.collection("Ventas").document(idVenta).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), "Error al obtener los datos!", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void setUpRecyclerView() {
@@ -95,16 +75,9 @@ public class CustomerFragment extends Fragment {
         // Obtener una referencia al documento de la colección principal que contiene la subcolección
         DocumentReference ventaRef = db.collection("Ventas").document(idVenta);
 
-        // Obtener una referencia a la subcolección del documento principal
-        CollectionReference clientesRef = ventaRef.collection("clientes");
-
-        // Crear una nueva consulta para la subcolección "clientes"
-        Query query = clientesRef.orderBy("nombre_cliente", Query.Direction.ASCENDING);
-
-        // Crear opciones para el adaptador
+        Query query = ventaRef.collection("Clientes").orderBy("nombre_cliente", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<cliente> options = new FirestoreRecyclerOptions.Builder<cliente>()
-                .setQuery(query, cliente.class)
-                .build();
+                .setQuery(query, cliente.class).build();
 
         // Configurar el adaptador en el RecyclerView
         adapter = new cliente_adapter(options, getActivity());

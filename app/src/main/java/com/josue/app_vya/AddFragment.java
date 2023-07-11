@@ -134,7 +134,6 @@ public class AddFragment extends Fragment {
         limpiarCampos();
     }
 
-
     private void limpiarCampos(){
         nombre_producto.setText("");
         talla.setText("");
