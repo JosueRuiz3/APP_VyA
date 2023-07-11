@@ -35,9 +35,9 @@ public class EditCustomerFragment extends Fragment {
     private String idd;
     private FirebaseFirestore mfirestore;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference mainCollectionRef = db.collection("ventas");
+    private CollectionReference mainCollectionRef = db.collection("Ventas");
     private DocumentReference documentRef = mainCollectionRef.document();
-    private CollectionReference subCollectionRef = documentRef.collection("clientes");
+    private CollectionReference subCollectionRef = documentRef.collection("Clientes");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,7 @@ public class EditCustomerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_edit_customer, container, false);
+
         cantidad = v.findViewById(R.id.cantidad);
         precio_unitario = v.findViewById(R.id.precio_unitario);
         total = v.findViewById(R.id.total);

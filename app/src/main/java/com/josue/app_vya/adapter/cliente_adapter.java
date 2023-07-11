@@ -63,7 +63,7 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getContext(), CustomerDetailsActivity.class);
-                i.putExtra("clienteId", id);
+                i.putExtra("idCliente", id);
                 i.putExtra("nombre_cliente", Cliente.getNombre_cliente());
                 i.putExtra("nombre_producto", Cliente.getNombre_producto());
                 i.putExtra("cantidad", Cliente.getCantidad());

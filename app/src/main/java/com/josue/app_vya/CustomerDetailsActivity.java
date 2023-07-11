@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -26,11 +27,17 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
     private String idd;
     private FirebaseFirestore mfirestore;
+    private boolean valid = true;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference mainCollectionRef = db.collection("Ventas");
+    private DocumentReference documentRef = mainCollectionRef.document();
+    private CollectionReference subCollectionRef = documentRef.collection("Clientes");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_details);
+
         cantidad = findViewById(R.id.cantidad);
         precio_unitario = findViewById(R.id.precio_unitario);
         total = findViewById(R.id.total);
@@ -42,10 +49,10 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         mfirestore = FirebaseFirestore.getInstance();
 
         Bundle args = getIntent().getExtras();
-        String idCliente = args.getString("clienteId");
+        String idCliente = args.getString("idCliente");
 
         idd = idCliente;
-        obtenerDatosCliente(idCliente);
+        getCliente(idCliente);
 
         btneditar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,10 +102,10 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private void obtenerDatosCliente(String idCliente) {
+    private void getCliente(String idCliente) {
         idd = idCliente;
         Bundle args = getIntent().getExtras();
-        idCliente = args.getString("clienteId");
+        idCliente = args.getString("idCliente");
         String nombre_clienteA = args.getString("nombre_cliente");
         String nombre_productoA = args.getString("nombre_producto");
         String cantidadA = args.getString("cantidad");
@@ -113,7 +120,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         precio_unitario.setText(precio_unitarioA);
         total.setText(totalA);
 
-       mfirestore.collection("ventas").document().collection("clientes").document(idd).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+       mfirestore.collection("Ventas").document().collection("Clientes").document(idd).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
            @Override
            public void onSuccess(DocumentSnapshot documentSnapshot) {
 
