@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -23,15 +24,11 @@ import java.util.Map;
 
 public class CustomerDetailsActivity extends AppCompatActivity {
 
-   private CardView btneditar, btnelimimar;
+   private CardView btneditar, btneliminar;
     private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
-    private String idd;
+    private String idd, iddVenta;
     private FirebaseFirestore mfirestore;
     private boolean valid = true;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference mainCollectionRef = db.collection("Ventas");
-    private DocumentReference documentRef = mainCollectionRef.document();
-    private CollectionReference subCollectionRef = documentRef.collection("Clientes");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +42,16 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         nombre_producto = findViewById(R.id.nombre_producto);
         talla = findViewById(R.id.talla);
         btneditar = findViewById(R.id.btneditar);
-        btnelimimar = findViewById(R.id.btneliminar);
+        btneliminar = findViewById(R.id.btneliminar);
         mfirestore = FirebaseFirestore.getInstance();
 
         Bundle args = getIntent().getExtras();
         String idCliente = args.getString("idCliente");
+        String idVenta = args.getString("idVenta");
 
+        iddVenta = idVenta;
         idd = idCliente;
+
         getCliente(idCliente);
 
         btneditar.setOnClickListener(new View.OnClickListener() {
@@ -86,10 +86,34 @@ public class CustomerDetailsActivity extends AppCompatActivity {
             }
         });
 
+        btneliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(CustomerDetailsActivity.this);
+                builder.setMessage("¿Desea eliminar este registro?")
+                        .setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                idd = idCliente;
+                                delete(idCliente);
+                                Intent intent = new Intent(CustomerDetailsActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // No hacer nada
+                            }
+                        })
+                        .show();
+            }
+        });
+
     }
 
-    private void get(String idVentas) {
-        mfirestore.collection("ventas").document(idVentas).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    private void get(String idVenta) {
+        mfirestore.collection("Ventas").document(idVenta).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
 
@@ -97,7 +121,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(CustomerDetailsActivity.this, "Error al obtener los datos!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CustomerDetailsActivity.this, "Error al obtener los datos de ventas!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -134,7 +158,6 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     }
 
     private void update(String nombre_clienteA, String nombre_productoA, String cantidadA, String tallaA, String precio_unitarioA, String totalA, String idCliente){
-
         // Crear un nuevo mapa con los datos que deseas agregar a la subcolección
         Map<String, Object> map = new HashMap<>();
         map.put("nombre_cliente", nombre_clienteA);
@@ -156,4 +179,29 @@ public class CustomerDetailsActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void delete(String idCliente) {
+        String idVenta = getIntent().getStringExtra("idVenta");
+
+        if (idVenta != "D8Qf8DdTFqyJdEL11NXx") {
+            mfirestore.collection("Ventas")
+                    .document("D8Qf8DdTFqyJdEL11NXx")
+                    .collection("Clientes")
+                    .document(idCliente)
+                    .delete()
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Toast.makeText(CustomerDetailsActivity.this, "Eliminado correctamente!", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(CustomerDetailsActivity.this, "Error al borrar el registro!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+
 }
