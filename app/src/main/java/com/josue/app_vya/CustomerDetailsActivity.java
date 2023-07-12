@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -63,15 +64,22 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 idd = idCliente;
-                                String nombre_clienteA = nombre_cliente.getText().toString().trim();
-                                String nombre_productoA = nombre_producto.getText().toString().trim();
+                                checkField(nombre_producto);
+                                checkField(nombre_cliente);
+                                checkField(cantidad);
+                                checkField(precio_unitario);
+                                checkField(talla);
+                                checkField(total);
+
+                                String nombreClienteA = nombre_cliente.getText().toString().trim();
+                                String nombreProductoA = nombre_producto.getText().toString().trim();
                                 String cantidadA = cantidad.getText().toString().trim();
                                 String tallaA = talla.getText().toString().trim();
-                                String precio_unitarioA = precio_unitario.getText().toString().trim();
+                                String precioUnitarioA = precio_unitario.getText().toString().trim();
                                 String totalA = total.getText().toString().trim();
 
-                                if (!nombre_productoA.isEmpty() && !totalA.isEmpty()) {
-                                    update(nombre_clienteA, nombre_productoA, cantidadA, tallaA, precio_unitarioA, totalA, idCliente);
+                                if (!nombreClienteA.isEmpty() && !nombreProductoA.isEmpty() && !cantidadA.isEmpty() && !tallaA.isEmpty() && !precioUnitarioA.isEmpty() && !totalA.isEmpty()) {
+                                    update(nombreClienteA, nombreProductoA, cantidadA, tallaA, precioUnitarioA, totalA, idCliente);
 
                                 } else {
                                     Toast.makeText(CustomerDetailsActivity.this, "Ingrese los datos", Toast.LENGTH_SHORT).show();
@@ -112,23 +120,10 @@ public class CustomerDetailsActivity extends AppCompatActivity {
 
     }
 
-    private void get(String idVenta) {
-        mfirestore.collection("Ventas").document(idVenta).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(CustomerDetailsActivity.this, "Error al obtener los datos de ventas!", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
     private void getCliente(String idCliente) {
-        idd = idCliente;
         Bundle args = getIntent().getExtras();
+
+        String idVenta = args.getString("idVenta");
         idCliente = args.getString("idCliente");
         String nombre_clienteA = args.getString("nombre_cliente");
         String nombre_productoA = args.getString("nombre_producto");
@@ -144,7 +139,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         precio_unitario.setText(precio_unitarioA);
         total.setText(totalA);
 
-       mfirestore.collection("Ventas").document().collection("Clientes").document(idd).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+       mfirestore.collection("Ventas").document(idVenta).collection("Clientes").document(idVenta).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
            @Override
            public void onSuccess(DocumentSnapshot documentSnapshot) {
 
@@ -158,6 +153,9 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     }
 
     private void update(String nombre_clienteA, String nombre_productoA, String cantidadA, String tallaA, String precio_unitarioA, String totalA, String idCliente){
+        Bundle args = getIntent().getExtras();
+
+        String idVenta = args.getString("idVenta");
         // Crear un nuevo mapa con los datos que deseas agregar a la subcolección
         Map<String, Object> map = new HashMap<>();
         map.put("nombre_cliente", nombre_clienteA);
@@ -167,7 +165,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         map.put("precio_unitario", precio_unitarioA);
         map.put("total", totalA);
 
-        mfirestore.collection("ventas").document().collection("clientes").document().update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+        mfirestore.collection("Ventas").document(idVenta).collection("Clientes").document(idCliente).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(CustomerDetailsActivity.this, "Actualizado exitosamente", Toast.LENGTH_SHORT).show();
@@ -181,11 +179,12 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     }
 
     private void delete(String idCliente) {
-        String idVenta = getIntent().getStringExtra("idVenta");
+        Bundle args = getIntent().getExtras();
+        String idVenta = args.getString("idVenta");
 
-        if (idVenta != "D8Qf8DdTFqyJdEL11NXx") {
+        if (idVenta != null) {
             mfirestore.collection("Ventas")
-                    .document("D8Qf8DdTFqyJdEL11NXx")
+                    .document(idVenta)
                     .collection("Clientes")
                     .document(idCliente)
                     .delete()
@@ -201,7 +200,20 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                             Toast.makeText(CustomerDetailsActivity.this, "Error al borrar el registro!", Toast.LENGTH_SHORT).show();
                         }
                     });
+        }else{
+            Toast.makeText(this, "No se pudo actualizar el registro, hay datos nulos", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public boolean checkField(EditText textField){
+        if (textField.getText().toString().isEmpty()){
+            textField.setError("Debes llenar los campos");
+            valid = false;
+        }
+        else {
+            valid = true;
+        }
+        return valid;
     }
 
 }

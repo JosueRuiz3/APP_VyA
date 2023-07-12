@@ -187,6 +187,7 @@ public class AddCustomerFragment extends Fragment {
         // Crear un nuevo mapa con los datos que deseas agregar a la subcolección
         Map<String, Object> map = new HashMap<>();
         map.put("idCliente", clientesRef.getId()); // Utilizar el ID de la subcolección
+        map.put("idVenta", idVenta);
         map.put("nombre_cliente", nombre_clienteA);
         map.put("nombre_producto", nombre_productoA);
         map.put("cantidad", cantidadA);
