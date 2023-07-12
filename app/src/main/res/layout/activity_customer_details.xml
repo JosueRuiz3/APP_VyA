@@ -54,7 +54,7 @@
             android:layout_height="27dp"
             android:layout_marginTop="15dp"
             android:gravity="center_horizontal|top"
-            android:text="Editar Cliente"
+            android:text="Detalle del cliente"
             android:textAppearance="@style/Tittles"/>
 
         <!-- Cliente Campos de texto-->
