@@ -9,6 +9,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.StorageReference;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -134,6 +137,7 @@ public class EditFragment extends Fragment {
 
         return v;
     }
+
     public void doGetValue(View v) {
         BigDecimal value = MoneyTextWatcher.parseCurrencyValue(precio_venta.getText().toString());
         precio_venta.setText(String.valueOf(value));
