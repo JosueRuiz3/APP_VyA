@@ -2,23 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/customer"
-        android:title="Customer"
+        android:title="Clientes"
         android:icon="@drawable/customer"
         android:iconTint="@color/black"/>
 
     <item
         android:id="@+id/addClient"
-        android:title="Add"
+        android:title="Añadir cliente"
         android:icon="@drawable/ic_baseline_library_add_24"
         android:iconTint="@color/black"/>
     <item
         android:id="@+id/details"
-        android:title="Details"
+        android:title="Detalle venta"
         android:icon="@drawable/detalle"
         android:iconTint="@color/black"/>
     <item
         android:id="@+id/edit"
-        android:title="Edit"
+        android:title="Editar producto"
         android:icon="@drawable/editar"
         android:iconTint="@color/black"/>
 </menu>

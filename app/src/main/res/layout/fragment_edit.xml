@@ -53,7 +53,7 @@
             android:layout_height="27dp"
             android:layout_marginTop="15dp"
             android:gravity="center_horizontal|top"
-            android:text="Editar Venta"
+            android:text="Editar producto"
             android:textAppearance="@style/Tittles"/>
 
 
@@ -211,7 +211,7 @@
                 android:layout_height="35dp"
                 android:layout_marginTop="6dp"
                 android:gravity="center_horizontal|top"
-                android:text="Editar venta"
+                android:text="Editar producto"
                 android:textAppearance="@style/Tittles" />
         </androidx.cardview.widget.CardView>
 

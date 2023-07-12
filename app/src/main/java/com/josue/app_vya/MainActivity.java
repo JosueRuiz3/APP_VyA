@@ -14,7 +14,6 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
 
     private HomeFragment homeFragment = new HomeFragment();
-    private SettingFragment settingFragment = new SettingFragment();
     private AddFragment addFragment = new AddFragment();
 
 
@@ -36,9 +35,6 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.add:
                         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,addFragment).commit();
-                        return true;
-                    case R.id.settings:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,settingFragment).commit();
                         return true;
                 }
 
