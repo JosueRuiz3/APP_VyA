@@ -32,8 +32,8 @@ public class AddFragment extends Fragment {
     private TextInputEditText nombre_producto, talla, precio_compra, precio_venta, stock;
     private FirebaseFirestore mFirestore;
     private ProgressBar progressBar;
-    boolean valid = true;
     private ProgressDialog progressDialog;
+    boolean valid = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,6 +104,9 @@ public class AddFragment extends Fragment {
     }
 
     private void postVentas(String productoA, String stockA, String tallaA, String precio_compraA, String precio_ventaA){
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setTitle("Agregando producto...");
+        progressDialog.show();
         // Creamos una referencia al documento de la colección "ventas" con un ID único generado automáticamente por Firestore
         DocumentReference ventaRef = mFirestore.collection("Ventas").document();
 
@@ -120,8 +123,7 @@ public class AddFragment extends Fragment {
         ventaRef.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                // Si se agrega el documento correctamente, creamos una referencia a la subcolección "productos" del documento de la venta
-                //DocumentReference productoRef = ventaRef.collection("clientes").document();
+                progressDialog.dismiss();
                 Toast.makeText(getContext(), "Creado Correctamente", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {

@@ -37,9 +37,9 @@ public class AddCustomerFragment extends Fragment {
     private String idVenta;
     private FirebaseFirestore mfirestore;
     private ProgressBar progressBar;
-    boolean valid = true;
     private ProgressDialog progressDialog;
     private String idd;
+    boolean valid = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -170,6 +170,9 @@ public class AddCustomerFragment extends Fragment {
     }
 
     private void postClientes(String nombre_clienteA, String nombre_productoA, String cantidadA, String tallaA, String precio_unitarioA, String totalA) {
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setTitle("Agregando cliente...");
+        progressDialog.show();
         Bundle args = getActivity().getIntent().getExtras();
         String idVenta = args.getString("idVenta");
 
@@ -199,8 +202,9 @@ public class AddCustomerFragment extends Fragment {
         clientesRef.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(getContext(), "Creado exitosamente", Toast.LENGTH_SHORT).show();
                 limpiarCampos();
+                progressDialog.dismiss();
+                Toast.makeText(getContext(), "Creado exitosamente", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

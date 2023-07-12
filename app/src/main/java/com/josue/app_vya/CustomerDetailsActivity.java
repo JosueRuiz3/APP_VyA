@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -34,6 +36,8 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
     private String idd, iddVenta;
     private FirebaseFirestore mfirestore;
+    private ProgressBar progressBar;
+    private ProgressDialog progressDialog;
     private boolean valid = true;
 
     @Override
@@ -116,7 +120,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 idd = idCliente;
                                 delete(idCliente);
-                                Intent intent = new Intent(CustomerDetailsActivity.this, MainActivity.class);
+                                Intent intent = new Intent(CustomerDetailsActivity.this, DetailsActivity.class);
                                 startActivity(intent);
                             }
                         })
@@ -206,6 +210,10 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     }
 
     private void update(String nombre_clienteA, String nombre_productoA, String cantidadA, String tallaA, String precio_unitarioA, String totalA, String idCliente){
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Actualizando detalle cliente...");
+        progressDialog.show();
+
         Bundle args = getIntent().getExtras();
 
         String idVenta = args.getString("idVenta");
@@ -221,6 +229,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         mfirestore.collection("Ventas").document(idVenta).collection("Clientes").document(idCliente).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
+                progressDialog.dismiss();
                 Toast.makeText(CustomerDetailsActivity.this, "Actualizado exitosamente", Toast.LENGTH_SHORT).show();
            }
         }).addOnFailureListener(new OnFailureListener() {
@@ -244,7 +253,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            Toast.makeText(CustomerDetailsActivity.this, "Eliminado correctamente!", Toast.LENGTH_SHORT).show();
+                            finish(); // Cierra la actividad actual
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -253,9 +262,10 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                             Toast.makeText(CustomerDetailsActivity.this, "Error al borrar el registro!", Toast.LENGTH_SHORT).show();
                         }
                     });
-        }else{
+        } else {
             Toast.makeText(this, "No se pudo actualizar el registro, hay datos nulos", Toast.LENGTH_SHORT).show();
         }
+       Toast.makeText(CustomerDetailsActivity.this, "Se borro correctamente!", Toast.LENGTH_SHORT).show();
     }
 
     public boolean checkField(EditText textField){
@@ -268,5 +278,4 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         }
         return valid;
     }
-
 }

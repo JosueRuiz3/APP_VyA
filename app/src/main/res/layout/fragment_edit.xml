@@ -176,12 +176,26 @@
                     android:inputType="numberDecimal"
                     android:textAppearance="@style/campos_de_texto"/>
             </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="170dp"
+            android:layout_marginTop="380dp">
 
+            <!-- muestra la opcion de cargando-->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                tools:ignore="MissingConstraints" />
         </RelativeLayout>
 
         <androidx.cardview.widget.CardView
-
             android:layout_width="370dp"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
@@ -214,23 +228,5 @@
                 android:text="Editar producto"
                 android:textAppearance="@style/Tittles" />
         </androidx.cardview.widget.CardView>
-
-        <RelativeLayout
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="170dp"
-            android:layout_marginTop="380dp">
-
-            <!-- muestra la opcion de cargando-->
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:visibility="gone"
-                tools:ignore="MissingConstraints" />
-        </RelativeLayout>
     </RelativeLayout>
-
 </FrameLayout>

@@ -1,5 +1,6 @@
 package com.josue.app_vya;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -40,6 +42,8 @@ public class EditFragment extends Fragment {
     private FirebaseFirestore mfirestore;
     private String idd;
     private StorageReference storageReference;
+    private ProgressBar progressBar;
+    private ProgressDialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,7 @@ public class EditFragment extends Fragment {
         btneditar = v.findViewById(R.id.btneditar);
         btneliminar = v.findViewById(R.id.btneliminar);
         mfirestore = FirebaseFirestore.getInstance();
+        progressBar = v.findViewById(R.id.progressBar);
 
         Bundle args = getActivity().getIntent().getExtras();
         String idVenta = args.getString("idVenta");
@@ -147,6 +152,9 @@ public class EditFragment extends Fragment {
     }
 
     private void update(String productoA,String stockA, String tallaA,String precio_compraA, String precio_ventaA, String idVenta) {
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setTitle("Actualizando producto...");
+        progressDialog.show();
         Map<String, Object> map = new HashMap<>();
         map.put("nombre_producto",productoA);
         map.put("talla",tallaA);
@@ -157,6 +165,7 @@ public class EditFragment extends Fragment {
         mfirestore.collection("Ventas").document(idVenta).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
+                progressDialog.dismiss();
                 Toast.makeText(getContext(), "Actualizado exitosamente", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
