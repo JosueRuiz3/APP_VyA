@@ -7,24 +7,26 @@
     tools:context=".HomeFragment"
     android:background="@color/white">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="27dp"
-        android:layout_marginTop="15dp"
-        android:gravity="center_horizontal|top"
+        android:layout_marginTop="110dp"
+        android:layout_marginLeft="20dp"
+        android:gravity=""
         android:text="Productos"
         android:textAppearance="@style/Tittles" />
 
     <!--- Campo de texto buscar el tipo de venta  -->
     <RelativeLayout
-        android:layout_width="300dp"
-        android:layout_height="55dp"
-        android:layout_marginLeft="55dp"
-        android:layout_marginTop="70dp">
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="35dp">
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="-3dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:boxStrokeColor="#705C61"
             app:hintTextColor="#E6000000">
@@ -32,7 +34,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/buscar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:hint="Buscar..."
                 android:textAppearance="@style/campos_de_texto"
                 android:textColorHint="#65000000"
@@ -47,5 +49,4 @@
         android:layout_height="match_parent"
         android:layout_marginTop="140dp">
     </androidx.recyclerview.widget.RecyclerView>
-
 </FrameLayout>

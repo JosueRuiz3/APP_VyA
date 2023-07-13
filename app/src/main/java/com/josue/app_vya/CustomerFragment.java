@@ -58,7 +58,7 @@ public class CustomerFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_customer, container, false);
 
         recyclerView = v.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
         db = FirebaseFirestore.getInstance();
 
         setUpRecyclerView(); // configuramos el RecyclerView

@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="590dp"
+        android:layout_height="620dp"
         android:layout_marginTop="110dp"
         app:cardBackgroundColor="#FFFFFF">
 
@@ -43,6 +43,7 @@
                     android:textAppearance="@style/campos_de_texto"/>
             </com.google.android.material.textfield.TextInputLayout>
         </RelativeLayout>
+
 
         <!-- Producto Campos de texto-->
         <RelativeLayout
@@ -140,7 +141,6 @@
             </com.google.android.material.textfield.TextInputLayout>
         </RelativeLayout>
 
-
         <!-- Total Campos de texto-->
         <RelativeLayout
             android:layout_width="175dp"
@@ -166,12 +166,58 @@
             </com.google.android.material.textfield.TextInputLayout>
         </RelativeLayout>
 
+        <!-- Fecha en que se entro el producto Campos de texto-->
+        <RelativeLayout
+            android:layout_width="175dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="65dp"
+            android:layout_marginTop="465dp">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="#705C61"
+                app:hintTextColor="#E6000000">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fecha_entrega"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Fecha entrega"
+                    android:textColorHint="#65000000"
+                    android:inputType="date"
+                    android:textAppearance="@style/campos_de_texto"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
+
+        <!-- fecha entrega producto-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btnfecha_entrega"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="470dp"
+            android:gravity="center_horizontal|top"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal|top"
+                android:textAppearance="@style/Tittles"
+                app:srcCompat="@drawable/date" />
+        </androidx.cardview.widget.CardView>
+
         <RelativeLayout
             android:layout_marginTop="408dp"
             android:layout_marginStart="170dp"
             android:layout_width="70dp"
             android:layout_height="wrap_content">
-
             <!-- muestra la opcion de cargando-->
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -187,7 +233,7 @@
             android:layout_width="370dp"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="500dp"
+            android:layout_marginTop="550dp"
             app:cardCornerRadius="5dp"
             app:cardElevation="5dp"
             app:cardBackgroundColor="#CECDCD"
@@ -200,7 +246,7 @@
             android:layout_width="370dp"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="500dp"
+            android:layout_marginTop="550dp"
             android:clickable="true"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             app:cardCornerRadius="5dp"
