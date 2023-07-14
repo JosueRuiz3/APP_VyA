@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,7 +30,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.josue.app_vya.adapter.venta_adapter;
@@ -44,8 +47,11 @@ public class HomeFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView recyclerView;
     private venta_adapter adapter;
-    private CardView btncerrarCampo ;
+    private ImageView btncerrarCampo ;
     private RelativeLayout btnMostrarCampo,  editTextCampo;
+    private TextView txtproducto;
+    private TextInputEditText buscar;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +72,8 @@ public class HomeFragment extends Fragment {
         btnMostrarCampo = v.findViewById(R.id.btnMostrarCampo);
         btncerrarCampo = v.findViewById(R.id.btncerrarCampo);
         editTextCampo = v.findViewById(R.id.editTextCampo);
+        txtproducto = v.findViewById(R.id.txtproducto);
+        buscar = v.findViewById(R.id.buscar);
 
         setUpRecyclerView();
 
@@ -76,6 +84,7 @@ public class HomeFragment extends Fragment {
                     editTextCampo.setVisibility(View.VISIBLE);
                     btncerrarCampo.setVisibility(View.VISIBLE);
                     btnMostrarCampo.setVisibility(View.GONE);
+                    txtproducto.setVisibility(View.GONE);
                 }
             }
         });
@@ -87,7 +96,8 @@ public class HomeFragment extends Fragment {
                     editTextCampo.setVisibility(View.GONE);
                     btncerrarCampo.setVisibility(View.GONE);
                     btnMostrarCampo.setVisibility(View.VISIBLE);
-
+                    txtproducto.setVisibility(View.VISIBLE);
+                    limpiarCampos();
                 }
             }
         });
@@ -105,6 +115,11 @@ public class HomeFragment extends Fragment {
         adapter = new venta_adapter(options, getActivity());
         recyclerView.setAdapter(adapter);
     }
+
+    private void limpiarCampos(){
+        buscar.setText("");
+    }
+
 
     @Override
     public void onStart() {
