@@ -1,5 +1,6 @@
 package com.josue.app_vya;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 
@@ -13,8 +14,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,9 +35,10 @@ import java.util.Map;
 
 public class AddCustomerFragment extends Fragment {
 
-    private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
+    private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total, fecha_entrega;
     private CardView btnagregar;
     private String idVenta;
+    private RelativeLayout btnmostrarCalendario;
     private FirebaseFirestore mfirestore;
     private ProgressBar progressBar;
     private ProgressDialog progressDialog;
@@ -62,6 +66,8 @@ public class AddCustomerFragment extends Fragment {
         nombre_producto = v.findViewById(R.id.nombre_producto);
         talla = v.findViewById(R.id.talla);
         btnagregar = v.findViewById(R.id.btnagregar);
+        fecha_entrega = v.findViewById(R.id.fecha_entrega);
+        btnmostrarCalendario = v.findViewById(R.id.btnmostrarCalendario);
         mfirestore = FirebaseFirestore.getInstance();
 
         Bundle args = getActivity().getIntent().getExtras();
@@ -81,6 +87,19 @@ public class AddCustomerFragment extends Fragment {
 
         // Agregar el TextWatcher al EditText precio_compra
         precio_unitario.addTextChangedListener(textWatcher);
+
+        btnmostrarCalendario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog d = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        fecha_entrega.setText(dayOfMonth + "/" + month + "/" + year);
+                    }
+                },  2023, 1, 1);
+                d.show();
+            }
+        });
 
         btnagregar.setOnClickListener(new View.OnClickListener() {
             @Override

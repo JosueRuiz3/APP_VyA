@@ -120,7 +120,6 @@ public class HomeFragment extends Fragment {
         buscar.setText("");
     }
 
-
     @Override
     public void onStart() {
         super.onStart();

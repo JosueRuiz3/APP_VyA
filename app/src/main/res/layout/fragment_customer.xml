@@ -7,21 +7,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/txtproducto"
         android:layout_width="match_parent"
         android:layout_height="27dp"
-        android:layout_marginTop="15dp"
-        android:gravity="center_horizontal|top"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:gravity=""
         android:text="Clientes"
         android:textAppearance="@style/Tittles" />
 
-    <!--- Campo de texto buscar cliente  -->
+    <!-- Boton mostrar campo-->
     <RelativeLayout
-        android:layout_width="300dp"
+        android:id="@+id/btnMostrarCampo"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="360dp"
+        android:layout_marginRight="20dp"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal|top"
+            app:srcCompat="@drawable/lupa" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/btncerrarCampo"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="360dp"
+        android:layout_marginRight="20dp"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:gravity="center_horizontal|top"
+        app:srcCompat="@drawable/cerrar"
+        android:elevation="5dp"
+        android:visibility="gone"/>
+
+    <!--- Campo de texto buscar el tipo de venta  -->
+    <RelativeLayout
+        android:id="@+id/editTextCampo"
+        android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginLeft="55dp"
-        android:layout_marginTop="70dp">
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="0dp"
+        android:visibility="gone">
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,6 +82,6 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="140dp">
+        android:layout_marginTop="60dp">
     </androidx.recyclerview.widget.RecyclerView>
 </FrameLayout>

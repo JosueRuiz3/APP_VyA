@@ -14,6 +14,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -44,6 +47,10 @@ public class CustomerFragment extends Fragment {
     private RecyclerView recyclerView;
     private cliente_adapter adapter;
     private String idd;
+    private ImageView btncerrarCampo ;
+    private RelativeLayout btnMostrarCampo,  editTextCampo;
+    private TextView txtproducto;
+    private TextInputEditText buscar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,8 +67,39 @@ public class CustomerFragment extends Fragment {
         recyclerView = v.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
         db = FirebaseFirestore.getInstance();
+        btnMostrarCampo = v.findViewById(R.id.btnMostrarCampo);
+        btncerrarCampo = v.findViewById(R.id.btncerrarCampo);
+        editTextCampo = v.findViewById(R.id.editTextCampo);
+        txtproducto = v.findViewById(R.id.txtproducto);
+        buscar = v.findViewById(R.id.buscar);
+
 
         setUpRecyclerView(); // configuramos el RecyclerView
+
+        btnMostrarCampo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (editTextCampo.getVisibility() == View.GONE) {
+                    editTextCampo.setVisibility(View.VISIBLE);
+                    btncerrarCampo.setVisibility(View.VISIBLE);
+                    btnMostrarCampo.setVisibility(View.GONE);
+                    txtproducto.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        btncerrarCampo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (editTextCampo.getVisibility() == View.VISIBLE) {
+                    editTextCampo.setVisibility(View.GONE);
+                    btncerrarCampo.setVisibility(View.GONE);
+                    btnMostrarCampo.setVisibility(View.VISIBLE);
+                    txtproducto.setVisibility(View.VISIBLE);
+                    limpiarCampos();
+                }
+            }
+        });
 
         return v;
     }
@@ -91,6 +129,10 @@ public class CustomerFragment extends Fragment {
         adapter.startListening(); // comenzamos a ver cambios en el adapter
         recyclerView.getRecycledViewPool().clear();
         adapter.notifyDataSetChanged();
+    }
+
+    private void limpiarCampos(){
+        buscar.setText("");
     }
 
     @Override
