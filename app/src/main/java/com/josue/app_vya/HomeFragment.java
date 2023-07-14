@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +27,9 @@ import com.josue.app_vya.adapter.venta_adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.josue.app_vya.adapter.venta_adapter;
@@ -39,7 +44,8 @@ public class HomeFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView recyclerView;
     private venta_adapter adapter;
-
+    private CardView btncerrarCampo ;
+    private RelativeLayout btnMostrarCampo,  editTextCampo;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +63,34 @@ public class HomeFragment extends Fragment {
         recyclerView =  v.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         db = FirebaseFirestore.getInstance();
+        btnMostrarCampo = v.findViewById(R.id.btnMostrarCampo);
+        btncerrarCampo = v.findViewById(R.id.btncerrarCampo);
+        editTextCampo = v.findViewById(R.id.editTextCampo);
 
         setUpRecyclerView();
+
+        btnMostrarCampo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (editTextCampo.getVisibility() == View.GONE) {
+                    editTextCampo.setVisibility(View.VISIBLE);
+                    btncerrarCampo.setVisibility(View.VISIBLE);
+                    btnMostrarCampo.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        btncerrarCampo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (editTextCampo.getVisibility() == View.VISIBLE) {
+                    editTextCampo.setVisibility(View.GONE);
+                    btncerrarCampo.setVisibility(View.GONE);
+                    btnMostrarCampo.setVisibility(View.VISIBLE);
+
+                }
+            }
+        });
 
         return v;
     }

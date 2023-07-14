@@ -16,17 +16,57 @@
         android:text="Productos"
         android:textAppearance="@style/Tittles" />
 
-    <!--- Campo de texto buscar el tipo de venta  -->
+    <!-- Boton mostrar campo-->
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_marginLeft="20dp"
+        android:id="@+id/btnMostrarCampo"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginLeft="360dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="35dp">
-        <com.google.android.material.textfield.TextInputLayout
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck">
+
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="-3dp"
+            android:gravity="center_horizontal|top"
+            app:srcCompat="@drawable/lupa" />
+    </RelativeLayout>
+
+    <!-- Boton mostrar campo-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btncerrarCampo"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="107dp"
+        android:layout_marginLeft="360dp"
+        android:layout_marginRight="20dp"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        app:cardElevation="5dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal|top"
+            app:srcCompat="@drawable/cerrar" />
+    </androidx.cardview.widget.CardView>
+
+    <!--- Campo de texto buscar el tipo de venta  -->
+    <RelativeLayout
+        android:id="@+id/editTextCampo"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="90dp"
+        android:visibility="gone">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:boxStrokeColor="#705C61"
             app:hintTextColor="#E6000000">
@@ -34,7 +74,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/buscar"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:hint="Buscar..."
                 android:textAppearance="@style/campos_de_texto"
                 android:textColorHint="#65000000"
