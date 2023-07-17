@@ -40,6 +40,10 @@ import com.josue.app_vya.model.venta;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.app.Activity;
+import android.content.Context;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 
 public class HomeFragment extends Fragment {
@@ -48,7 +52,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private venta_adapter adapter;
     private ImageView btncerrarCampo ;
-    private RelativeLayout btnMostrarCampo,  editTextCampo;
+    private RelativeLayout btnMostrarCampo, editTextCampo;
     private TextView txtproducto;
     private TextInputEditText buscar;
 
@@ -93,14 +97,20 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (editTextCampo.getVisibility() == View.VISIBLE) {
+                    // Ocultar los elementos necesarios
                     editTextCampo.setVisibility(View.GONE);
                     btncerrarCampo.setVisibility(View.GONE);
                     btnMostrarCampo.setVisibility(View.VISIBLE);
                     txtproducto.setVisibility(View.VISIBLE);
                     limpiarCampos();
+
+                    // Cerrar el teclado
+                    InputMethodManager inputMethodManager = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
             }
         });
+
 
         return v;
     }

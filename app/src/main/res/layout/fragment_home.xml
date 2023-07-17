@@ -85,7 +85,6 @@
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
-
     <!--- recycle view, donde se carga la vista y muestra todas las ventas  -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

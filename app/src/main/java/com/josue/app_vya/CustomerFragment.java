@@ -1,6 +1,7 @@
 package com.josue.app_vya;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -92,11 +94,16 @@ public class CustomerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (editTextCampo.getVisibility() == View.VISIBLE) {
+                    // Ocultar los elementos necesarios
                     editTextCampo.setVisibility(View.GONE);
                     btncerrarCampo.setVisibility(View.GONE);
                     btnMostrarCampo.setVisibility(View.VISIBLE);
                     txtproducto.setVisibility(View.VISIBLE);
                     limpiarCampos();
+
+                    // Cerrar el teclado
+                    InputMethodManager inputMethodManager = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
             }
         });

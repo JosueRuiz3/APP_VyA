@@ -35,10 +35,10 @@ import java.util.Map;
 
 public class AddCustomerFragment extends Fragment {
 
-    private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total, fecha_entrega, fecha_pago1;
+    private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total, fecha_entrega, fecha_pago1, fecha_pago2;
     private CardView btnagregar;
     private String idVenta;
-    private RelativeLayout btnmostrarCalendario, btnmostrarpago1;
+    private RelativeLayout btnmostrarCalendario, btnmostrarpago1, btnmostrarpago2;
     private FirebaseFirestore mfirestore;
     private ProgressBar progressBar;
     private ProgressDialog progressDialog;
@@ -68,8 +68,10 @@ public class AddCustomerFragment extends Fragment {
         btnagregar = v.findViewById(R.id.btnagregar);
         fecha_entrega = v.findViewById(R.id.fecha_entrega);
         fecha_pago1 = v.findViewById(R.id.fecha_pago1);
+        fecha_pago2 = v.findViewById(R.id.fecha_pago2);
         btnmostrarCalendario = v.findViewById(R.id.btnmostrarCalendario);
         btnmostrarpago1 = v.findViewById(R.id.btnmostrarpago1);
+        btnmostrarpago2 = v.findViewById(R.id.btnmostrarpago2);
         mfirestore = FirebaseFirestore.getInstance();
 
         Bundle args = getActivity().getIntent().getExtras();
@@ -116,6 +118,19 @@ public class AddCustomerFragment extends Fragment {
             }
         });
 
+        btnmostrarpago2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog d = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        fecha_pago2.setText(dayOfMonth + "/" + month + "/" + year);
+                    }
+                },  2023, 1, 1);
+                d.show();
+            }
+        });
+
         btnagregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,7 +161,6 @@ public class AddCustomerFragment extends Fragment {
                 String iFormatted = decimalFormat.format(i);
 
                 total.setText(iFormatted);
-
 
             } catch (NumberFormatException e) {
                 // Manejar la excepción en caso de que la conversión falle
@@ -188,6 +202,9 @@ public class AddCustomerFragment extends Fragment {
         checkField(cantidad);
         checkField(precio_unitario);
         checkField(total);
+        checkField(fecha_entrega);
+        checkField(fecha_pago1);
+        checkField(fecha_pago2);
 
         String nombre_clienteA = nombre_cliente.getText().toString().trim();
         String nombre_productoA = nombre_producto.getText().toString().trim();
@@ -195,15 +212,18 @@ public class AddCustomerFragment extends Fragment {
         String cantidadA = cantidad.getText().toString().trim();
         String precio_unitarioA = precio_unitario.getText().toString().trim();
         String totalA = total.getText().toString().trim();
+        String fecha_entregaA = fecha_entrega.getText().toString().trim();
+        String fecha_pago1A = fecha_pago1.getText().toString().trim();
+        String fecha_pago2A = fecha_pago2.getText().toString().trim();
 
-        if(!nombre_clienteA.isEmpty() && !nombre_productoA.isEmpty() && !cantidadA.isEmpty() && !tallaA.isEmpty() && !precio_unitarioA.isEmpty()&& !totalA.isEmpty() ){
-            postClientes(nombre_clienteA, nombre_productoA, cantidadA, tallaA, precio_unitarioA, totalA);
+        if(!nombre_clienteA.isEmpty() && !nombre_productoA.isEmpty() && !cantidadA.isEmpty() && !tallaA.isEmpty() && !precio_unitarioA.isEmpty() && !totalA.isEmpty() && !fecha_entregaA.isEmpty() && !fecha_pago1A.isEmpty() && !fecha_pago2A.isEmpty()){
+            postClientes(nombre_clienteA, nombre_productoA, cantidadA, tallaA, precio_unitarioA, totalA, fecha_entregaA, fecha_pago1A, fecha_pago2A);
         }else{
             Toast.makeText(getContext(), "Ingresar los datos", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void postClientes(String nombre_clienteA, String nombre_productoA, String cantidadA, String tallaA, String precio_unitarioA, String totalA) {
+    private void postClientes(String nombre_clienteA, String nombre_productoA, String cantidadA, String tallaA, String precio_unitarioA, String totalA,  String fecha_entregaA, String fecha_pago1A, String fecha_pago2A) {
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Agregando cliente...");
         progressDialog.show();
@@ -231,6 +251,9 @@ public class AddCustomerFragment extends Fragment {
         map.put("talla", tallaA);
         map.put("precio_unitario", precio_unitarioA);
         map.put("total", totalA);
+        map.put("fecha_entrega", fecha_entregaA);
+        map.put("fecha_pago1", fecha_pago1A);
+        map.put("fecha_pago2", fecha_pago2A);
 
         // Agregar el mapa como un nuevo documento a la subcolección con el ID del documento principal
         clientesRef.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -255,6 +278,9 @@ public class AddCustomerFragment extends Fragment {
         cantidad.setText("");
         precio_unitario.setText("");
         total.setText("");
+        fecha_entrega.setText("");
+        fecha_pago1.setText("");
+        fecha_pago2.setText("");
     }
 
     public boolean checkField(EditText textField){
