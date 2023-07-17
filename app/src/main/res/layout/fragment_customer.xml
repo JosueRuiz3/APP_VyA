@@ -5,78 +5,84 @@
     android:layout_height="match_parent"
     tools:context=".CustomerFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white">
+    android:background="#F7F7F7">
 
-    <TextView
-        android:id="@+id/txtproducto"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="27dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:gravity=""
-        android:text="Clientes"
-        android:textAppearance="@style/Tittles" />
+        android:layout_height="60dp"
+        app:cardBackgroundColor="#F7F7F7"
+        app:cardElevation="2dp">
 
-    <!-- Boton mostrar campo-->
-    <RelativeLayout
-        android:id="@+id/btnMostrarCampo"
-        android:layout_width="27dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="360dp"
-        android:layout_marginRight="20dp"
-        android:clickable="true"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck">
+        <TextView
+            android:id="@+id/txtproducto"
+            android:layout_width="match_parent"
+            android:layout_height="27dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:gravity=""
+            android:text="Clientes"
+            android:textAppearance="@style/Tittles" />
+
+        <!-- Boton mostrar campo-->
+        <RelativeLayout
+            android:id="@+id/btnMostrarCampo"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="360dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="25dp"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal|top"
+                app:srcCompat="@drawable/lupa" />
+        </RelativeLayout>
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:id="@+id/btncerrarCampo"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="360dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="23dp"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:gravity="center_horizontal|top"
-            app:srcCompat="@drawable/lupa" />
-    </RelativeLayout>
+            app:srcCompat="@drawable/cerrar"
+            android:elevation="5dp"
+            android:visibility="gone"/>
 
-    <ImageView
-        android:id="@+id/btncerrarCampo"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="360dp"
-        android:layout_marginRight="20dp"
-        android:clickable="true"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        android:gravity="center_horizontal|top"
-        app:srcCompat="@drawable/cerrar"
-        android:elevation="5dp"
-        android:visibility="gone"/>
-
-    <!--- Campo de texto buscar el tipo de venta  -->
-    <RelativeLayout
-        android:id="@+id/editTextCampo"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="0dp"
-        android:visibility="gone">
-        <com.google.android.material.textfield.TextInputLayout
+        <!--- Campo de texto buscar el tipo de venta  -->
+        <RelativeLayout
+            android:id="@+id/editTextCampo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:boxStrokeColor="#705C61"
-            app:hintTextColor="#E6000000">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/buscar"
+            android:layout_height="55dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="0dp"
+            android:visibility="gone">
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Buscar..."
-                android:textAppearance="@style/campos_de_texto"
-                android:textColorHint="#65000000"
-                tools:ignore="TouchTargetSizeCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </RelativeLayout>
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="#705C61"
+                app:hintTextColor="#E6000000">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/buscar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Buscar..."
+                    android:textAppearance="@style/campos_de_texto"
+                    android:textColorHint="#65000000"
+                    tools:ignore="TouchTargetSizeCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
     <!--- recycle view, donde se carga la vista y muestra todas las ventas  -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

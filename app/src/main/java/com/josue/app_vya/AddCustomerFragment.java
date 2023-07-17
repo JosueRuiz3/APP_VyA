@@ -35,10 +35,10 @@ import java.util.Map;
 
 public class AddCustomerFragment extends Fragment {
 
-    private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total, fecha_entrega;
+    private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total, fecha_entrega, fecha_pago1;
     private CardView btnagregar;
     private String idVenta;
-    private RelativeLayout btnmostrarCalendario;
+    private RelativeLayout btnmostrarCalendario, btnmostrarpago1;
     private FirebaseFirestore mfirestore;
     private ProgressBar progressBar;
     private ProgressDialog progressDialog;
@@ -67,7 +67,9 @@ public class AddCustomerFragment extends Fragment {
         talla = v.findViewById(R.id.talla);
         btnagregar = v.findViewById(R.id.btnagregar);
         fecha_entrega = v.findViewById(R.id.fecha_entrega);
+        fecha_pago1 = v.findViewById(R.id.fecha_pago1);
         btnmostrarCalendario = v.findViewById(R.id.btnmostrarCalendario);
+        btnmostrarpago1 = v.findViewById(R.id.btnmostrarpago1);
         mfirestore = FirebaseFirestore.getInstance();
 
         Bundle args = getActivity().getIntent().getExtras();
@@ -95,6 +97,19 @@ public class AddCustomerFragment extends Fragment {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         fecha_entrega.setText(dayOfMonth + "/" + month + "/" + year);
+                    }
+                },  2023, 1, 1);
+                d.show();
+            }
+        });
+
+        btnmostrarpago1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog d = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        fecha_pago1.setText(dayOfMonth + "/" + month + "/" + year);
                     }
                 },  2023, 1, 1);
                 d.show();
