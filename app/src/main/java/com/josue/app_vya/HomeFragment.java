@@ -51,8 +51,8 @@ public class HomeFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView recyclerView;
     private venta_adapter adapter;
-    private ImageView btncerrarCampo ;
-    private RelativeLayout btnMostrarCampo, editTextCampo;
+   // private ImageView btncerrarCampo ;
+    private RelativeLayout btnMostrarCampo, editTextCampo, btncerrarCampo;
     private TextView txtproducto;
     private TextInputEditText buscar;
 
