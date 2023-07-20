@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,6 +11,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
         app:cardBackgroundColor="#F7F7F7"
         app:cardElevation="2dp">
 
@@ -23,38 +26,51 @@
             android:text="Clientes"
             android:textAppearance="@style/Tittles" />
 
-        <!-- Boton mostrar campo-->
         <RelativeLayout
-            android:id="@+id/btnMostrarCampo"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="360dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="25dp"
-            android:clickable="true"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right">
+            <!-- Boton mostrar campo-->
+            <RelativeLayout
+                android:id="@+id/btnMostrarCampo"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal|top"
-                app:srcCompat="@drawable/lupa" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:srcCompat="@drawable/lupa" />
+            </RelativeLayout>
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/btncerrarCampo"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginLeft="360dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="23dp"
-            android:clickable="true"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:gravity="center_horizontal|top"
-            app:srcCompat="@drawable/cerrar"
-            android:elevation="5dp"
-            android:visibility="gone"/>
+        <!-- Boton mostrar campo-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:elevation="50dp">
+            <RelativeLayout
+                android:id="@+id/btncerrarCampo"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="30dp"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:visibility="gone"
+                android:elevation="50dp"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck,DuplicateClickableBoundsCheck">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:srcCompat="@drawable/cerrar" />
+            </RelativeLayout>
+        </RelativeLayout>
 
         <!--- Campo de texto buscar el tipo de venta  -->
         <RelativeLayout
@@ -83,6 +99,7 @@
             </com.google.android.material.textfield.TextInputLayout>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
+
     <!--- recycle view, donde se carga la vista y muestra todas las ventas  -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -90,4 +107,4 @@
         android:layout_height="match_parent"
         android:layout_marginTop="60dp">
     </androidx.recyclerview.widget.RecyclerView>
-</FrameLayout>
+</RelativeLayout>

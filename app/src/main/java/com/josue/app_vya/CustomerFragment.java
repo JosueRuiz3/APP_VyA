@@ -49,8 +49,7 @@ public class CustomerFragment extends Fragment {
     private RecyclerView recyclerView;
     private cliente_adapter adapter;
     private String idd;
-    private ImageView btncerrarCampo ;
-    private RelativeLayout btnMostrarCampo,  editTextCampo;
+    private RelativeLayout btnMostrarCampo, editTextCampo, btncerrarCampo;
     private TextView txtproducto;
     private TextInputEditText buscar;
 
