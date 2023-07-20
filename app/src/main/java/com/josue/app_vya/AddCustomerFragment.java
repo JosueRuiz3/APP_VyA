@@ -30,6 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -92,44 +93,85 @@ public class AddCustomerFragment extends Fragment {
         // Agregar el TextWatcher al EditText precio_compra
         precio_unitario.addTextChangedListener(textWatcher);
 
+        // Listener para el clic en el botón
         btnmostrarCalendario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog d = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                // Obtener la fecha actual del sistema
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+                // Crear el DatePickerDialog con la fecha actual como valor predeterminado
+                DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        fecha_entrega.setText(dayOfMonth + "/" + month + "/" + year);
+                        // Mostrar la fecha seleccionada en un TextView llamado 'fecha_entrega'
+                        fecha_entrega.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+
+                        // Verificar si la fecha seleccionada es anterior a la fecha actual
+                        Calendar selectedCalendar = Calendar.getInstance();
+                        selectedCalendar.set(year, month, dayOfMonth);
+                        if (selectedCalendar.before(Calendar.getInstance())) {
+                            // La fecha seleccionada es anterior a la fecha actual, mostrar una alerta (puedes usar Toast o AlertDialog)
+                            mostrarAlertaFechaAnterior();
+                        }
                     }
-                },  2023, 1, 1);
-                d.show();
+                }, year, month, dayOfMonth);
+
+                // Mostrar el DatePickerDialog
+                datePickerDialog.show();
             }
         });
 
         btnmostrarpago1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog d = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                // Obtener la fecha actual del sistema
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+                // Crear el DatePickerDialog con la fecha actual como valor predeterminado
+                DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        fecha_pago1.setText(dayOfMonth + "/" + month + "/" + year);
+                        // Mostrar la fecha seleccionada en un TextView llamado 'fecha_pago1'
+                        fecha_pago1.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
                     }
-                },  2023, 1, 1);
-                d.show();
+                }, year, month, dayOfMonth);
+
+                // Mostrar el DatePickerDialog
+                datePickerDialog.show();
             }
         });
+
 
         btnmostrarpago2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog d = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                // Obtener la fecha actual del sistema
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+                // Crear el DatePickerDialog con la fecha actual como valor predeterminado
+                DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        fecha_pago2.setText(dayOfMonth + "/" + month + "/" + year);
+                        // Mostrar la fecha seleccionada en un TextView llamado 'fecha_pago2'
+                        fecha_pago2.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
                     }
-                },  2023, 1, 1);
-                d.show();
+                }, year, month, dayOfMonth);
+
+                // Mostrar el DatePickerDialog
+                datePickerDialog.show();
             }
         });
+
 
         btnagregar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +181,10 @@ public class AddCustomerFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private void mostrarAlertaFechaAnterior() {
+        Toast.makeText(requireContext(), "La fecha seleccionada es anterior a la fecha actual", Toast.LENGTH_SHORT).show();
     }
 
     private TextWatcher textWatcher = new TextWatcher() {
