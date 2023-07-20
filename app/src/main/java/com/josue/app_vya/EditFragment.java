@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -36,7 +37,8 @@ import java.util.Map;
 public class EditFragment extends Fragment {
 
     private boolean valid = true;
-    private CardView btneditar, btneliminar;
+    private CardView btneditar;
+    RelativeLayout btneliminar;
     private String id_ventas;
     private TextInputEditText nombre_producto, talla, precio_compra, precio_venta, stock;
     private FirebaseFirestore mfirestore;
