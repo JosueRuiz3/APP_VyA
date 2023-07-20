@@ -35,7 +35,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
 
     private CardView btneditar ;
     RelativeLayout btneliminar;
-    private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
+    private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, descripcion, total;
     private String idd, iddVenta;
     private FirebaseFirestore mfirestore;
     private ProgressBar progressBar;
@@ -51,8 +51,8 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         precio_unitario = findViewById(R.id.precio_unitario);
         total = findViewById(R.id.total);
         nombre_cliente = findViewById(R.id.nombre_cliente);
+        descripcion = findViewById(R.id.descripcion);
         nombre_producto = findViewById(R.id.nombre_producto);
-        talla = findViewById(R.id.talla);
         btneditar = findViewById(R.id.btneditar);
         btneliminar = findViewById(R.id.btneliminar);
         mfirestore = FirebaseFirestore.getInstance();
@@ -86,18 +86,18 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                                 checkField(nombre_cliente);
                                 checkField(cantidad);
                                 checkField(precio_unitario);
-                                checkField(talla);
+                                checkField(descripcion);
                                 checkField(total);
 
                                 String nombreClienteA = nombre_cliente.getText().toString().trim();
                                 String nombreProductoA = nombre_producto.getText().toString().trim();
                                 String cantidadA = cantidad.getText().toString().trim();
-                                String tallaA = talla.getText().toString().trim();
+                                String descripcionA = descripcion.getText().toString().trim();
                                 String precioUnitarioA = precio_unitario.getText().toString().trim();
                                 String totalA = total.getText().toString().trim();
 
-                                if (!nombreClienteA.isEmpty() && !nombreProductoA.isEmpty() && !cantidadA.isEmpty() && !tallaA.isEmpty() && !precioUnitarioA.isEmpty() && !totalA.isEmpty()) {
-                                    update(nombreClienteA, nombreProductoA, cantidadA, tallaA, precioUnitarioA, totalA, idCliente);
+                                if (!nombreClienteA.isEmpty() && !nombreProductoA.isEmpty() && !cantidadA.isEmpty() && !descripcionA.isEmpty() && !precioUnitarioA.isEmpty() && !totalA.isEmpty()) {
+                                    update(nombreClienteA, nombreProductoA, cantidadA, descripcionA, precioUnitarioA, totalA, idCliente);
 
                                 } else {
                                     Toast.makeText(CustomerDetailsActivity.this, "Ingrese los datos", Toast.LENGTH_SHORT).show();
@@ -187,14 +187,14 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         String nombre_clienteA = args.getString("nombre_cliente");
         String nombre_productoA = args.getString("nombre_producto");
         String cantidadA = args.getString("cantidad");
-        String tallaA = args.getString("talla");
+        String descripcionA = args.getString("descripcion");
         String precio_unitarioA = args.getString("precio_unitario");
         String totalA = args.getString("total");
 
         nombre_cliente.setText(nombre_clienteA);
         nombre_producto.setText(nombre_productoA);
         cantidad.setText(cantidadA);
-        talla.setText(tallaA);
+        descripcion.setText(descripcionA);
         precio_unitario.setText(precio_unitarioA);
         total.setText(totalA);
 
@@ -211,7 +211,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
        });
     }
 
-    private void update(String nombre_clienteA, String nombre_productoA, String cantidadA, String tallaA, String precio_unitarioA, String totalA, String idCliente){
+    private void update(String nombre_clienteA, String nombre_productoA, String cantidadA, String descripcionA, String precio_unitarioA, String totalA, String idCliente){
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Actualizando detalle cliente...");
         progressDialog.show();
@@ -224,7 +224,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         map.put("nombre_cliente", nombre_clienteA);
         map.put("nombre_producto", nombre_productoA);
         map.put("cantidad", cantidadA);
-        map.put("talla", tallaA);
+        map.put("descripcion", descripcionA);
         map.put("precio_unitario", precio_unitarioA);
         map.put("total", totalA);
 

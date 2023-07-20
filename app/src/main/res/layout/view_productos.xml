@@ -24,21 +24,21 @@
             android:layout_height="30dp"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="25dp"
-            android:layout_marginRight="120dp"
+            android:layout_marginRight="25dp"
             android:gravity=""
             android:text="Nombre del producto"
             android:textAppearance="@style/campos_de_texto"
             android:textSize="18dp"/>
 
         <TextView
-            android:id="@+id/talla"
+            android:id="@+id/descripcion"
             android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:layout_height="24dp"
             android:layout_marginTop="60dp"
             android:layout_marginLeft="25dp"
-            android:layout_marginRight="200dp"
+            android:layout_marginRight="150dp"
             android:gravity=""
-            android:text="Talla(s)"
+            android:text="Descripcion"
             android:textAppearance="@style/campos_de_texto"
             android:textSize="18dp"/>
 

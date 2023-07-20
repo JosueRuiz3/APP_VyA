@@ -53,7 +53,7 @@ public class venta_adapter extends FirestoreRecyclerAdapter<venta, venta_adapter
         final String id = documentSnapshot.getId();
 
         holder.nombre_producto.setText(Venta.getNombre_producto());
-        holder.talla.setText(Venta.getTalla());
+        holder.descripcion.setText(Venta.getDescripcion());
         holder.precio_venta.setText(Venta.getPrecio_venta());
 
         holder.editar.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +75,7 @@ public class venta_adapter extends FirestoreRecyclerAdapter<venta, venta_adapter
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView nombre_producto, talla, precio_venta;
+        TextView nombre_producto, descripcion, precio_venta;
         CardView editar;
 
         public ViewHolder(@NonNull View itemView) {
@@ -83,7 +83,7 @@ public class venta_adapter extends FirestoreRecyclerAdapter<venta, venta_adapter
 
             editar = itemView.findViewById(R.id.btn_editar);
             nombre_producto = itemView.findViewById(R.id.nombre_producto);
-            talla = itemView.findViewById(R.id.talla);
+            descripcion = itemView.findViewById(R.id.descripcion);
             precio_venta = itemView.findViewById(R.id.precio_venta);
         }
     }

@@ -2,15 +2,15 @@ package com.josue.app_vya.model;
 
 public class venta {
 
-    String nombre_producto, stock, talla, precio_compra, precio_venta;
+    String nombre_producto, stock, descripcion, precio_compra, precio_venta;
 
     public venta() {
     }
 
-    public venta(String nombre_producto, String stock, String talla, String precio_compra, String precio_venta) {
+    public venta(String nombre_producto, String stock, String descripcion, String precio_compra, String precio_venta) {
         this.nombre_producto = nombre_producto;
         this.stock = stock;
-        this.talla = talla;
+        this.descripcion = descripcion;
         this.precio_compra = precio_compra;
         this.precio_venta = precio_venta;
     }
@@ -31,12 +31,12 @@ public class venta {
         this.stock = stock;
     }
 
-    public String getTalla() {
-        return talla;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setTalla(String talla) {
-        this.talla = talla;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getPrecio_compra() {

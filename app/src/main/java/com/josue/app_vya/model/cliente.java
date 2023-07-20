@@ -1,17 +1,17 @@
 package com.josue.app_vya.model;
 
 public class cliente {
-    String nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total, idVenta, fecha_entrega, fecha_pago1, fecha_pago2;
+    String nombre_cliente, nombre_producto, cantidad, precio_unitario, descripcion, total, idVenta, fecha_entrega, fecha_pago1, fecha_pago2;
 
     public cliente() {
     }
 
-    public cliente(String nombre_cliente, String nombre_producto, String cantidad, String precio_unitario, String talla, String total, String idVenta, String fecha_entrega, String fecha_pago1, String fecha_pago2) {
+    public cliente(String nombre_cliente, String nombre_producto, String cantidad, String precio_unitario, String descripcion, String total, String idVenta, String fecha_entrega, String fecha_pago1, String fecha_pago2) {
         this.nombre_cliente = nombre_cliente;
         this.nombre_producto = nombre_producto;
         this.cantidad = cantidad;
         this.precio_unitario = precio_unitario;
-        this.talla = talla;
+        this.descripcion = descripcion;
         this.total = total;
         this.idVenta = idVenta;
         this.fecha_entrega = fecha_entrega;
@@ -51,12 +51,12 @@ public class cliente {
         this.precio_unitario = precio_unitario;
     }
 
-    public String getTalla() {
-        return talla;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setTalla(String talla) {
-        this.talla = talla;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getTotal() {

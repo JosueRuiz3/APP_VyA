@@ -29,7 +29,7 @@ public class AddFragment extends Fragment {
 
     private CardView btnagregar;
     private String id_ventas;
-    private TextInputEditText nombre_producto, talla, precio_compra, precio_venta, stock;
+    private TextInputEditText nombre_producto, descripcion, precio_compra, precio_venta, stock;
     private FirebaseFirestore mFirestore;
     private ProgressBar progressBar;
     private ProgressDialog progressDialog;
@@ -50,7 +50,7 @@ public class AddFragment extends Fragment {
 
         mFirestore = FirebaseFirestore.getInstance();
         nombre_producto = v.findViewById(R.id.nombre_producto);
-        talla = v.findViewById(R.id.talla);
+        descripcion = v.findViewById(R.id.descripcion);
         stock = v.findViewById(R.id.stock);
         precio_compra = v.findViewById(R.id.precio_compra);
         precio_venta = v.findViewById(R.id.precio_venta);
@@ -83,19 +83,19 @@ public class AddFragment extends Fragment {
 
     private void guardar(){
         checkField(nombre_producto);
-        checkField(talla);
+        checkField(descripcion);
         checkField(stock);
         checkField(precio_compra);
         checkField(precio_venta);
 
         String productoA = nombre_producto.getText().toString().trim();
         String stockA = stock.getText().toString().trim();
-        String tallaA = talla.getText().toString().trim();
+        String descripcionA = descripcion.getText().toString().trim();
         String precio_compraA = precio_compra.getText().toString().trim();
         String precio_ventaA = precio_venta.getText().toString().trim();
 
-        if(!productoA.isEmpty() && !stockA.isEmpty() && !tallaA.isEmpty() && !precio_compraA.isEmpty() && !precio_ventaA.isEmpty()){
-            postVentas(productoA, stockA, tallaA, precio_compraA, precio_ventaA);
+        if(!productoA.isEmpty() && !stockA.isEmpty() && !descripcionA.isEmpty() && !precio_compraA.isEmpty() && !precio_ventaA.isEmpty()){
+            postVentas(productoA, stockA, descripcionA, precio_compraA, precio_ventaA);
         }
         else{
             Toast.makeText(getContext(), "Ingresar los datos", Toast.LENGTH_SHORT).show();
@@ -103,7 +103,7 @@ public class AddFragment extends Fragment {
 
     }
 
-    private void postVentas(String productoA, String stockA, String tallaA, String precio_compraA, String precio_ventaA){
+    private void postVentas(String productoA, String stockA, String descripcionA, String precio_compraA, String precio_ventaA){
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Agregando producto...");
         progressDialog.show();
@@ -114,7 +114,7 @@ public class AddFragment extends Fragment {
         Map<String, Object> map = new HashMap<>();
         map.put("idVenta", ventaRef.getId());
         map.put("nombre_producto", productoA);
-        map.put("talla", tallaA);
+        map.put("descripcion", descripcionA);
         map.put("stock", stockA);
         map.put("precio_compra", precio_compraA);
         map.put("precio_venta", precio_ventaA);
@@ -138,7 +138,7 @@ public class AddFragment extends Fragment {
 
     private void limpiarCampos(){
         nombre_producto.setText("");
-        talla.setText("");
+        descripcion.setText("");
         stock.setText("");
         precio_compra.setText("");
         precio_venta.setText("");

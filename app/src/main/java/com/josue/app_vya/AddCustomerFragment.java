@@ -35,7 +35,7 @@ import java.util.Map;
 
 public class AddCustomerFragment extends Fragment {
 
-    private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total, fecha_entrega, fecha_pago1, fecha_pago2;
+    private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, descripcion, total, fecha_entrega, fecha_pago1, fecha_pago2;
     private CardView btnagregar;
     private String idVenta;
     private RelativeLayout btnmostrarCalendario, btnmostrarpago1, btnmostrarpago2;
@@ -64,7 +64,7 @@ public class AddCustomerFragment extends Fragment {
         total = v.findViewById(R.id.total);
         nombre_cliente = v.findViewById(R.id.nombre_cliente);
         nombre_producto = v.findViewById(R.id.nombre_producto);
-        talla = v.findViewById(R.id.talla);
+        descripcion = v.findViewById(R.id.descripcion);
         btnagregar = v.findViewById(R.id.btnagregar);
         fecha_entrega = v.findViewById(R.id.fecha_entrega);
         fecha_pago1 = v.findViewById(R.id.fecha_pago1);
@@ -198,7 +198,7 @@ public class AddCustomerFragment extends Fragment {
     private void guardar(){
         checkField(nombre_cliente);
         checkField(nombre_producto);
-        checkField(talla);
+        checkField(descripcion);
         checkField(cantidad);
         checkField(precio_unitario);
         checkField(total);
@@ -208,7 +208,7 @@ public class AddCustomerFragment extends Fragment {
 
         String nombre_clienteA = nombre_cliente.getText().toString().trim();
         String nombre_productoA = nombre_producto.getText().toString().trim();
-        String tallaA = talla.getText().toString().trim();
+        String descripcionA = descripcion.getText().toString().trim();
         String cantidadA = cantidad.getText().toString().trim();
         String precio_unitarioA = precio_unitario.getText().toString().trim();
         String totalA = total.getText().toString().trim();
@@ -216,14 +216,14 @@ public class AddCustomerFragment extends Fragment {
         String fecha_pago1A = fecha_pago1.getText().toString().trim();
         String fecha_pago2A = fecha_pago2.getText().toString().trim();
 
-        if(!nombre_clienteA.isEmpty() && !nombre_productoA.isEmpty() && !cantidadA.isEmpty() && !tallaA.isEmpty() && !precio_unitarioA.isEmpty() && !totalA.isEmpty() && !fecha_entregaA.isEmpty() && !fecha_pago1A.isEmpty() && !fecha_pago2A.isEmpty()){
-            postClientes(nombre_clienteA, nombre_productoA, cantidadA, tallaA, precio_unitarioA, totalA, fecha_entregaA, fecha_pago1A, fecha_pago2A);
+        if(!nombre_clienteA.isEmpty() && !nombre_productoA.isEmpty() && !cantidadA.isEmpty() && !descripcionA.isEmpty() && !precio_unitarioA.isEmpty() && !totalA.isEmpty() && !fecha_entregaA.isEmpty() && !fecha_pago1A.isEmpty() && !fecha_pago2A.isEmpty()){
+            postClientes(nombre_clienteA, nombre_productoA, cantidadA, descripcionA, precio_unitarioA, totalA, fecha_entregaA, fecha_pago1A, fecha_pago2A);
         }else{
             Toast.makeText(getContext(), "Ingresar los datos", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void postClientes(String nombre_clienteA, String nombre_productoA, String cantidadA, String tallaA, String precio_unitarioA, String totalA,  String fecha_entregaA, String fecha_pago1A, String fecha_pago2A) {
+    private void postClientes(String nombre_clienteA, String nombre_productoA, String cantidadA, String descripcionA, String precio_unitarioA, String totalA,  String fecha_entregaA, String fecha_pago1A, String fecha_pago2A) {
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Agregando cliente...");
         progressDialog.show();
@@ -248,7 +248,7 @@ public class AddCustomerFragment extends Fragment {
         map.put("nombre_cliente", nombre_clienteA);
         map.put("nombre_producto", nombre_productoA);
         map.put("cantidad", cantidadA);
-        map.put("talla", tallaA);
+        map.put("descripcion", descripcionA);
         map.put("precio_unitario", precio_unitarioA);
         map.put("total", totalA);
         map.put("fecha_entrega", fecha_entregaA);
@@ -274,7 +274,7 @@ public class AddCustomerFragment extends Fragment {
     private void limpiarCampos(){
         nombre_cliente.setText("");
         nombre_producto.setText("");
-        talla.setText("");
+        descripcion.setText("");
         cantidad.setText("");
         precio_unitario.setText("");
         total.setText("");

@@ -33,7 +33,7 @@ public class DetailsFragment extends Fragment {
 
     private String id_ventas;
     private boolean valid = true;
-    private TextInputEditText nombre_producto, talla, precio_compra, precio_venta, stock, invertido, ganancia;
+    private TextInputEditText nombre_producto, descripcion, precio_compra, precio_venta, stock, invertido, ganancia;
     private FirebaseFirestore mfirestore;
     private String idd;
 
@@ -51,7 +51,7 @@ public class DetailsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_details, container, false);
 
         nombre_producto = v.findViewById(R.id.nombre_producto);
-        talla = v.findViewById(R.id.talla);
+        descripcion = v.findViewById(R.id.descripcion);
         stock = v.findViewById(R.id.stock);
         precio_compra = v.findViewById(R.id.precio_compra);
         precio_venta = v.findViewById(R.id.precio_venta);
@@ -143,13 +143,13 @@ public class DetailsFragment extends Fragment {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 String name = documentSnapshot.getString("nombre_producto");
                 String stocks = documentSnapshot.getString("stock");
-                String size = documentSnapshot.getString("talla");
+                String description = documentSnapshot.getString("descripcion");
                 String price_c = documentSnapshot.getString("precio_compra");
                 String price_s = documentSnapshot.getString("precio_venta");
 
                 nombre_producto.setText(name);
                 stock.setText(stocks);
-                talla.setText(size);
+                descripcion.setText(description);
                 precio_compra.setText(price_c);
                 precio_venta.setText(price_s);
 

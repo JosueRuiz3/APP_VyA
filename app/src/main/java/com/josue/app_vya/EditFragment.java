@@ -40,7 +40,7 @@ public class EditFragment extends Fragment {
     private CardView btneditar;
     RelativeLayout btneliminar;
     private String id_ventas;
-    private TextInputEditText nombre_producto, talla, precio_compra, precio_venta, stock;
+    private TextInputEditText nombre_producto, descripcion, precio_compra, precio_venta, stock;
     private FirebaseFirestore mfirestore;
     private String idd;
     private StorageReference storageReference;
@@ -62,7 +62,7 @@ public class EditFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_edit, container, false);
 
         nombre_producto = v.findViewById(R.id.nombre_producto);
-        talla = v.findViewById(R.id.talla);
+        descripcion = v.findViewById(R.id.descripcion);
         stock = v.findViewById(R.id.stock);
         precio_compra = v.findViewById(R.id.precio_compra);
         precio_venta = v.findViewById(R.id.precio_venta);
@@ -93,19 +93,19 @@ public class EditFragment extends Fragment {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 idd = idVenta;
                                 checkField(nombre_producto);
-                                checkField(talla);
+                                checkField(descripcion);
                                 checkField(stock);
                                 checkField(precio_compra);
                                 checkField(precio_venta);
 
                                 String productoA = nombre_producto.getText().toString().trim();
                                 String stockA = stock.getText().toString().trim();
-                                String tallaA = talla.getText().toString().trim();
+                                String descripcionA = descripcion.getText().toString().trim();
                                 String precio_compraA = precio_compra.getText().toString().trim();
                                 String precio_ventaA = precio_venta.getText().toString().trim();
 
-                                if (!productoA.isEmpty() && !stockA.isEmpty() && !tallaA.isEmpty() && !precio_compraA.isEmpty() && !precio_ventaA.isEmpty()) {
-                                    update(productoA, stockA, tallaA, precio_compraA, precio_ventaA, idVenta);
+                                if (!productoA.isEmpty() && !stockA.isEmpty() && !descripcionA.isEmpty() && !precio_compraA.isEmpty() && !precio_ventaA.isEmpty()) {
+                                    update(productoA, stockA, descripcionA, precio_compraA, precio_ventaA, idVenta);
 
                                 } else {
                                     Toast.makeText(getContext(), "Ingrese los datos", Toast.LENGTH_SHORT).show();
@@ -153,13 +153,13 @@ public class EditFragment extends Fragment {
         precio_compra.setText(String.valueOf(value2));
     }
 
-    private void update(String productoA,String stockA, String tallaA,String precio_compraA, String precio_ventaA, String idVenta) {
+    private void update(String productoA,String stockA, String descripcionA, String precio_compraA, String precio_ventaA, String idVenta) {
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Actualizando producto...");
         progressDialog.show();
         Map<String, Object> map = new HashMap<>();
         map.put("nombre_producto",productoA);
-        map.put("talla",tallaA);
+        map.put("descripcion",descripcionA);
         map.put("stock",stockA);
         map.put("precio_compra",precio_compraA);
         map.put("precio_venta",precio_ventaA);
@@ -184,13 +184,13 @@ public class EditFragment extends Fragment {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 String name = documentSnapshot.getString("nombre_producto");
                 String stocks = documentSnapshot.getString("stock");
-                String size = documentSnapshot.getString("talla");
+                String description = documentSnapshot.getString("descripcion");
                 String price_c = documentSnapshot.getString("precio_compra");
                 String price_s = documentSnapshot.getString("precio_venta");
 
                 nombre_producto.setText(name);
                 stock.setText(stocks);
-                talla.setText(size);
+                descripcion.setText(description);
                 precio_compra.setText(price_c);
                 precio_venta.setText(price_s);
 

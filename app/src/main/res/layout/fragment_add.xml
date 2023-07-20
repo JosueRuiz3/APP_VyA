@@ -11,7 +11,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="590dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:elevation="5dp"
@@ -55,6 +55,28 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
 
+            <!-- Talla Campos de texto-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="205dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeColor="#705C61"
+                    app:hintTextColor="#E6000000">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/descripcion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Descripcion"
+                        android:textAppearance="@style/campos_de_texto"
+                        android:textColorHint="#65000000" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
@@ -73,7 +95,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="20mm"
-                android:layout_marginTop="370dp">
+                android:layout_marginTop="465dp">
                 <!-- Boton agregar producto-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/btnagregar"
@@ -110,7 +132,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_marginTop="205dp">
+                    android:layout_marginTop="300dp">
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -133,7 +155,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_marginTop="300dp">
+                    android:layout_marginTop="395dp">
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -164,33 +186,13 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="20dp">
 
-                <!-- Talla Campos de texto-->
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_marginTop="205dp">
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:boxBackgroundColor="@color/white"
-                        app:boxStrokeColor="#705C61"
-                        app:hintTextColor="#E6000000">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/talla"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Talla(s)"
-                            android:textAppearance="@style/campos_de_texto"
-                            android:textColorHint="#65000000" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </RelativeLayout>
 
                 <!-- Precio de venta Campos de texto-->
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_marginTop="300dp">
+                    android:layout_marginTop="395dp">
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

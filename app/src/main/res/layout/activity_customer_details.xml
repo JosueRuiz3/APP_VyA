@@ -159,10 +159,10 @@
                             app:hintTextColor="#E6000000">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/talla"
+                                android:id="@+id/descripcion"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Talla(s)"
+                                android:hint="Descripcion"
                                 android:textAppearance="@style/campos_de_texto"
                                 android:textColorHint="#65000000"
                                 tools:ignore="TouchTargetSizeCheck" />
