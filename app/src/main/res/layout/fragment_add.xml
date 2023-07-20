@@ -83,7 +83,7 @@
                     android:clickable="true"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
                     app:cardBackgroundColor="#E1E1E1"
-                    app:cardCornerRadius="10dp"
+                    app:cardCornerRadius="15dp"
                     app:cardElevation="2dp"
                     tools:ignore="TouchTargetSizeCheck">
                     <TextView

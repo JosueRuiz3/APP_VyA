@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:layout_marginTop="20dp"
     android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    app:cardCornerRadius="5dp"
-    app:cardBackgroundColor="#E3D1D5"
-    android:elevation="5dp"
-    android:clickable="true"
-    android:foreground="?attr/selectableItemBackgroundBorderless">
+    android:layout_marginRight="20dp">
 
-    <RelativeLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/btn_editar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:cardCornerRadius="15dp"
+        app:cardBackgroundColor="#E3D1D5"
+        android:elevation="15dp"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless">
 
         <TextView
             android:id="@+id/nombre_producto"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginTop="15dp"
-            android:layout_marginLeft="35dp"
+            android:layout_marginLeft="25dp"
             android:layout_marginRight="120dp"
             android:gravity=""
             android:text="Nombre del producto"
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:layout_marginTop="60dp"
-            android:layout_marginLeft="35dp"
+            android:layout_marginLeft="25dp"
             android:layout_marginRight="200dp"
             android:gravity=""
             android:text="Talla(s)"
@@ -48,11 +48,11 @@
             android:layout_height="25dp"
             android:layout_marginTop="60dp"
             android:layout_marginLeft="200dp"
-            android:layout_marginRight="35dp"
+            android:layout_marginRight="25dp"
             android:gravity="center_horizontal|end"
             android:text="Precio venta"
             android:textAppearance="@style/Tittles"
             android:textSize="18dp"/>
 
-    </RelativeLayout>
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

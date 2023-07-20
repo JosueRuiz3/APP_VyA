@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -82,7 +83,7 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total, fecha_entrega;
-        RelativeLayout editar;
+        CardView editar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

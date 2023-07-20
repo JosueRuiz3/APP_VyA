@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,7 +33,8 @@ import java.util.Map;
 
 public class CustomerDetailsActivity extends AppCompatActivity {
 
-   private CardView btneditar, btneliminar;
+    private CardView btneditar ;
+    RelativeLayout btneliminar;
     private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total;
     private String idd, iddVenta;
     private FirebaseFirestore mfirestore;

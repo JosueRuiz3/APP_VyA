@@ -76,7 +76,7 @@ public class venta_adapter extends FirestoreRecyclerAdapter<venta, venta_adapter
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView nombre_producto, talla, precio_venta;
-        RelativeLayout editar;
+        CardView editar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
