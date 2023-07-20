@@ -4,36 +4,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
+    android:gravity="center_horizontal|center"
     android:background="#F7F7F7"
     tools:context=".AddCustomerFragment">
 
-        <!-- Tipo de venta Titulo -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="27dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="60dp"
-            android:text="Añadir nuevo cliente"
-            android:textAppearance="@style/Tittles"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="620dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:elevation="5dp"
+        app:cardCornerRadius="20dp">
 
-        <androidx.cardview.widget.CardView
+        <!-- Centro de la pantalla -->
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="620dp"
-            android:layout_marginLeft="20dp"
+            android:layout_height="match_parent"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="100dp"
-            android:elevation="5dp"
-            app:cardCornerRadius="20dp">
+            android:layout_marginLeft="20dp">
+
+            <!-- Tipo de venta Titulo -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="27dp"
+                android:layout_marginTop="20dp"
+                android:text="Añadir cliente"
+                android:textAppearance="@style/Tittles"/>
 
             <!-- Cliente Campos de texto-->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="75dp">
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -51,14 +53,11 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
 
-
             <!-- Producto Campos de texto-->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="100dp">
+                android:layout_marginTop="150dp">
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -76,115 +75,220 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
 
-            <!-- Cantidad Campos de texto-->
+
+            <!-- Lado izquierdo de la pantalla -->
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="190dp"
-                android:layout_marginTop="190dp">
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="#705C61"
-                    app:hintTextColor="#E6000000">
+                android:layout_height="match_parent"
+                android:gravity="left">
+                <RelativeLayout
+                    android:layout_width="1.05in"
+                    android:layout_height="match_parent">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/cantidad"
+                    <!-- Cantidad Campos de texto-->
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Cantidad"
-                        android:textColorHint="#65000000"
-                        android:textAppearance="@style/campos_de_texto"
-                        android:inputType="phone"/>
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_height="55dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="225dp">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeColor="#705C61"
+                            app:hintTextColor="#E6000000">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/cantidad"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Cantidad"
+                                android:textColorHint="#65000000"
+                                android:textAppearance="@style/campos_de_texto"
+                                android:inputType="phone"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </RelativeLayout>
+
+                    <!-- Precio de Unitario Campos de texto-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="300dp">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeColor="#705C61"
+                            app:hintTextColor="#E6000000">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/precio_unitario"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Precio unitario"
+                                android:textColorHint="#65000000"
+                                android:inputType="numberDecimal"
+                                android:textAppearance="@style/campos_de_texto"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </RelativeLayout>
+
+
+                    <!-- Logo de calendario pago1-->
+                    <RelativeLayout
+                        android:id="@+id/btnmostrarpago1"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="450dp"
+                        android:clickable="true"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
+                        app:cardElevation="5dp"
+                        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck">
+                    </RelativeLayout>
+                    <!-- Fecha del pago 1 del producto Campos de texto-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="450dp">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeColor="#705C61"
+                            app:hintTextColor="#E6000000">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/fecha_pago1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Primer pago"
+                                android:autoSizeMinTextSize="15dp"
+                                android:inputType="date"
+                                android:textColorHint="#65000000"
+                                android:textAppearance="@style/campos_de_texto"
+                                tools:ignore="DuplicateClickableBoundsCheck" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </RelativeLayout>
+                </RelativeLayout>
             </RelativeLayout>
 
 
-            <!-- Talla Campos de texto-->
+            <!-- Lado derecho de la pantalla -->
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginLeft="190dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="190dp">
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="#705C61"
-                    app:hintTextColor="#E6000000">
+                android:layout_height="match_parent"
+                android:gravity="right">
+                <RelativeLayout
+                    android:layout_width="1.05in"
+                    android:layout_height="match_parent">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/talla"
+                    <!-- Talla Campos de texto-->
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Talla(s)"
-                        android:textColorHint="#65000000"
-                        android:textAppearance="@style/campos_de_texto"/>
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="225dp">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeColor="#705C61"
+                            app:hintTextColor="#E6000000">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/talla"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Talla(s)"
+                                android:textColorHint="#65000000"
+                                android:textAppearance="@style/campos_de_texto"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </RelativeLayout>
+
+                    <!-- Total Campos de texto-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="300dp">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeColor="#705C61"
+                            app:hintTextColor="#E6000000">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/total"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Total"
+                                android:textColorHint="#65000000"
+                                android:inputType="numberDecimal"
+                                android:textAppearance="@style/campos_de_texto"
+                                android:focusable="false"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </RelativeLayout>
+
+                    <!-- Logo de calendario fecha pago 2 del producto-->
+                    <RelativeLayout
+                        android:id="@+id/btnmostrarpago2"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="450dp"
+                        android:clickable="true"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
+                        app:cardElevation="5dp"
+                        tools:ignore="SpeakableTextPresentCheck"/>
+
+                    <!-- fecha pago 2 del producto Campos de texto-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="450dp">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeColor="#705C61"
+                            app:hintTextColor="#E6000000">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/fecha_pago2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Segundo pago"
+                                android:textColorHint="#65000000"
+                                android:inputType="date"
+                                android:textAppearance="@style/campos_de_texto"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </RelativeLayout>
+
+
+
+                </RelativeLayout>
             </RelativeLayout>
 
 
-            <!-- Precio de Unitario Campos de texto-->
+            <!-- Logo de calendario entrega producto-->
+            <RelativeLayout
+                android:id="@+id/btnmostrarCalendario"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="375dp"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                app:cardElevation="5dp"
+                tools:ignore="SpeakableTextPresentCheck"/>
+            <!-- Fecha en que se entrego el producto Campos de texto-->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="190dp"
-                android:layout_marginTop="280dp">
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="#705C61"
-                    app:hintTextColor="#E6000000">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/precio_unitario"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Precio unitario"
-                        android:textColorHint="#65000000"
-                        android:inputType="numberDecimal"
-                        android:textAppearance="@style/campos_de_texto"/>
-                </com.google.android.material.textfield.TextInputLayout>
-            </RelativeLayout>
-
-            <!-- Total Campos de texto-->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginLeft="190dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="280dp">
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="#705C61"
-                    app:hintTextColor="#E6000000">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/total"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Total"
-                        android:textColorHint="#65000000"
-                        android:inputType="numberDecimal"
-                        android:textAppearance="@style/campos_de_texto"
-                        android:focusable="false"/>
-                </com.google.android.material.textfield.TextInputLayout>
-            </RelativeLayout>
-
-            <!-- Fecha en que se entro el producto Campos de texto-->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="370dp">
+                android:layout_marginTop="375dp">
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -202,99 +306,6 @@
                         android:textAppearance="@style/campos_de_texto"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
-
-            <!-- Logo de calendario entrega producto-->
-            <RelativeLayout
-                android:id="@+id/btnmostrarCalendario"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="370dp"
-                android:clickable="true"
-                android:foreground="?attr/selectableItemBackgroundBorderless"
-                app:cardElevation="5dp"
-                tools:ignore="SpeakableTextPresentCheck"/>
-
-            <!-- Fecha en que se entro el producto Campos de texto-->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="190dp"
-                android:layout_marginTop="460dp">
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="#705C61"
-                    app:hintTextColor="#E6000000">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/fecha_pago1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Primer pago"
-                        android:autoSizeMinTextSize="15dp"
-                        android:inputType="date"
-                        android:textColorHint="#65000000"
-                        android:textAppearance="@style/campos_de_texto"
-                        tools:ignore="DuplicateClickableBoundsCheck" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </RelativeLayout>
-
-
-            <!-- Logo de calendario entrega producto-->
-            <RelativeLayout
-                android:id="@+id/btnmostrarpago1"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="190dp"
-                android:layout_marginTop="460dp"
-                android:clickable="true"
-                android:foreground="?attr/selectableItemBackgroundBorderless"
-                app:cardElevation="5dp"
-                tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck">
-            </RelativeLayout>
-
-            <!-- Fecha en que se entro el producto Campos de texto-->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginLeft="190dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="460dp">
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxStrokeColor="#705C61"
-                    app:hintTextColor="#E6000000">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/fecha_pago2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Segundo pago"
-                        android:textColorHint="#65000000"
-                        android:inputType="date"
-                        android:textAppearance="@style/campos_de_texto"/>
-                </com.google.android.material.textfield.TextInputLayout>
-            </RelativeLayout>
-
-            <!-- Logo de calendario entrega producto-->
-            <RelativeLayout
-                android:id="@+id/btnmostrarpago2"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginLeft="190dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="460dp"
-                android:clickable="true"
-                android:foreground="?attr/selectableItemBackgroundBorderless"
-                app:cardElevation="5dp"
-                tools:ignore="SpeakableTextPresentCheck"/>
 
             <RelativeLayout
                 android:layout_width="70dp"
@@ -317,8 +328,6 @@
                 android:id="@+id/btnagregar"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
                 android:layout_marginTop="550dp"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackgroundBorderless"
@@ -334,5 +343,8 @@
                     android:text="Guardar"
                     android:textAppearance="@style/Tittles" />
             </androidx.cardview.widget.CardView>
-        </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
 </RelativeLayout>
