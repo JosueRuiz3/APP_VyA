@@ -17,11 +17,14 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.josue.app_vya.helpers.MoneyTextWatcher;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -94,9 +97,10 @@ public class AddFragment extends Fragment {
         String descripcionA = descripcion.getText().toString().trim();
         String precio_compraA = precio_compra.getText().toString().trim();
         String precio_ventaA = precio_venta.getText().toString().trim();
+        Timestamp fecha_creacionA = Timestamp.now();
 
         if(!productoA.isEmpty() && !stockA.isEmpty() && !descripcionA.isEmpty() && !precio_compraA.isEmpty() && !precio_ventaA.isEmpty()){
-            postVentas(productoA, stockA, descripcionA, precio_compraA, precio_ventaA);
+            postVentas(productoA, stockA, descripcionA, precio_compraA, precio_ventaA, fecha_creacionA);
         }
         else{
             Toast.makeText(getContext(), "Ingresar los datos", Toast.LENGTH_SHORT).show();
@@ -104,10 +108,11 @@ public class AddFragment extends Fragment {
 
     }
 
-    private void postVentas(String productoA, String stockA, String descripcionA, String precio_compraA, String precio_ventaA){
+    private void postVentas(String productoA, String stockA, String descripcionA, String precio_compraA, String precio_ventaA, Timestamp fecha_creacionA) {
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Agregando producto...");
         progressDialog.show();
+
         // Creamos una referencia al documento de la colección "ventas" con un ID único generado automáticamente por Firestore
         DocumentReference ventaRef = mFirestore.collection("Ventas").document();
 
@@ -119,6 +124,7 @@ public class AddFragment extends Fragment {
         map.put("stock", stockA);
         map.put("precio_compra", precio_compraA);
         map.put("precio_venta", precio_ventaA);
+        map.put("fecha_creacion", fecha_creacionA);
 
         // Agregamos el mapa como un documento a la colección "ventas" con el ID generado automáticamente
         ventaRef.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -134,8 +140,10 @@ public class AddFragment extends Fragment {
                 Toast.makeText(getContext(), "Error al ingresar", Toast.LENGTH_SHORT).show();
             }
         });
+
         limpiarCampos();
     }
+
 
     private void limpiarCampos(){
         nombre_producto.setText("");

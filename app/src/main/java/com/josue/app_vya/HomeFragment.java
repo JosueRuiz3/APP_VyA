@@ -150,13 +150,14 @@ public class HomeFragment extends Fragment {
     private void setUpRecyclerView() {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
 
-        Query query = db.collection("Ventas").orderBy("nombre_producto", Query.Direction.ASCENDING);
+        Query query = db.collection("Ventas").orderBy("fecha_creacion", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<venta> options = new FirestoreRecyclerOptions.Builder<venta>()
                 .setQuery(query, venta.class).build();
 
         adapter = new venta_adapter(options, getActivity());
         recyclerView.setAdapter(adapter);
     }
+
 
     private void limpiarCampos(){
         buscar.setText("");
