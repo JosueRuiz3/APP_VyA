@@ -25,6 +25,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.remote.Datastore;
 import com.josue.app_vya.adapter.venta_adapter;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,19 +42,18 @@ import com.josue.app_vya.adapter.venta_adapter;
 import com.josue.app_vya.model.venta;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-
 public class HomeFragment extends Fragment {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView recyclerView;
     private venta_adapter adapter;
-   // private ImageView btncerrarCampo ;
     private RelativeLayout btnMostrarCampo, editTextCampo, btncerrarCampo;
     private TextView txtproducto;
     private TextInputEditText buscar;
@@ -111,8 +113,37 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // Agregar TextWatcher al TextInputEditText para realizar la búsqueda en tiempo real
+        buscar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Realizar la búsqueda cada vez que el texto cambie
+                buscarProductos(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
 
         return v;
+    }
+
+    private void buscarProductos(String query) {
+        Query buscarQuery = db.collection("Ventas")
+                .orderBy("nombre_producto")
+                .startAt(query)
+                .endAt(query + "\uf8ff");
+
+        FirestoreRecyclerOptions<venta> options = new FirestoreRecyclerOptions.Builder<venta>()
+                .setQuery(buscarQuery, venta.class).build();
+
+        adapter.updateOptions(options);
+        adapter.notifyDataSetChanged(); // Agrega esta línea para notificar al adaptador sobre los cambios en los datos filtrados.
     }
 
     private void setUpRecyclerView() {

@@ -29,10 +29,6 @@ public class venta_adapter extends FirestoreRecyclerAdapter<venta, venta_adapter
     Context context;
 
     FragmentManager fm;
-    public Context getContext() {
-        return context;
-    }
-
 
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
@@ -59,12 +55,11 @@ public class venta_adapter extends FirestoreRecyclerAdapter<venta, venta_adapter
         holder.editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getContext(), DetailsActivity.class);
+                Intent i = new Intent(context, DetailsActivity.class); // Aquí utilizamos 'context' en lugar de 'getContext()'
                 i.putExtra("idVenta", id);
                 context.startActivity(i);
             }
         });
-
     }
 
     @NonNull

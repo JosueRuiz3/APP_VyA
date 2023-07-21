@@ -75,7 +75,6 @@
         </RelativeLayout>
 
 
-
         <!--- Campo de texto buscar el tipo de venta  -->
         <RelativeLayout
             android:id="@+id/editTextCampo"
