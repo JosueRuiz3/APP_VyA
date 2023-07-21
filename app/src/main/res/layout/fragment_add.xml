@@ -49,6 +49,7 @@
                         android:id="@+id/nombre_producto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
                         android:hint="Producto"
                         android:textAppearance="@style/campos_de_texto"
                         android:textColorHint="#65000000" />
@@ -71,6 +72,7 @@
                         android:id="@+id/descripcion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
                         android:hint="Descripcion"
                         android:textAppearance="@style/campos_de_texto"
                         android:textColorHint="#65000000" />
@@ -145,7 +147,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Stock"
-                            android:inputType="phone"
+                            android:inputType="phone|textCapSentences"
                             android:textAppearance="@style/campos_de_texto"
                             android:textColorHint="#65000000" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -168,7 +170,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Precio compra"
-                            android:inputType="numberDecimal"
+                            android:inputType="numberDecimal|textCapSentences"
                             android:textAppearance="@style/campos_de_texto"
                             android:textColorHint="#65000000" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -205,7 +207,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Precio venta"
-                            android:inputType="numberDecimal"
+                            android:inputType="numberDecimal|textCapSentences"
                             android:textAppearance="@style/campos_de_texto"
                             android:textColorHint="#65000000" />
                     </com.google.android.material.textfield.TextInputLayout>

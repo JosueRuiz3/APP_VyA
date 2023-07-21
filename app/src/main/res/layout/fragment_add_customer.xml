@@ -47,6 +47,7 @@
                         android:id="@+id/nombre_cliente"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
                         android:hint="Nombre cliente"
                         android:textColorHint="#65000000"
                         android:textAppearance="@style/campos_de_texto"/>
@@ -69,6 +70,7 @@
                         android:id="@+id/nombre_producto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
                         android:hint="Producto"
                         android:textColorHint="#65000000"
                         android:textAppearance="@style/campos_de_texto"/>
@@ -93,6 +95,7 @@
                         android:id="@+id/descripcion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
                         android:hint="Descripcion"
                         android:textColorHint="#65000000"
                         android:textAppearance="@style/campos_de_texto"/>
@@ -125,10 +128,10 @@
                                 android:id="@+id/cantidad"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:inputType="phone|textCapSentences"
                                 android:hint="Cantidad"
                                 android:textColorHint="#65000000"
-                                android:textAppearance="@style/campos_de_texto"
-                                android:inputType="phone"/>
+                                android:textAppearance="@style/campos_de_texto" />
                         </com.google.android.material.textfield.TextInputLayout>
                     </RelativeLayout>
 
@@ -198,8 +201,7 @@
                     </RelativeLayout>
                 </RelativeLayout>
             </RelativeLayout>
-
-
+            
             <!-- Lado derecho de la pantalla -->
             <RelativeLayout
                 android:layout_width="match_parent"

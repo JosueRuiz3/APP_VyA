@@ -1,12 +1,8 @@
 package com.josue.app_vya;
 
-import static android.content.Intent.getIntent;
-
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
@@ -22,11 +18,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.StorageReference;
+import com.josue.app_vya.helpers.MoneyTextWatcher;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.Objects;
 
 
 public class DetailsFragment extends Fragment {

@@ -121,6 +121,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
                 // Realizar la búsqueda cada vez que el texto cambie
                 buscarProductos(charSequence.toString());
             }

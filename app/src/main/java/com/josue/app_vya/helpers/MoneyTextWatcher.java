@@ -1,4 +1,4 @@
-package com.josue.app_vya;
+package com.josue.app_vya.helpers;
 
 import android.text.Editable;
 import android.text.TextWatcher;

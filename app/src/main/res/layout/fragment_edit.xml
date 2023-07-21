@@ -46,6 +46,7 @@
                         android:id="@+id/nombre_producto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
                         android:hint="Producto"
                         android:textColorHint="#65000000"
                         android:textAppearance="@style/campos_de_texto" />
@@ -56,7 +57,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_marginLeft="5dp"
                 android:layout_marginTop="150dp">
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -69,6 +69,7 @@
                         android:id="@+id/descripcion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
                         android:hint="Descripcion"
                         android:textColorHint="#65000000"
                         android:textAppearance="@style/campos_de_texto"/>
