@@ -93,13 +93,13 @@ public class AddFragment extends Fragment {
         checkField(precio_venta);
 
         String productoA = nombre_producto.getText().toString().trim();
-        String stockA = stock.getText().toString().trim();
+        Integer stockA = Integer.parseInt(stock.getText().toString().trim());
         String descripcionA = descripcion.getText().toString().trim();
         String precio_compraA = precio_compra.getText().toString().trim();
         String precio_ventaA = precio_venta.getText().toString().trim();
         Timestamp fecha_creacionA = Timestamp.now();
 
-        if(!productoA.isEmpty() && !stockA.isEmpty() && !descripcionA.isEmpty() && !precio_compraA.isEmpty() && !precio_ventaA.isEmpty()){
+        if(!productoA.isEmpty() && !descripcionA.isEmpty() && !precio_compraA.isEmpty() && !precio_ventaA.isEmpty()){
             postVentas(productoA, stockA, descripcionA, precio_compraA, precio_ventaA, fecha_creacionA);
         }
         else{
@@ -108,7 +108,7 @@ public class AddFragment extends Fragment {
 
     }
 
-    private void postVentas(String productoA, String stockA, String descripcionA, String precio_compraA, String precio_ventaA, Timestamp fecha_creacionA) {
+    private void postVentas(String productoA, Integer stockA, String descripcionA, String precio_compraA, String precio_ventaA, Timestamp fecha_creacionA) {
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Agregando producto...");
         progressDialog.show();

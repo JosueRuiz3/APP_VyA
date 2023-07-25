@@ -1,15 +1,15 @@
 package com.josue.app_vya.model;
 
 public class cliente {
-    String nombre_cliente, nombre_producto, cantidad, precio_unitario, descripcion, total, idVenta, fecha_entrega, fecha_pago1, fecha_pago2;
+    String nombre_cliente, nombre_producto, precio_unitario, descripcion, total, idVenta, fecha_entrega, fecha_pago1, fecha_pago2;
+    Integer cantidad;
 
     public cliente() {
     }
 
-    public cliente(String nombre_cliente, String nombre_producto, String cantidad, String precio_unitario, String descripcion, String total, String idVenta, String fecha_entrega, String fecha_pago1, String fecha_pago2) {
+    public cliente(String nombre_cliente, String nombre_producto, String precio_unitario, String descripcion, String total, String idVenta, String fecha_entrega, String fecha_pago1, String fecha_pago2, Integer cantidad) {
         this.nombre_cliente = nombre_cliente;
         this.nombre_producto = nombre_producto;
-        this.cantidad = cantidad;
         this.precio_unitario = precio_unitario;
         this.descripcion = descripcion;
         this.total = total;
@@ -17,6 +17,7 @@ public class cliente {
         this.fecha_entrega = fecha_entrega;
         this.fecha_pago1 = fecha_pago1;
         this.fecha_pago2 = fecha_pago2;
+        this.cantidad = cantidad;
     }
 
     public String getNombre_cliente() {
@@ -33,14 +34,6 @@ public class cliente {
 
     public void setNombre_producto(String nombre_producto) {
         this.nombre_producto = nombre_producto;
-    }
-
-    public String getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(String cantidad) {
-        this.cantidad = cantidad;
     }
 
     public String getPrecio_unitario() {
@@ -97,5 +90,13 @@ public class cliente {
 
     public void setFecha_pago2(String fecha_pago2) {
         this.fecha_pago2 = fecha_pago2;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
     }
 }

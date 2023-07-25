@@ -91,17 +91,17 @@ public class EditFragment extends Fragment {
                                 idd = idVenta;
                                 checkField(nombre_producto);
                                 checkField(descripcion);
-                                checkField(stock);
+                                //checkField(stock);
                                 checkField(precio_compra);
                                 checkField(precio_venta);
 
                                 String productoA = nombre_producto.getText().toString().trim();
-                                String stockA = stock.getText().toString().trim();
+                                Integer stockA = Integer.valueOf(stock.getText().toString().trim());
                                 String descripcionA = descripcion.getText().toString().trim();
                                 String precio_compraA = precio_compra.getText().toString().trim();
                                 String precio_ventaA = precio_venta.getText().toString().trim();
 
-                                if (!productoA.isEmpty() && !stockA.isEmpty() && !descripcionA.isEmpty() && !precio_compraA.isEmpty() && !precio_ventaA.isEmpty()) {
+                                if (!productoA.isEmpty() && !descripcionA.isEmpty() && !precio_compraA.isEmpty() && !precio_ventaA.isEmpty()) {
                                     update(productoA, stockA, descripcionA, precio_compraA, precio_ventaA, idVenta);
 
                                 } else {
@@ -150,16 +150,16 @@ public class EditFragment extends Fragment {
         precio_compra.setText(String.valueOf(value2));
     }
 
-    private void update(String productoA,String stockA, String descripcionA, String precio_compraA, String precio_ventaA, String idVenta) {
+    private void update(String productoA, Integer stockA, String descripcionA, String precio_compraA, String precio_ventaA, String idVenta) {
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Actualizando producto...");
         progressDialog.show();
         Map<String, Object> map = new HashMap<>();
-        map.put("nombre_producto",productoA);
-        map.put("descripcion",descripcionA);
-        map.put("stock",stockA);
-        map.put("precio_compra",precio_compraA);
-        map.put("precio_venta",precio_ventaA);
+        map.put("nombre_producto", productoA);
+        map.put("descripcion", descripcionA);
+        map.put("stock", stockA);
+        map.put("precio_compra", precio_compraA);
+        map.put("precio_venta", precio_ventaA);
 
         mfirestore.collection("Ventas").document(idVenta).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -180,13 +180,14 @@ public class EditFragment extends Fragment {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 String name = documentSnapshot.getString("nombre_producto");
-                String stocks = documentSnapshot.getString("stock");
+                Integer stocks = documentSnapshot.getLong("stock").intValue();
                 String description = documentSnapshot.getString("descripcion");
                 String price_c = documentSnapshot.getString("precio_compra");
                 String price_s = documentSnapshot.getString("precio_venta");
 
                 nombre_producto.setText(name);
-                stock.setText(stocks);
+                String stocksStr = String.valueOf(stocks);
+                stock.setText(stocksStr);
                 descripcion.setText(description);
                 precio_compra.setText(price_c);
                 precio_venta.setText(price_s);

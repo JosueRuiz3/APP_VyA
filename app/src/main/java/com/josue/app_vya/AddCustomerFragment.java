@@ -255,21 +255,21 @@ public class AddCustomerFragment extends Fragment {
         String nombre_clienteA = nombre_cliente.getText().toString().trim();
         String nombre_productoA = nombre_producto.getText().toString().trim();
         String descripcionA = descripcion.getText().toString().trim();
-        String cantidadA = cantidad.getText().toString().trim();
+        Integer cantidadA = Integer.parseInt(cantidad.getText().toString().trim());
         String precio_unitarioA = precio_unitario.getText().toString().trim();
         String totalA = total.getText().toString().trim();
         String fecha_entregaA = fecha_entrega.getText().toString().trim();
         String fecha_pago1A = fecha_pago1.getText().toString().trim();
         String fecha_pago2A = fecha_pago2.getText().toString().trim();
 
-        if(!nombre_clienteA.isEmpty() && !nombre_productoA.isEmpty() && !cantidadA.isEmpty() && !descripcionA.isEmpty() && !precio_unitarioA.isEmpty() && !totalA.isEmpty() && !fecha_entregaA.isEmpty() && !fecha_pago1A.isEmpty() && !fecha_pago2A.isEmpty()){
+        if(!nombre_clienteA.isEmpty() && !nombre_productoA.isEmpty() && !descripcionA.isEmpty() && !precio_unitarioA.isEmpty() && !totalA.isEmpty() && !fecha_entregaA.isEmpty() && !fecha_pago1A.isEmpty() && !fecha_pago2A.isEmpty()){
             postClientes(nombre_clienteA, nombre_productoA, cantidadA, descripcionA, precio_unitarioA, totalA, fecha_entregaA, fecha_pago1A, fecha_pago2A);
         }else{
             Toast.makeText(getContext(), "Ingresar los datos", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void postClientes(String nombre_clienteA, String nombre_productoA, String cantidadA, String descripcionA, String precio_unitarioA, String totalA,  String fecha_entregaA, String fecha_pago1A, String fecha_pago2A) {
+    private void postClientes(String nombre_clienteA, String nombre_productoA, Integer cantidadA, String descripcionA, String precio_unitarioA, String totalA,  String fecha_entregaA, String fecha_pago1A, String fecha_pago2A) {
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Agregando cliente...");
         progressDialog.show();

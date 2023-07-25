@@ -83,19 +83,19 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                                 idd = idCliente;
                                 checkField(nombre_producto);
                                 checkField(nombre_cliente);
-                                checkField(cantidad);
+                               // checkField(cantidad);
                                 checkField(precio_unitario);
                                 checkField(descripcion);
                                 checkField(total);
 
                                 String nombreClienteA = nombre_cliente.getText().toString().trim();
                                 String nombreProductoA = nombre_producto.getText().toString().trim();
-                                String cantidadA = cantidad.getText().toString().trim();
+                                Integer cantidadA = Integer.valueOf(cantidad.getText().toString().trim());
                                 String descripcionA = descripcion.getText().toString().trim();
                                 String precioUnitarioA = precio_unitario.getText().toString().trim();
                                 String totalA = total.getText().toString().trim();
 
-                                if (!nombreClienteA.isEmpty() && !nombreProductoA.isEmpty() && !cantidadA.isEmpty() && !descripcionA.isEmpty() && !precioUnitarioA.isEmpty() && !totalA.isEmpty()) {
+                                if (!nombreClienteA.isEmpty() && !nombreProductoA.isEmpty() && !descripcionA.isEmpty() && !precioUnitarioA.isEmpty() && !totalA.isEmpty()) {
                                     update(nombreClienteA, nombreProductoA, cantidadA, descripcionA, precioUnitarioA, totalA, idCliente);
 
                                 } else {
@@ -185,14 +185,16 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         idCliente = args.getString("idCliente");
         String nombre_clienteA = args.getString("nombre_cliente");
         String nombre_productoA = args.getString("nombre_producto");
-        String cantidadA = args.getString("cantidad");
+        //String cantidadA = args.getString("cantidad");
+        Integer cantidadA = args.getInt("cantidad");
         String descripcionA = args.getString("descripcion");
         String precio_unitarioA = args.getString("precio_unitario");
         String totalA = args.getString("total");
 
         nombre_cliente.setText(nombre_clienteA);
         nombre_producto.setText(nombre_productoA);
-        cantidad.setText(cantidadA);
+        String cantidadStr = String.valueOf(cantidadA);
+        cantidad.setText(cantidadStr);
         descripcion.setText(descripcionA);
         precio_unitario.setText(precio_unitarioA);
         total.setText(totalA);
@@ -210,7 +212,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
        });
     }
 
-    private void update(String nombre_clienteA, String nombre_productoA, String cantidadA, String descripcionA, String precio_unitarioA, String totalA, String idCliente){
+    private void update(String nombre_clienteA, String nombre_productoA, Integer cantidadA, String descripcionA, String precio_unitarioA, String totalA, String idCliente){
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Actualizando detalle cliente...");
         progressDialog.show();

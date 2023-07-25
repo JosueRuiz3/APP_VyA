@@ -50,7 +50,7 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
         final String id = documentSnapshot.getId();
 
         holder.nombre_cliente.setText(Cliente.getNombre_cliente());
-        holder.cantidad.setText(Cliente.getCantidad());
+        holder.cantidad.setText(String.valueOf(Cliente.getCantidad()));
         holder.total.setText(Cliente.getTotal());
         holder.fecha_entrega.setText(Cliente.getFecha_entrega());
 

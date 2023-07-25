@@ -137,13 +137,14 @@ public class DetailsFragment extends Fragment {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 String name = documentSnapshot.getString("nombre_producto");
-                String stocks = documentSnapshot.getString("stock");
+                Integer stocks = documentSnapshot.getLong("stock").intValue();
                 String description = documentSnapshot.getString("descripcion");
                 String price_c = documentSnapshot.getString("precio_compra");
                 String price_s = documentSnapshot.getString("precio_venta");
 
                 nombre_producto.setText(name);
-                stock.setText(stocks);
+                String stocksStr = String.valueOf(stocks);
+                stock.setText(stocksStr);
                 descripcion.setText(description);
                 precio_compra.setText(price_c);
                 precio_venta.setText(price_s);
