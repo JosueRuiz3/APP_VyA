@@ -305,6 +305,8 @@ public class AddCustomerFragment extends Fragment {
         clientesRef.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
+                // Actualizar el stock solo si se agregó correctamente el cliente
+                updateStock(idVenta, cantidadA);
                 limpiarCampos();
                 progressDialog.dismiss();
                 Toast.makeText(getContext(), "Creado exitosamente", Toast.LENGTH_SHORT).show();
@@ -313,6 +315,50 @@ public class AddCustomerFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getContext(), "Error al ingresar", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateStock(String idVenta, int cantidadComprada) {
+        // Obtener una referencia al documento de la colección principal que contiene el stock
+        DocumentReference ventaRef = mfirestore.collection("Ventas").document(idVenta);
+
+        ventaRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    // Obtener el stock actual del documento principal de la venta
+                    int stockActual = documentSnapshot.getLong("stock").intValue();
+
+                    // Calcular el nuevo stock después de la compra del cliente o cancelación
+                    int nuevoStock = stockActual - cantidadComprada;
+
+                    // Crear un mapa para actualizar el campo "stock" en el documento de la colección "Ventas"
+                    Map<String, Object> updateData = new HashMap<>();
+                    updateData.put("stock", nuevoStock);
+
+                    // Actualizar el campo "stock" en el documento de la colección "Ventas"
+                    ventaRef.update(updateData)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    // El stock ha sido actualizado correctamente
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // Manejar el error en caso de que la actualización falle
+                                }
+                            });
+                } else {
+                    // El documento principal de la venta no existe
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                // Manejar el error en caso de que la consulta falle
             }
         });
     }

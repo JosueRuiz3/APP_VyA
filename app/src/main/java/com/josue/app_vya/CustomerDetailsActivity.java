@@ -1,6 +1,7 @@
 package com.josue.app_vya;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -21,8 +22,11 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Transaction;
 import com.josue.app_vya.helpers.MoneyTextWatcher;
 
 import java.math.BigDecimal;
@@ -211,16 +215,15 @@ public class CustomerDetailsActivity extends AppCompatActivity {
            }
        });
     }
-
-    private void update(String nombre_clienteA, String nombre_productoA, Integer cantidadA, String descripcionA, String precio_unitarioA, String totalA, String idCliente){
+    private void update(String nombre_clienteA, String nombre_productoA, Integer cantidadA, String descripcionA, String precio_unitarioA, String totalA, String idCliente) {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Actualizando detalle cliente...");
         progressDialog.show();
 
         Bundle args = getIntent().getExtras();
-
         String idVenta = args.getString("idVenta");
-        // Crear un nuevo mapa con los datos que deseas agregar a la subcolección
+
+        // Crear un nuevo mapa con los datos que deseas actualizar en la subcolección
         Map<String, Object> map = new HashMap<>();
         map.put("nombre_cliente", nombre_clienteA);
         map.put("nombre_producto", nombre_productoA);
@@ -229,19 +232,58 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         map.put("precio_unitario", precio_unitarioA);
         map.put("total", totalA);
 
-        mfirestore.collection("Ventas").document(idVenta).collection("Clientes").document(idCliente).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+        // Actualizar el documento en la subcolección
+        mfirestore.collection("Ventas").document(idVenta).collection("Clientes").document(idCliente).update(map)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        progressDialog.dismiss();
+                        Toast.makeText(CustomerDetailsActivity.this, "Actualizado exitosamente", Toast.LENGTH_SHORT).show();
+
+                        // Después de actualizar los detalles del cliente, también actualiza el stock en el documento principal de la venta
+                        updateStock(idVenta, cantidadA, false);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(CustomerDetailsActivity.this, "Error al actualizar", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void updateStock(String idVenta, int cantidadA, boolean isAdd) {
+        DocumentReference ventaRef = mfirestore.collection("Ventas").document(idVenta);
+
+        mfirestore.runTransaction(new Transaction.Function<Void>() {
+            @Nullable
+            @Override
+            public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                DocumentSnapshot snapshot = transaction.get(ventaRef);
+                int stockActual = snapshot.getLong("stock").intValue();
+
+                // Ajustar el stock según si se agregó o eliminó una cantidad
+                int stockActualizado = isAdd ? stockActual - cantidadA : stockActual + cantidadA;
+
+                // Actualizar el stock en el documento principal de la venta
+                transaction.update(ventaRef, "stock", stockActualizado);
+
+                return null;
+            }
+        }).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                progressDialog.dismiss();
-                Toast.makeText(CustomerDetailsActivity.this, "Actualizado exitosamente", Toast.LENGTH_SHORT).show();
-           }
+                // Stock actualizado exitosamente
+
+            }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(CustomerDetailsActivity.this, "Error al actualizar", Toast.LENGTH_SHORT).show();
+                // Error al actualizar el stock
             }
         });
     }
+
 
     private void delete(String idCliente) {
         Bundle args = getIntent().getExtras();
