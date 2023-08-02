@@ -55,6 +55,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_details);
 
+
         cantidad = findViewById(R.id.cantidad);
         precio_unitario = findViewById(R.id.precio_unitario);
         total = findViewById(R.id.total);
@@ -138,8 +139,6 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 idd = idCliente;
                                 delete(idCliente);
-                                Intent intent = new Intent(CustomerDetailsActivity.this, DetailsActivity.class);
-                                startActivity(intent);
                             }
                         })
                         .setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -151,7 +150,6 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                         .show();
             }
         });
-
     }
 
     private TextWatcher textWatcher = new TextWatcher() {

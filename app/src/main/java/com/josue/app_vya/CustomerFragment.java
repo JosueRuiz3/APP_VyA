@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,7 +76,6 @@ public class CustomerFragment extends Fragment {
         txtproducto = v.findViewById(R.id.txtproducto);
         buscar = v.findViewById(R.id.buscar);
 
-
         setUpRecyclerView(); // configuramos el RecyclerView
 
         btnMostrarCampo.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +108,45 @@ public class CustomerFragment extends Fragment {
             }
         });
 
+        // Agregar TextWatcher al TextInputEditText para realizar la búsqueda en tiempo real
+        buscar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Realizar la búsqueda cada vez que el texto cambie
+                buscarClientes(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
         return v;
+    }
+
+    private void buscarClientes(String query) {
+        Bundle args = getActivity().getIntent().getExtras();
+        String idVenta = args.getString("idVenta");
+
+        idd = idVenta;
+
+        // Obtener una referencia al documento de la colección principal que contiene la subcolección
+        DocumentReference ventaRef = db.collection("Ventas").document(idVenta);
+
+        Query buscarQuery = ventaRef.collection("Clientes")
+                .orderBy("nombre_cliente")
+                .startAt(query)
+                .endAt(query + "\uf8ff");
+
+        FirestoreRecyclerOptions<cliente> options = new FirestoreRecyclerOptions.Builder<cliente>()
+                .setQuery(buscarQuery, cliente.class).build();
+
+        adapter.updateOptions(options);
+        adapter.notifyDataSetChanged(); // Agrega esta línea para notificar al adaptador sobre los cambios en los datos filtrados.
     }
 
     private void setUpRecyclerView() {
