@@ -6,8 +6,7 @@
     android:layout_height="120dp"
     android:layout_marginTop="20dp"
     android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    >
+    android:layout_marginRight="20dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/btn_editar"
@@ -28,6 +27,18 @@
             android:layout_marginTop="20dp"
             android:gravity=""
             android:text="Nombre del cliente"
+            android:textAppearance="@style/campos_de_texto"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/debe"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginLeft="230dp"
+            android:layout_marginRight="25dp"
+            android:gravity="center_horizontal|end"
+            android:layout_marginTop="15dp"
+            android:text="Debe"
             android:textAppearance="@style/campos_de_texto"
             android:textSize="18dp"/>
 

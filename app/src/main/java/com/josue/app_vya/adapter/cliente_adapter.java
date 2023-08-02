@@ -54,6 +54,22 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
         holder.total.setText(Cliente.getTotal());
         holder.fecha_entrega.setText(Cliente.getFecha_entrega());
 
+
+        // Lógica para el campo 'debe'
+        String debeAmountString = Cliente.getDebe();
+
+        try {
+            double debeAmount = Double.parseDouble(debeAmountString);
+
+            if (debeAmount > 0) {
+                holder.debe.setText("Debe");
+            } else {
+                holder.debe.setText("Cancelado");
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
         holder.editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,6 +85,8 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
                 i.putExtra("fecha_entrega", Cliente.getFecha_entrega());
                 i.putExtra("fecha_pago1", Cliente.getFecha_pago1());
                 i.putExtra("fecha_pago2", Cliente.getFecha_pago2());
+                i.putExtra("abonos", Cliente.getAbonos());
+                i.putExtra("debe", Cliente.getDebe());
                 context.startActivity(i);
             }
         });
@@ -82,7 +100,7 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total, fecha_entrega;
+        TextView nombre_cliente, nombre_producto, cantidad, precio_unitario, talla, total, fecha_entrega, debe;
         CardView editar;
 
         public ViewHolder(@NonNull View itemView) {
@@ -91,6 +109,7 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
             editar = itemView.findViewById(R.id.btn_editar);
             nombre_cliente = itemView.findViewById(R.id.nombre_cliente);
             cantidad = itemView.findViewById(R.id.cantidad);
+            debe = itemView.findViewById(R.id.debe);
             fecha_entrega = itemView.findViewById(R.id.fecha_entrega);
             total = itemView.findViewById(R.id.total);
         }

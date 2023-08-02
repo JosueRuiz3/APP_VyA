@@ -10,7 +10,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="620dp"
+        android:layout_height="690dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:elevation="5dp"
@@ -135,13 +135,36 @@
                         </com.google.android.material.textfield.TextInputLayout>
                     </RelativeLayout>
 
+                    <!-- Abonos Campos de texto-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="375dp">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeColor="#705C61"
+                            app:hintTextColor="#E6000000">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/abonos"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Abonos"
+                                android:textColorHint="#65000000"
+                                android:inputType="numberDecimal"
+                                android:textAppearance="@style/campos_de_texto"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </RelativeLayout>
 
                     <!-- Total Campos de texto-->
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginRight="5dp"
-                        android:layout_marginTop="375dp">
+                        android:layout_marginTop="450dp">
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -168,7 +191,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginRight="5dp"
-                        android:layout_marginTop="450dp"
+                        android:layout_marginTop="525dp"
                         android:clickable="true"
                         android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:elevation="25dp"
@@ -179,7 +202,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginRight="5dp"
-                        android:layout_marginTop="450dp">
+                        android:layout_marginTop="525dp">
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -201,7 +224,7 @@
                     </RelativeLayout>
                 </RelativeLayout>
             </RelativeLayout>
-            
+
             <!-- Lado derecho de la pantalla -->
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -235,15 +258,13 @@
                         </com.google.android.material.textfield.TextInputLayout>
                     </RelativeLayout>
 
-
-
                     <!-- Logo de calendario fecha pago 2 del producto-->
                     <RelativeLayout
                         android:id="@+id/btnmostrarpago2"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginLeft="5dp"
-                        android:layout_marginTop="450dp"
+                        android:layout_marginTop="525dp"
                         android:clickable="true"
                         android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:elevation="25dp"
@@ -254,7 +275,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginLeft="5dp"
-                        android:layout_marginTop="450dp">
+                        android:layout_marginTop="525dp">
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -273,6 +294,30 @@
                         </com.google.android.material.textfield.TextInputLayout>
                     </RelativeLayout>
 
+                    <!-- Total Campos de texto-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="375dp">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeColor="#705C61"
+                            app:hintTextColor="#E6000000">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/debe"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Debe"
+                                android:textColorHint="#65000000"
+                                android:inputType="numberDecimal"
+                                android:textAppearance="@style/campos_de_texto"
+                                android:focusable="false"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </RelativeLayout>
 
                     <!-- Logo de calendario entrega producto-->
                     <RelativeLayout
@@ -280,7 +325,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginLeft="5dp"
-                        android:layout_marginTop="375dp"
+                        android:layout_marginTop="450dp"
                         android:clickable="true"
                         android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:elevation="25dp"
@@ -290,7 +335,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginLeft="5dp"
-                        android:layout_marginTop="375dp">
+                        android:layout_marginTop="450dp">
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -310,9 +355,6 @@
                     </RelativeLayout>
                 </RelativeLayout>
             </RelativeLayout>
-
-
-
 
             <RelativeLayout
                 android:layout_width="70dp"
@@ -335,7 +377,7 @@
                 android:id="@+id/btnagregar"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginTop="550dp"
+                android:layout_marginTop="620dp"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackgroundBorderless"
                 app:cardCornerRadius="15dp"
@@ -353,5 +395,4 @@
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
-
 </RelativeLayout>

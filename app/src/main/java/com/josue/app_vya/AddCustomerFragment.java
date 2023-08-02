@@ -36,7 +36,8 @@ import java.util.Map;
 
 public class AddCustomerFragment extends Fragment {
 
-    private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, descripcion, total, fecha_entrega, fecha_pago1, fecha_pago2;
+    private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, descripcion,
+            total, fecha_entrega, fecha_pago1, fecha_pago2, abonos, debe;
     private CardView btnagregar;
     private String idVenta;
     private RelativeLayout btnmostrarCalendario, btnmostrarpago1, btnmostrarpago2;
@@ -63,6 +64,8 @@ public class AddCustomerFragment extends Fragment {
         cantidad = v.findViewById(R.id.cantidad);
         precio_unitario = v.findViewById(R.id.precio_unitario);
         total = v.findViewById(R.id.total);
+        abonos = v.findViewById(R.id.abonos);
+        debe = v.findViewById(R.id.debe);
         nombre_cliente = v.findViewById(R.id.nombre_cliente);
         nombre_producto = v.findViewById(R.id.nombre_producto);
         descripcion = v.findViewById(R.id.descripcion);
@@ -79,155 +82,26 @@ public class AddCustomerFragment extends Fragment {
         String idVenta = args.getString("idVenta");
 
         idd = idVenta;
-        get(idVenta);
+        obtener(idVenta);
 
-        precio_unitario.addTextChangedListener(new MoneyTextWatcher(precio_unitario));
-        precio_unitario.setText("0");
+        convertirColon();
+        mostarFecha();
+        textWatcherEditText();
+        botones();
 
-        total.addTextChangedListener(new MoneyTextWatcher(total));
-        total.setText("0");
+        return v;
+    }
 
-        // Agregar el TextWatcher al EditText stock
-        cantidad.addTextChangedListener(textWatcher);
-
-        // Agregar el TextWatcher al EditText precio_compra
-        precio_unitario.addTextChangedListener(textWatcher);
-
-        // Listener para el clic en el botón
-        btnmostrarCalendario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Obtener la fecha actual del sistema
-                Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-
-                // Crear el DatePickerDialog con la fecha actual como valor predeterminado
-                DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        // Mostrar la fecha seleccionada en un TextView llamado 'fecha_entrega'
-                        fecha_entrega.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
-
-                        // Verificar si la fecha seleccionada es anterior a la fecha actual
-                        Calendar selectedCalendar = Calendar.getInstance();
-                        selectedCalendar.set(year, month, dayOfMonth);
-                        if (selectedCalendar.before(Calendar.getInstance())) {
-                            // La fecha seleccionada es anterior a la fecha actual, mostrar una alerta (puedes usar Toast o AlertDialog)
-                            mostrarAlertaFechaAnterior();
-                        }
-                    }
-                }, year, month, dayOfMonth);
-
-                // Mostrar el DatePickerDialog
-                datePickerDialog.show();
-            }
-        });
-
-        btnmostrarpago1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Obtener la fecha actual del sistema
-                Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-
-                // Crear el DatePickerDialog con la fecha actual como valor predeterminado
-                DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        // Mostrar la fecha seleccionada en un TextView llamado 'fecha_pago1'
-                        fecha_pago1.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
-                    }
-                }, year, month, dayOfMonth);
-
-                // Mostrar el DatePickerDialog
-                datePickerDialog.show();
-            }
-        });
-
-
-        btnmostrarpago2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Obtener la fecha actual del sistema
-                Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-
-                // Crear el DatePickerDialog con la fecha actual como valor predeterminado
-                DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        // Mostrar la fecha seleccionada en un TextView llamado 'fecha_pago2'
-                        fecha_pago2.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
-                    }
-                }, year, month, dayOfMonth);
-
-                // Mostrar el DatePickerDialog
-                datePickerDialog.show();
-            }
-        });
-
-
+    private void botones(){
         btnagregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 guardar();
             }
         });
-
-        return v;
     }
 
-    private void mostrarAlertaFechaAnterior() {
-        Toast.makeText(requireContext(), "La fecha seleccionada es anterior a la fecha actual", Toast.LENGTH_SHORT).show();
-    }
-
-    private TextWatcher textWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            try {
-                Double c = Double.parseDouble(!cantidad.getText().toString().isEmpty() ?
-                        cantidad.getText().toString() : "0");
-
-                String precioString = precio_unitario.getText().toString().replaceAll("[^\\d.,]+", "").replace(',', '.');
-                Double p = Double.parseDouble(!precioString.isEmpty() ? precioString : "0");
-
-                Double i = c * p;
-
-                DecimalFormat decimalFormat = new DecimalFormat("#.##");
-                String iFormatted = decimalFormat.format(i);
-
-                total.setText(iFormatted);
-
-            } catch (NumberFormatException e) {
-                // Manejar la excepción en caso de que la conversión falle
-                Log.e("Error", "No se pudo convertir el valor a Double", e);
-            }
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-        }
-    };
-
-    public void doGetValue(View v) {
-        BigDecimal value = MoneyTextWatcher.parseCurrencyValue(precio_unitario.getText().toString());
-        precio_unitario.setText(String.valueOf(value));
-
-        BigDecimal value2 = MoneyTextWatcher.parseCurrencyValue(total.getText().toString());
-        total.setText(String.valueOf(value2));
-    }
-
-    private void get(String idVenta) {
+    private void obtener(String idVenta) {
         mfirestore.collection("Ventas").document(idVenta).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -251,6 +125,8 @@ public class AddCustomerFragment extends Fragment {
         checkField(fecha_entrega);
         checkField(fecha_pago1);
         checkField(fecha_pago2);
+        checkField(abonos);
+        checkField(debe);
 
         String nombre_clienteA = nombre_cliente.getText().toString().trim();
         String nombre_productoA = nombre_producto.getText().toString().trim();
@@ -261,15 +137,21 @@ public class AddCustomerFragment extends Fragment {
         String fecha_entregaA = fecha_entrega.getText().toString().trim();
         String fecha_pago1A = fecha_pago1.getText().toString().trim();
         String fecha_pago2A = fecha_pago2.getText().toString().trim();
+        String abonosA = abonos.getText().toString().trim();
+        String debeA = debe.getText().toString().trim();
 
-        if(!nombre_clienteA.isEmpty() && !nombre_productoA.isEmpty() && !descripcionA.isEmpty() && !precio_unitarioA.isEmpty() && !totalA.isEmpty() && !fecha_entregaA.isEmpty() && !fecha_pago1A.isEmpty() && !fecha_pago2A.isEmpty()){
-            postClientes(nombre_clienteA, nombre_productoA, cantidadA, descripcionA, precio_unitarioA, totalA, fecha_entregaA, fecha_pago1A, fecha_pago2A);
+        if(!nombre_clienteA.isEmpty() && !nombre_productoA.isEmpty() && !descripcionA.isEmpty() && !precio_unitarioA.isEmpty()
+                && !totalA.isEmpty() && !fecha_entregaA.isEmpty() && !fecha_pago1A.isEmpty() && !fecha_pago2A.isEmpty()){
+            postClientes(nombre_clienteA, nombre_productoA, cantidadA, descripcionA, precio_unitarioA, totalA, fecha_entregaA,
+                    fecha_pago1A, fecha_pago2A, abonosA, debeA);
         }else{
             Toast.makeText(getContext(), "Ingresar los datos", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void postClientes(String nombre_clienteA, String nombre_productoA, Integer cantidadA, String descripcionA, String precio_unitarioA, String totalA,  String fecha_entregaA, String fecha_pago1A, String fecha_pago2A) {
+    private void postClientes(String nombre_clienteA, String nombre_productoA, Integer cantidadA, String descripcionA,
+                              String precio_unitarioA, String totalA, String fecha_entregaA, String fecha_pago1A,
+                              String fecha_pago2A, String abonosA, String debeA) {
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Agregando cliente...");
         progressDialog.show();
@@ -300,6 +182,8 @@ public class AddCustomerFragment extends Fragment {
         map.put("fecha_entrega", fecha_entregaA);
         map.put("fecha_pago1", fecha_pago1A);
         map.put("fecha_pago2", fecha_pago2A);
+        map.put("abonos", abonosA);
+        map.put("debe", debeA);
 
         // Agregar el mapa como un nuevo documento a la subcolección con el ID del documento principal
         clientesRef.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -363,6 +247,24 @@ public class AddCustomerFragment extends Fragment {
         });
     }
 
+    private void textWatcherEditText(){
+        // Agregar el TextWatcher al EditText stock
+        cantidad.addTextChangedListener(textWatcher);
+
+        // Agregar el TextWatcher al EditText precio_compra
+        precio_unitario.addTextChangedListener(textWatcher);
+
+        abonos.addTextChangedListener(textWatcher);
+    }
+
+    public void doGetValue(View v) {
+        BigDecimal value = MoneyTextWatcher.parseCurrencyValue(precio_unitario.getText().toString());
+        precio_unitario.setText(String.valueOf(value));
+
+        BigDecimal value2 = MoneyTextWatcher.parseCurrencyValue(total.getText().toString());
+        total.setText(String.valueOf(value2));
+    }
+
     private void limpiarCampos(){
         nombre_cliente.setText("");
         nombre_producto.setText("");
@@ -373,6 +275,158 @@ public class AddCustomerFragment extends Fragment {
         fecha_entrega.setText("");
         fecha_pago1.setText("");
         fecha_pago2.setText("");
+        debe.setText("");
+        abonos.setText("");
+    }
+
+    private void mostarFecha(){
+        // Listener para el clic en el botón
+        btnmostrarCalendario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Obtener la fecha actual del sistema
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+                // Crear el DatePickerDialog con la fecha actual como valor predeterminado
+                DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        // Mostrar la fecha seleccionada en un TextView llamado 'fecha_entrega'
+                        fecha_entrega.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+
+                        // Verificar si la fecha seleccionada es anterior a la fecha actual
+                        Calendar selectedCalendar = Calendar.getInstance();
+                        selectedCalendar.set(year, month, dayOfMonth);
+                        if (selectedCalendar.before(Calendar.getInstance())) {
+                            // La fecha seleccionada es anterior a la fecha actual, mostrar una alerta (puedes usar Toast o AlertDialog)
+                            mostrarAlertaFechaAnterior();
+                        }
+                    }
+                }, year, month, dayOfMonth);
+
+                // Mostrar el DatePickerDialog
+                datePickerDialog.show();
+            }
+        });
+
+        btnmostrarpago1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Obtener la fecha actual del sistema
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+                // Crear el DatePickerDialog con la fecha actual como valor predeterminado
+                DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        // Mostrar la fecha seleccionada en un TextView llamado 'fecha_pago1'
+                        fecha_pago1.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+
+                        // Verificar si la fecha seleccionada es anterior a la fecha actual
+                        Calendar selectedCalendar = Calendar.getInstance();
+                        selectedCalendar.set(year, month, dayOfMonth);
+                        if (selectedCalendar.before(Calendar.getInstance())) {
+                            // La fecha seleccionada es anterior a la fecha actual, mostrar una alerta (puedes usar Toast o AlertDialog)
+                            mostrarAlertaFechaAnterior();
+                        }
+                    }
+                }, year, month, dayOfMonth);
+
+                // Mostrar el DatePickerDialog
+                datePickerDialog.show();
+            }
+        });
+
+
+        btnmostrarpago2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Obtener la fecha actual del sistema
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+                // Crear el DatePickerDialog con la fecha actual como valor predeterminado
+                DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        // Mostrar la fecha seleccionada en un TextView llamado 'fecha_pago2'
+                        fecha_pago2.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+
+                        Calendar selectedCalendar = Calendar.getInstance();
+                        selectedCalendar.set(year, month, dayOfMonth);
+                        if (selectedCalendar.before(Calendar.getInstance())) {
+                            // La fecha seleccionada es anterior a la fecha actual, mostrar una alerta (puedes usar Toast o AlertDialog)
+                            mostrarAlertaFechaAnterior();
+                        }
+                    }
+                }, year, month, dayOfMonth);
+
+                // Mostrar el DatePickerDialog
+                datePickerDialog.show();
+            }
+        });
+    }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            try {
+                Double c = Double.parseDouble(!cantidad.getText().toString().isEmpty() ?
+                        cantidad.getText().toString() : "0");
+
+                String precio_u = precio_unitario.getText().toString().replaceAll("[^\\d.,]+", "").replace(',', '.');
+                Double p = Double.parseDouble(!precio_u.isEmpty() ? precio_u : "0");
+
+                String abono = abonos.getText().toString().replaceAll("[^\\d.,]+", "").replace(',', '.');
+                Double a = Double.parseDouble(!abono.isEmpty() ? abono : "0");
+
+                Double i = c * p;
+                Double d = i - a;
+
+                DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                String iFormatted = decimalFormat.format(i);
+
+                DecimalFormat decimalFormat2 = new DecimalFormat("#.##");
+                String iFormatted2 = decimalFormat2.format(d);
+
+                total.setText(iFormatted);
+                debe.setText(iFormatted2);
+
+            } catch (NumberFormatException e) {
+                // Manejar la excepción en caso de que la conversión falle
+                Log.e("Error", "No se pudo convertir el valor a Double", e);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+    };
+
+    private void convertirColon(){
+        precio_unitario.addTextChangedListener(new MoneyTextWatcher(precio_unitario));
+        precio_unitario.setText("0");
+
+        abonos.addTextChangedListener(new MoneyTextWatcher(abonos));
+        abonos.setText("0");
+
+        debe.addTextChangedListener(new MoneyTextWatcher(debe));
+        debe.setText("0");
+
+        total.addTextChangedListener(new MoneyTextWatcher(total));
+        total.setText("0");
     }
 
     public boolean checkField(EditText textField){
@@ -384,5 +438,9 @@ public class AddCustomerFragment extends Fragment {
             valid = true;
         }
         return valid;
+    }
+
+    private void mostrarAlertaFechaAnterior() {
+        Toast.makeText(requireContext(), "La fecha seleccionada es anterior a la fecha actual", Toast.LENGTH_SHORT).show();
     }
 }
