@@ -38,7 +38,7 @@ public class AddCustomerFragment extends Fragment {
 
     private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, descripcion,
             total, fecha_entrega, fecha_pago1, fecha_pago2, abonos, debe;
-    private CardView btnagregar;
+    private RelativeLayout btnagregar;
     private String idVenta;
     private RelativeLayout btnmostrarCalendario, btnmostrarpago1, btnmostrarpago2;
     private FirebaseFirestore mfirestore;

@@ -9,43 +9,69 @@
     tools:context=".AddFragment"
     android:background="#F7F7F7">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
 
-        <ScrollView
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foregroundGravity="center_vertical">
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="600dp">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/card1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:elevation="5dp"
                 app:cardCornerRadius="20dp">
 
-                <!-- Centro de la pantalla -->
-                <RelativeLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="20dp"
-                    android:layout_marginLeft="20dp">
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center_horizontal|center">
+
+                    <!-- Linea en el centro-->
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="#00FFFFFF"
+                        app:layout_constraintGuide_percent="0.5" />
 
                     <!-- Tipo de venta Titulo -->
-                    <TextView
+                    <RelativeLayout
+                        android:id="@+id/ventaTitulo"
                         android:layout_width="match_parent"
-                        android:layout_height="27dp"
-                        android:layout_marginTop="55dp"
-                        android:text="Añadir producto"
-                        android:textAppearance="@style/Tittles" />
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="27dp"
+                            android:layout_marginTop="25dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:text="Añadir producto"
+                            android:textAppearance="@style/Tittles"
+                            tools:ignore="MissingConstraints" />
+                    </RelativeLayout>
 
                     <!-- Producto Campos de texto-->
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
-                        android:layout_marginTop="110dp">
+                        android:layout_marginTop="85dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/guideline"
+                        app:layout_constraintEnd_toEndOf="parent">
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
@@ -65,11 +91,17 @@
                         </com.google.android.material.textfield.TextInputLayout>
                     </RelativeLayout>
 
-                    <!-- Talla Campos de texto-->
+                    <!-- DescripcionCampo de texto-->
                     <RelativeLayout
+                        android:id="@+id/DescripcionCampo"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
-                        android:layout_marginTop="205dp">
+                        android:layout_marginTop="170dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/guideline"
+                        app:layout_constraintEnd_toEndOf="parent">
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -88,11 +120,14 @@
                         </com.google.android.material.textfield.TextInputLayout>
                     </RelativeLayout>
 
+                    <!-- muestra la opcion de cargando-->
                     <RelativeLayout
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="408dp">
-                        <!-- muestra la opcion de cargando-->
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@+id/DescripcionCampo"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
                         <ProgressBar
                             android:id="@+id/progressBar"
                             style="?android:attr/progressBarStyleLarge"
@@ -103,20 +138,108 @@
                             tools:ignore="MissingConstraints" />
                     </RelativeLayout>
 
+                    <!-- Stock Campos de texto-->
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="255dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/guideline"
+                        android:layout_marginEnd="6dp">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeColor="#705C61"
+                            app:hintTextColor="#E6000000">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/stock"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Stock"
+                                android:inputType="phone|textCapSentences"
+                                android:textAppearance="@style/campos_de_texto"
+                                android:textColorHint="#65000000" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </RelativeLayout>
+
+                    <!-- Precio de compra Campos de texto-->
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="340dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/guideline"
+                        android:layout_marginEnd="6dp">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeColor="#705C61"
+                            app:hintTextColor="#E6000000">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/precio_compra"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Precio compra"
+                                android:inputType="numberDecimal|textCapSentences"
+                                android:textAppearance="@style/campos_de_texto"
+                                android:textColorHint="#65000000" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </RelativeLayout>
+
+                    <!-- Precio de venta Campos de texto-->
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="340dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/guideline"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginStart="6dp">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxStrokeColor="#705C61"
+                            app:hintTextColor="#E6000000">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/precio_venta"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Precio venta"
+                                android:inputType="numberDecimal|textCapSentences"
+                                android:textAppearance="@style/campos_de_texto"
+                                android:textColorHint="#65000000" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </RelativeLayout>
+
+                    <!-- Boton agregar producto-->
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="20mm"
-                        android:layout_marginTop="465dp">
-                        <!-- Boton agregar producto-->
-                        <androidx.cardview.widget.CardView
+                        android:layout_marginTop="410dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/guideline"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                        <RelativeLayout
                             android:id="@+id/btnagregar"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:layout_marginTop="50dp"
+                            android:layout_marginTop="40dp"
                             android:clickable="true"
                             android:foreground="?attr/selectableItemBackgroundBorderless"
-                            app:cardBackgroundColor="#E1E1E1"
-                            app:cardCornerRadius="15dp"
+                            android:background="@drawable/colorbtn"
                             app:cardElevation="2dp"
                             tools:ignore="TouchTargetSizeCheck">
                             <TextView
@@ -125,106 +248,15 @@
                                 android:gravity="center_horizontal|center"
                                 android:text="Guardar"
                                 android:textAppearance="@style/Tittles" />
-                        </androidx.cardview.widget.CardView>
-                    </RelativeLayout>
-                </RelativeLayout>
-
-                <!-- Lado izquierdo de la pantalla -->
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="left">
-                    <RelativeLayout
-                        android:layout_width="1.05in"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="20dp">
-
-                        <!-- Stock Campos de texto-->
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="55dp"
-                            android:layout_marginTop="300dp">
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:boxBackgroundColor="@color/white"
-                                app:boxStrokeColor="#705C61"
-                                app:hintTextColor="#E6000000">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/stock"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="Stock"
-                                    android:inputType="phone|textCapSentences"
-                                    android:textAppearance="@style/campos_de_texto"
-                                    android:textColorHint="#65000000" />
-                            </com.google.android.material.textfield.TextInputLayout>
-                        </RelativeLayout>
-
-                        <!-- Precio de compra Campos de texto-->
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="55dp"
-                            android:layout_marginTop="395dp">
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:boxBackgroundColor="@color/white"
-                                app:boxStrokeColor="#705C61"
-                                app:hintTextColor="#E6000000">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/precio_compra"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="Precio compra"
-                                    android:inputType="numberDecimal|textCapSentences"
-                                    android:textAppearance="@style/campos_de_texto"
-                                    android:textColorHint="#65000000" />
-                            </com.google.android.material.textfield.TextInputLayout>
                         </RelativeLayout>
                     </RelativeLayout>
-                </RelativeLayout>
 
-                <!-- Lado derecho de la pantalla -->
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="right">
-                    <RelativeLayout
-                        android:layout_width="1.05in"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="20dp">
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-                        <!-- Precio de venta Campos de texto-->
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="55dp"
-                            android:layout_marginTop="395dp">
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:boxBackgroundColor="@color/white"
-                                app:boxStrokeColor="#705C61"
-                                app:hintTextColor="#E6000000">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:id="@+id/precio_venta"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="Precio venta"
-                                    android:inputType="numberDecimal|textCapSentences"
-                                    android:textAppearance="@style/campos_de_texto"
-                                    android:textColorHint="#65000000" />
-                            </com.google.android.material.textfield.TextInputLayout>
-                        </RelativeLayout>
-                    </RelativeLayout>
-                </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
+        </RelativeLayout>
+
     </ScrollView>
-</RelativeLayout>
+
 </RelativeLayout>
