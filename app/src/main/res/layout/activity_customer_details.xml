@@ -311,7 +311,7 @@
                                 android:id="@+id/debe"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Debe"
+                                android:hint="Pendiente"
                                 android:textColorHint="#65000000"
                                 android:inputType="numberDecimal"
                                 android:textAppearance="@style/campos_de_texto"

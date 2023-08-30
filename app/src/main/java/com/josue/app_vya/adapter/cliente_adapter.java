@@ -51,24 +51,8 @@ public class cliente_adapter extends FirestoreRecyclerAdapter<cliente, cliente_a
 
         holder.nombre_cliente.setText(Cliente.getNombre_cliente());
         holder.cantidad.setText(String.valueOf(Cliente.getCantidad()));
-        holder.total.setText(Cliente.getTotal());
+        holder.debe.setText(Cliente.getDebe());
         holder.fecha_entrega.setText(Cliente.getFecha_entrega());
-
-
-        // Lógica para el campo 'debe'
-        String debeAmountString = Cliente.getDebe();
-
-        try {
-            double debeAmount = Double.parseDouble(debeAmountString);
-
-            if (debeAmount > 0) {
-                holder.debe.setText("Debe");
-            } else {
-                holder.debe.setText("Cancelado");
-            }
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
 
         holder.editar.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -31,14 +31,15 @@
             android:textSize="18dp"/>
 
         <TextView
-            android:id="@+id/debe"
+            android:id="@+id/total"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:layout_marginLeft="230dp"
             android:layout_marginRight="25dp"
             android:gravity="center_horizontal|end"
             android:layout_marginTop="15dp"
-            android:text="Debe"
+            android:text="Pendiente"
+            android:textColor="#A7334F"
             android:textAppearance="@style/campos_de_texto"
             android:textSize="18dp"/>
 
@@ -55,7 +56,7 @@
             android:textSize="18dp"/>
 
         <TextView
-            android:id="@+id/total"
+            android:id="@+id/debe"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:layout_marginTop="80dp"
