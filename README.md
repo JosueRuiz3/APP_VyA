@@ -18,4 +18,5 @@ funcionalidades principales:
 
 # Pantalla principal
 - Se vizualiza la lista de los productos en venta
-![Screenshot_20240528-181250](https://github.com/JosueRuiz3/APP_VyA/assets/85378541/057fca95-3c1d-4e7a-8a2a-e801b20c18be)
+- 
+![Screenshot_20240528-181250](https://github.com/JosueRuiz3/APP_VyA/assets/85378541/02910dda-d06e-45cd-bcf7-97307c054e61)
