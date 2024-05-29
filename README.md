@@ -46,3 +46,6 @@ funcionalidades principales:
 - Muestra los detalles del cliente y la compra realizada
 
 ![detalle cliente](https://github.com/JosueRuiz3/APP_VyA/assets/85378541/2ba1ae4c-b180-418b-a1b9-ecf23449b9fd)
+
+# Contacto
+Para cualquier duda o sugerencia, por favor contacta a anjord302@gmail.com.
