@@ -1,5 +1,6 @@
 package com.josue.app_vya;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -34,7 +36,9 @@ public class AddFragment extends Fragment {
 
     private RelativeLayout btnagregar;
     private String id_ventas;
-    private TextInputEditText nombre_producto, descripcion, precio_compra, precio_venta, stock;
+    private TextInputEditText nombre_producto, descripcion, precio_compra, precio_venta,
+            stock, fecha_entrega;
+    private RelativeLayout btnmostrarCalendario;
     private FirebaseFirestore mFirestore;
     private ProgressBar progressBar;
     private ProgressDialog progressDialog;
@@ -61,6 +65,8 @@ public class AddFragment extends Fragment {
         precio_venta = v.findViewById(R.id.precio_venta);
         btnagregar = v.findViewById(R.id.btnagregar);
         progressBar = v.findViewById(R.id.progressBar);
+        fecha_entrega = v.findViewById(R.id.fecha_entrega);
+        btnmostrarCalendario = v.findViewById(R.id.btnmostrarCalendario);
 
         precio_venta.addTextChangedListener(new MoneyTextWatcher(precio_venta));
         precio_venta.setText("0");
@@ -145,6 +151,43 @@ public class AddFragment extends Fragment {
         limpiarCampos();
     }
 
+    private void mostarFecha(){
+        // Listener para el clic en el botón
+        btnmostrarCalendario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Obtener la fecha actual del sistema
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+                // Crear el DatePickerDialog con la fecha actual como valor predeterminado
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        // Mostrar la fecha seleccionada en un TextView llamado 'fecha_entrega'
+                        fecha_entrega.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+
+                        // Verificar si la fecha seleccionada es anterior a la fecha actual
+                        Calendar selectedCalendar = Calendar.getInstance();
+                        selectedCalendar.set(year, month, dayOfMonth);
+                        if (selectedCalendar.before(Calendar.getInstance())) {
+                            // La fecha seleccionada es anterior a la fecha actual, mostrar una alerta (puedes usar Toast o AlertDialog)
+                            mostrarAlertaFechaAnterior();
+                        }
+                    }
+                }, year, month, dayOfMonth);
+
+                // Mostrar el DatePickerDialog
+                datePickerDialog.show();
+            }
+        });
+    }
+
+    private void mostrarAlertaFechaAnterior() {
+        Toast.makeText(getContext(), "La fecha seleccionada es anterior a la fecha actual", Toast.LENGTH_SHORT).show();
+    }
 
     private void limpiarCampos(){
         nombre_producto.setText("");

@@ -37,7 +37,7 @@ import java.util.Map;
 public class AddCustomerFragment extends Fragment {
 
     private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, descripcion,
-            total, fecha_entrega, fecha_pago1, fecha_pago2, abonos, debe;
+            total, fecha_entrega, fecha_pago1, fecha_pago2;
     private RelativeLayout btnagregar;
     private String idVenta;
     private RelativeLayout btnmostrarCalendario, btnmostrarpago1, btnmostrarpago2;
@@ -64,8 +64,6 @@ public class AddCustomerFragment extends Fragment {
         cantidad = v.findViewById(R.id.cantidad);
         precio_unitario = v.findViewById(R.id.precio_unitario);
         total = v.findViewById(R.id.total);
-        abonos = v.findViewById(R.id.abonos);
-        debe = v.findViewById(R.id.debe);
         nombre_cliente = v.findViewById(R.id.nombre_cliente);
         nombre_producto = v.findViewById(R.id.nombre_producto);
         descripcion = v.findViewById(R.id.descripcion);
@@ -125,8 +123,6 @@ public class AddCustomerFragment extends Fragment {
         checkField(fecha_entrega);
         checkField(fecha_pago1);
         checkField(fecha_pago2);
-        checkField(abonos);
-        checkField(debe);
 
         String nombre_clienteA = nombre_cliente.getText().toString().trim();
         String nombre_productoA = nombre_producto.getText().toString().trim();
@@ -137,13 +133,11 @@ public class AddCustomerFragment extends Fragment {
         String fecha_entregaA = fecha_entrega.getText().toString().trim();
         String fecha_pago1A = fecha_pago1.getText().toString().trim();
         String fecha_pago2A = fecha_pago2.getText().toString().trim();
-        String abonosA = abonos.getText().toString().trim();
-        String debeA = debe.getText().toString().trim();
 
         if(!nombre_clienteA.isEmpty() && !nombre_productoA.isEmpty() && !descripcionA.isEmpty() && !precio_unitarioA.isEmpty()
                 && !totalA.isEmpty() && !fecha_entregaA.isEmpty() && !fecha_pago1A.isEmpty() && !fecha_pago2A.isEmpty()){
             postClientes(nombre_clienteA, nombre_productoA, cantidadA, descripcionA, precio_unitarioA, totalA, fecha_entregaA,
-                    fecha_pago1A, fecha_pago2A, abonosA, debeA);
+                    fecha_pago1A, fecha_pago2A);
         }else{
             Toast.makeText(getContext(), "Ingresar los datos", Toast.LENGTH_SHORT).show();
         }
@@ -151,7 +145,7 @@ public class AddCustomerFragment extends Fragment {
 
     private void postClientes(String nombre_clienteA, String nombre_productoA, Integer cantidadA, String descripcionA,
                               String precio_unitarioA, String totalA, String fecha_entregaA, String fecha_pago1A,
-                              String fecha_pago2A, String abonosA, String debeA) {
+                              String fecha_pago2A) {
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Agregando cliente...");
         progressDialog.show();
@@ -182,8 +176,6 @@ public class AddCustomerFragment extends Fragment {
         map.put("fecha_entrega", fecha_entregaA);
         map.put("fecha_pago1", fecha_pago1A);
         map.put("fecha_pago2", fecha_pago2A);
-        map.put("abonos", abonosA);
-        map.put("debe", debeA);
 
         // Agregar el mapa como un nuevo documento a la subcolección con el ID del documento principal
         clientesRef.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -254,7 +246,6 @@ public class AddCustomerFragment extends Fragment {
         // Agregar el TextWatcher al EditText precio_compra
         precio_unitario.addTextChangedListener(textWatcher);
 
-        abonos.addTextChangedListener(textWatcher);
     }
 
     public void doGetValue(View v) {
@@ -275,8 +266,6 @@ public class AddCustomerFragment extends Fragment {
         fecha_entrega.setText("");
         fecha_pago1.setText("");
         fecha_pago2.setText("");
-        debe.setText("");
-        abonos.setText("");
     }
 
     private void mostarFecha(){
@@ -389,20 +378,12 @@ public class AddCustomerFragment extends Fragment {
                 String precio_u = precio_unitario.getText().toString().replaceAll("[^\\d.,]+", "").replace(',', '.');
                 Double p = Double.parseDouble(!precio_u.isEmpty() ? precio_u : "0");
 
-                String abono = abonos.getText().toString().replaceAll("[^\\d.,]+", "").replace(',', '.');
-                Double a = Double.parseDouble(!abono.isEmpty() ? abono : "0");
-
                 Double i = c * p;
-                Double d = i - a;
 
                 DecimalFormat decimalFormat = new DecimalFormat("#.##");
                 String iFormatted = decimalFormat.format(i);
 
-                DecimalFormat decimalFormat2 = new DecimalFormat("#.##");
-                String iFormatted2 = decimalFormat2.format(d);
-
                 total.setText(iFormatted);
-                debe.setText(iFormatted2);
 
             } catch (NumberFormatException e) {
                 // Manejar la excepción en caso de que la conversión falle
@@ -418,12 +399,6 @@ public class AddCustomerFragment extends Fragment {
     private void convertirColon(){
         precio_unitario.addTextChangedListener(new MoneyTextWatcher(precio_unitario));
         precio_unitario.setText("0");
-
-        abonos.addTextChangedListener(new MoneyTextWatcher(abonos));
-        abonos.setText("0");
-
-        debe.addTextChangedListener(new MoneyTextWatcher(debe));
-        debe.setText("0");
 
         total.addTextChangedListener(new MoneyTextWatcher(total));
         total.setText("0");

@@ -3,22 +3,22 @@
     <item
         android:id="@+id/customer"
         android:title="Clientes"
-        android:icon="@drawable/customer"
+        android:icon="@drawable/customer1"
         android:iconTint="@color/black"/>
 
     <item
         android:id="@+id/addClient"
-        android:title="Añadir cliente"
-        android:icon="@drawable/ic_baseline_library_add_24"
+        android:title="Agregar"
+        android:icon="@drawable/addcustomer"
         android:iconTint="@color/black"/>
-    <item
-        android:id="@+id/details"
-        android:title="Detalle venta"
-        android:icon="@drawable/detalle"
-        android:iconTint="@color/black"/>
+<!--    <item-->
+<!--        android:id="@+id/details"-->
+<!--        android:title="Detalle"-->
+<!--        android:icon="@drawable/detalle"-->
+<!--        android:iconTint="@color/black"/>-->
     <item
         android:id="@+id/edit"
-        android:title="Editar producto"
-        android:icon="@drawable/editar"
+        android:title="Actualizar"
+        android:icon="@drawable/update"
         android:iconTint="@color/black"/>
 </menu>

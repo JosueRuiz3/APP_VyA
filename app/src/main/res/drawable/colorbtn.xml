@@ -33,15 +33,15 @@
                         android:endY="17.5"
                         >
                         <item
-                            android:color="#E5BBC5"
+                            android:color="#FFFFFF"
                             android:offset="0"
                             />
                         <item
-                            android:color="#E5BBC5"
+                            android:color="#FFFFFF"
                             android:offset="0.5"
                             />
                         <item
-                            android:color="#E5BBC5"
+                            android:color="#FFFFFF"
                             android:offset="1"
                             />
                     </gradient>

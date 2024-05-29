@@ -32,9 +32,9 @@ public class DetailsActivity extends AppCompatActivity {
                     case R.id.customer:
                         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, customerFragment).commit();
                         return true;
-                    case R.id.details:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, detailsFragment).commit();
-                        return true;
+//                    case R.id.details:
+//                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, detailsFragment).commit();
+//                        return true;
                     case R.id.addClient:
                         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, add_customerFragment).commit();
                         return true;

@@ -4,14 +4,14 @@
 
     <item
         android:id="@+id/home"
-        android:title="Principal"
-        android:icon="@drawable/ic_baseline_home_24"
-        android:iconTint="@color/black"/>
+        android:title="Home"
+        android:icon="@drawable/img_2"
+        android:iconTint="#367284"/>
 
     <item
         android:id="@+id/add"
-        android:title="Agregar producto"
-        android:icon="@drawable/ic_baseline_library_add_24"
-        android:iconTint="@color/black"/>
+        android:title="Agregar"
+        android:icon="@drawable/add"
+        android:iconTint="#367284"/>
 
 </menu>

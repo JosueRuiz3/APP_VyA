@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -39,11 +41,10 @@ import java.util.Map;
 
 public class CustomerDetailsActivity extends AppCompatActivity {
 
-    private CardView btneditar ;
-    RelativeLayout btneliminar;
+    private ImageView btneliminar, btnabono;
     private TextInputEditText nombre_cliente, nombre_producto, cantidad, precio_unitario, descripcion,
-            total, fecha_entrega, fecha_pago1, fecha_pago2, abonos, debe;
-    private RelativeLayout btnmostrarCalendario, btnmostrarpago1, btnmostrarpago2;
+            total, fecha_entrega, fecha_pago1, fecha_pago2, abonos;
+    private RelativeLayout btnmostrarCalendario, btnmostrarpago1, btnmostrarpago2, btneditar;
     private String idd, iddVenta;
     private FirebaseFirestore mfirestore;
     private ProgressBar progressBar;
@@ -60,10 +61,10 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         precio_unitario = findViewById(R.id.precio_unitario);
         total = findViewById(R.id.total);
         abonos = findViewById(R.id.abonos);
+        btnabono = findViewById(R.id.btnabono);
         fecha_entrega = findViewById(R.id.fecha_entrega);
         fecha_pago1 = findViewById(R.id.fecha_pago1);
         fecha_pago2 = findViewById(R.id.fecha_pago2);
-        debe = findViewById(R.id.debe);
         nombre_cliente = findViewById(R.id.nombre_cliente);
         descripcion = findViewById(R.id.descripcion);
         nombre_producto = findViewById(R.id.nombre_producto);
@@ -85,6 +86,13 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         obtener(idCliente);
         convertirColon();
 
+        btnabono.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                guardar();
+            }
+        });
+
         btneditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,8 +105,6 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                                 checkField(nombre_producto);
                                 checkField(nombre_cliente);
                                 // checkField(cantidad);
-                                checkField(abonos);
-                                checkField(debe);
                                 checkField(precio_unitario);
                                 checkField(descripcion);
                                 checkField(total);
@@ -108,17 +114,15 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                                 Integer cantidadA = Integer.valueOf(cantidad.getText().toString().trim());
                                 String descripcionA = descripcion.getText().toString().trim();
                                 String precioUnitarioA = precio_unitario.getText().toString().trim();
-                                String abonosA = abonos.getText().toString().trim();
-                                String debeA = debe.getText().toString().trim();
                                 String totalA = total.getText().toString().trim();
 
                                 if (!nombreClienteA.isEmpty() && !nombreProductoA.isEmpty() && !descripcionA.isEmpty() && !precioUnitarioA.isEmpty() && !totalA.isEmpty()) {
                                     update(nombreClienteA, nombreProductoA, cantidadA, descripcionA,
-                                            precioUnitarioA, abonosA, debeA, totalA, idCliente);
-
+                                            precioUnitarioA, totalA, idCliente);
                                 } else {
                                     Toast.makeText(CustomerDetailsActivity.this, "Ingrese los datos", Toast.LENGTH_SHORT).show();
                                 }
+
                             }
                         })
                         .setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -160,30 +164,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             try {
-                Double c = Double.parseDouble(!cantidad.getText().toString().isEmpty() ?
-                        cantidad.getText().toString() : "0");
 
-                String precioString = precio_unitario.getText().toString().replaceAll("[^\\d.,]+", "").replace(',', '.');
-                Double p = Double.parseDouble(!precioString.isEmpty() ? precioString : "0");
-
-                String abono = abonos.getText().toString().replaceAll("[^\\d.,]+", "").replace(',', '.');
-                Double a = Double.parseDouble(!abono.isEmpty() ? abono : "0");
-
-                String deben = debe.getText().toString().replaceAll("[^\\d.,]+", "").replace(',', '.');
-                Double de = Double.parseDouble(!deben.isEmpty() ? deben : "0");
-
-                Double d = de - a;
-
-                Double i = c * p;
-
-                DecimalFormat decimalFormat = new DecimalFormat("#.##");
-                String iFormatted = decimalFormat.format(i);
-
-                DecimalFormat decimalFormat2 = new DecimalFormat("#.##");
-                String iFormatted2 = decimalFormat2.format(d);
-
-                total.setText(iFormatted);
-                debe.setText(iFormatted2);
 
             } catch (NumberFormatException e) {
                 // Manejar la excepción en caso de que la conversión falle
@@ -212,7 +193,6 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         String nombre_clienteA = args.getString("nombre_cliente");
         String nombre_productoA = args.getString("nombre_producto");
         Integer cantidadA = args.getInt("cantidad");
-        String debeA = args.getString("debe");
         String descripcionA = args.getString("descripcion");
         String precio_unitarioA = args.getString("precio_unitario");
         String totalA = args.getString("total");
@@ -224,7 +204,6 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         nombre_producto.setText(nombre_productoA);
         String cantidadStr = String.valueOf(cantidadA);
         cantidad.setText(cantidadStr);
-        debe.setText(debeA);
         descripcion.setText(descripcionA);
         precio_unitario.setText(precio_unitarioA);
         fecha_entrega.setText(fecha_entregaA);
@@ -246,7 +225,8 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     }
 
     private void update(String nombre_clienteA, String nombre_productoA, Integer cantidadA, String descripcionA,
-                        String precio_unitarioA, String abonosA, String debeA, String totalA, String idCliente) {
+                        String precio_unitarioA, String totalA, String idCliente) {
+
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Actualizando detalle cliente...");
         progressDialog.show();
@@ -260,8 +240,6 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         map.put("nombre_producto", nombre_productoA);
         map.put("cantidad", cantidadA);
         map.put("descripcion", descripcionA);
-        map.put("abonos", abonosA);
-        map.put("debe", debeA);
         map.put("precio_unitario", precio_unitarioA);
         map.put("total", totalA);
 
@@ -343,6 +321,49 @@ public class CustomerDetailsActivity extends AppCompatActivity {
             Toast.makeText(this, "No se pudo actualizar el registro, hay datos nulos", Toast.LENGTH_SHORT).show();
         }
         Toast.makeText(CustomerDetailsActivity.this, "Se borro correctamente!", Toast.LENGTH_SHORT).show();
+    }
+
+    private void guardar(){
+
+        String abonosA = abonos.getText().toString().trim();
+
+        if(!abonosA.isEmpty()){
+            postAbonos(abonosA);
+        }else{
+            Toast.makeText(CustomerDetailsActivity.this, "Ingresar los datos", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void postAbonos(String abonosA) {
+
+        Bundle args = CustomerDetailsActivity.this.getIntent().getExtras();
+        String idCliente = args.getString("idCliente");
+
+        idd = idCliente;
+
+        // Obtener una referencia a la subcolección del documento principal
+        DocumentReference clientesRef = mfirestore.collection("Clientes").document(idCliente);
+
+        DocumentReference abonosRef = clientesRef.collection("Abonos").document();
+
+        // Crear un nuevo mapa con los datos que deseas agregar a la subcolección
+        Map<String, Object> map = new HashMap<>();
+        map.put("idAbono", abonosRef.getId()); // Utilizar el ID de la subcolección
+        map.put("idCliente", idCliente);
+        map.put("abonos", abonosA);
+
+        // Agregar el mapa como un nuevo documento a la subcolección con el ID del documento principal
+        abonosRef.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(CustomerDetailsActivity.this, "Creado exitosamente", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(CustomerDetailsActivity.this, "Error al ingresar", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void mostarFecha(){
@@ -454,8 +475,6 @@ public class CustomerDetailsActivity extends AppCompatActivity {
 
         abonos.addTextChangedListener(new MoneyTextWatcher(abonos));
         abonos.setText("0");
-
-        debe.addTextChangedListener(new MoneyTextWatcher(debe));
 
         total.addTextChangedListener(new MoneyTextWatcher(total));
 

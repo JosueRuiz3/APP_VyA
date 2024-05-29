@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="15dp"
-        app:cardBackgroundColor="#E3D1D5"
+        app:cardBackgroundColor="#bddfe4"
         android:elevation="15dp"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackgroundBorderless">
@@ -39,7 +39,7 @@
             android:gravity="center_horizontal|end"
             android:layout_marginTop="15dp"
             android:text="Pendiente"
-            android:textColor="#A7334F"
+            android:textColor="#87263D"
             android:textAppearance="@style/campos_de_texto"
             android:textSize="18dp"/>
 
