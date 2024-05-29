@@ -6,3 +6,12 @@ funcionalidades principales:
 - Gestión de Ventas: Permite registrar, actualizar y visualizar todas las ventas realizadas.
 - Gestión de Clientes: Facilita el seguimiento y la administración de la información de los clientes.
 
+# Tecnologías Utilizadas
+- Lenguaje de Programación: Java
+- Base de Datos: Firebase
+
+# Instalación
+1. Clonar el repositorio:
+2. Importar el proyecto en tu IDE preferido (recomendado: Android Studio).
+3. Configurar Firebase en el proyecto siguiendo las instrucciones oficiales.
+4. Compilar y ejecutar la aplicación en un dispositivo o emulador Android.
