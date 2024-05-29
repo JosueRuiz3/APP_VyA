@@ -30,3 +30,15 @@ funcionalidades principales:
 - Se visualiza la lista de los clientes que compro el producto
   
 ![clientes](https://github.com/JosueRuiz3/APP_VyA/assets/85378541/4ec7c331-0c16-4b8a-8f43-7689b7028593)
+
+## Pantalla agregar cliente a la compra del producto
+
+![agregar cliente](https://github.com/JosueRuiz3/APP_VyA/assets/85378541/dee1e095-5c17-42bb-8d58-728df5eb2ac4)
+
+## Actualizar datos del producto 
+
+![update producto](https://github.com/JosueRuiz3/APP_VyA/assets/85378541/d6ec9173-ce60-4337-bd9e-b4c2c2861b11)
+
+## Detalle del cliente y la compra
+
+![detalle cliente](https://github.com/JosueRuiz3/APP_VyA/assets/85378541/2ba1ae4c-b180-418b-a1b9-ecf23449b9fd)
