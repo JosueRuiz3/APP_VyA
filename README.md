@@ -15,3 +15,7 @@ funcionalidades principales:
 2. Importar el proyecto en tu IDE preferido (recomendado: Android Studio).
 3. Configurar Firebase en el proyecto siguiendo las instrucciones oficiales.
 4. Compilar y ejecutar la aplicación en un dispositivo o emulador Android.
+
+# Pantalla principal
+- Se vizualiza la lista de los productos en venta
+![Screenshot_20240528-181250](https://github.com/JosueRuiz3/APP_VyA/assets/85378541/17cf509d-2349-44a0-b6a6-c07c24f7a826)
